@@ -258,6 +258,41 @@ body {
   border: 1px solid rgba(0, 198, 255, 0.25);
 }
 
+/* ============================================================
+   NAVBAR SLIDING INDICATOR (GRADIENT + GLOW)
+============================================================ */
+.sidebar-menu {
+  position: relative;
+}
+
+.nav-indicator {
+  position: absolute;
+  left: 8px;
+  width: calc(100% - 16px);
+  height: 48px;
+  border-radius: 14px;
+
+  background: linear-gradient(
+    90deg,
+    rgba(0, 198, 255, 0.18),
+    rgba(0, 114, 255, 0.18)
+  );
+  border: 1px solid rgba(0, 198, 255, 0.25);
+
+  box-shadow:
+    0 0 15px rgba(0, 198, 255, 0.25),
+    0 0 25px rgba(0, 114, 255, 0.15);
+
+  z-index: 0;
+  opacity: 0;
+  transition: all 0.35s ease;
+}
+
+.menu-link {
+  position: relative;
+  z-index: 2;
+}
+
 /* =============================
    MAIN CONTENT
 ============================= */

@@ -634,3 +634,35 @@ sidebarLinks.forEach((link) => {
     link.classList.add("active");
   });
 });
+
+/* ============================================================
+   NAVBAR SLIDING INDICATOR MOVE (CUSTOM JS)
+============================================================ */
+const navIndicator = document.querySelector(".nav-indicator");
+
+function moveIndicator(targetLink) {
+  if (!navIndicator || !targetLink) return;
+
+  const linkTop = targetLink.offsetTop;
+  const linkHeight = targetLink.offsetHeight;
+
+  navIndicator.style.top = linkTop + "px";
+  navIndicator.style.height = linkHeight + "px";
+  navIndicator.style.opacity = "1";
+}
+
+window.addEventListener("load", () => {
+  const activeLink = document.querySelector(".menu-link.sidebar-link.active");
+  if (activeLink) moveIndicator(activeLink);
+});
+
+sidebarLinks.forEach((link) => {
+  link.addEventListener("click", () => {
+    moveIndicator(link);
+  });
+});
+
+window.addEventListener("scroll", () => {
+  const activeLink = document.querySelector(".menu-link.sidebar-link.active");
+  if (activeLink) moveIndicator(activeLink);
+});
