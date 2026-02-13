@@ -218,6 +218,46 @@ body {
   opacity: 0.7;
 }
 
+/* ============================================================
+   NAVBAR ACTIVE UNDERLINE GRADIENT + GLOW (CUSTOM CSS)
+============================================================ */
+.sidebar-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.sidebar-link::after {
+  content: "";
+  position: absolute;
+  left: 14px;
+  bottom: 6px;
+  width: 0%;
+  height: 3px;
+  border-radius: 50px;
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  box-shadow: 0 0 10px rgba(0, 198, 255, 0.7);
+  transition: width 0.35s ease;
+}
+
+.sidebar-link:hover::after {
+  width: 65%;
+}
+
+.sidebar-link.active::after {
+  width: 75%;
+}
+
+.sidebar-link.active {
+  background: rgba(0, 198, 255, 0.08);
+  border: 1px solid rgba(0, 198, 255, 0.25);
+}
+
 /* =============================
    MAIN CONTENT
 ============================= */

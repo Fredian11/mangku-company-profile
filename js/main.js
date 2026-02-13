@@ -578,7 +578,7 @@ const counterObserver = new IntersectionObserver(
       startCounters();
     }
   },
-  { threshold: 0.5 }
+  { threshold: 0.5 },
 );
 
 counterObserver.observe(homeSection);
@@ -596,4 +596,41 @@ window.addEventListener("load", () => {
     updateGalleryDots();
     startGalleryAutoSlide();
   }, 600);
+});
+
+/* ============================================================
+   NAVBAR ACTIVE UNDERLINE + ACTIVE MENU ON SCROLL (CUSTOM JS)
+============================================================ */
+const sidebarLinks = document.querySelectorAll(".menu-link.sidebar-link");
+const PageSections = document.querySelectorAll("section[id]");
+
+function setActiveLink(id) {
+  sidebarLinks.forEach((link) => link.classList.remove("active"));
+
+  const activeLink = document.querySelector(`.sidebar-link[href="#${id}"]`);
+  if (activeLink) activeLink.classList.add("active");
+}
+
+window.addEventListener("scroll", () => {
+  let currentSection = "";
+
+  PageSections.forEach((section) => {
+    const sectionTop = section.offsetTop - 150;
+    const sectionHeight = section.offsetHeight;
+
+    if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+      currentSection = section.getAttribute("id");
+    }
+  });
+
+  if (currentSection) {
+    setActiveLink(currentSection);
+  }
+});
+
+sidebarLinks.forEach((link) => {
+  link.addEventListener("click", () => {
+    sidebarLinks.forEach((l) => l.classList.remove("active"));
+    link.classList.add("active");
+  });
 });
