@@ -666,3 +666,16 @@ window.addEventListener("scroll", () => {
   const activeLink = document.querySelector(".menu-link.sidebar-link.active");
   if (activeLink) moveIndicator(activeLink);
 });
+
+/* ============================================================
+   NAVBAR CLICK BOUNCE EFFECT (CUSTOM JS)
+============================================================ */
+sidebarLinks.forEach((link) => {
+  link.addEventListener("click", () => {
+    link.classList.add("bounce-active");
+
+    setTimeout(() => {
+      link.classList.remove("bounce-active");
+    }, 400);
+  });
+});
