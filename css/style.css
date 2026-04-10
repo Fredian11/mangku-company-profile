@@ -787,6 +787,50 @@ body {
   transition: width 0.1s linear;
 }
 
+/* ============================================================
+   LIGHTBOX ZOOM CONTROLS (CUSTOM)
+============================================================ */
+.lightbox-controls {
+  position: absolute;
+  top: 18px;
+  right: 60px;
+  display: flex;
+  gap: 10px;
+  z-index: 9999;
+}
+
+.zoom-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.zoom-btn:hover {
+  background: rgba(0, 198, 255, 0.4);
+  box-shadow: 0 0 12px rgba(0, 198, 255, 0.7);
+  transform: scale(1.08);
+}
+
+/* ============================================================
+   LIGHTBOX IMAGE ZOOM EFFECT
+============================================================ */
+#lightboxImg {
+  transition: transform 0.25s ease;
+  transform-origin: center center;
+  cursor: zoom-in;
+}
+
 /* =============================
    CONTACT FORM
 ============================= */

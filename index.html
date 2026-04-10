@@ -451,10 +451,47 @@
     ============================== -->
   <div class="modal" id="lightboxModal">
     <div class="modal-content lightbox-content">
+
+      <!-- [1] CLOSE BUTTON -->
       <span class="close" id="closeLightbox">&times;</span>
+
+      <!-- [2] ZOOM CONTROLS -->
+      <div class="lightbox-controls">
+
+        <!-- ZOOM IN -->
+        <button class="zoom-btn" id="zoomInBtn">
+          <i class="fa-solid fa-plus"></i>
+        </button>
+
+        <!-- ZOOM OUT -->
+        <button class="zoom-btn" id="zoomOutBtn">
+          <i class="fa-solid fa-minus"></i>
+        </button>
+
+        <!-- ZOOM RESET (FIXED ID) -->
+        <button class="zoom-btn" id="zoomResetBtn">
+          <i class="fa-solid fa-rotate-right"></i>
+        </button>
+
+      </div>
+
+      <!-- [3] IMAGE VIEW -->
       <img id="lightboxImg" src="" alt="lightbox" />
+
     </div>
   </div>
+
+  <!-- <div class="modal" id="lightboxModal">
+    <div class="modal-content lightbox-content">
+      <span class="close" id="closeLightbox">&times;</span>
+      <div class="lightbox-controls">
+        <button class="zoom-btn" id="zoomInBtn"><i class="fa-solid fa-plus"></i></button>
+        <button class="zoom-btn" id="zoomOutBtn"><i class="fa-solid fa-minus"></i></button>
+        <button class="zoom-btn" id="zoom-ResetBtn"><i class="fa-solid fa-rotate-right"></i></button>
+      </div>
+      <img id="lightboxImg" src="" alt="lightbox" />
+    </div>          
+  </div> -->
 
   <!-- =============================
          TOAST NOTIFICATION
