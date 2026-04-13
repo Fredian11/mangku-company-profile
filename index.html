@@ -64,6 +64,7 @@
        ====================================== -->
       <div class="nav-indicator"></div>
 
+      <!-- [BUGFIX #3] Hapus class "active" ganda pada link Members -->
       <a href="#home" class="menu-link active sidebar-link active">
         <i class="fa-solid fa-house"></i>
         <span>Home</span>
@@ -74,7 +75,8 @@
         <span>About</span>
       </a>
 
-      <a href="#members" class="menu-link sidebar-link active">
+      <!-- [BUGFIX #3] Members tidak boleh punya class active bawaan -->
+      <a href="#members" class="menu-link sidebar-link">
         <i class="fa-solid fa-users"></i>
         <span>Members</span>
       </a>
@@ -448,50 +450,34 @@
 
   <!-- =============================
          LIGHTBOX GALLERY MODAL
+         [BUGFIX #1] Hapus elemen lightbox duplikat (ada 2 di kode asli)
+         [BUGFIX #2] Samakan ID zoomResetBtn (hilangkan tanda '-' di versi ke-2)
     ============================== -->
   <div class="modal" id="lightboxModal">
     <div class="modal-content lightbox-content">
 
-      <!-- [1] CLOSE BUTTON -->
+      <!-- CLOSE BUTTON -->
       <span class="close" id="closeLightbox">&times;</span>
 
-      <!-- [2] ZOOM CONTROLS -->
+      <!-- ZOOM CONTROLS -->
       <div class="lightbox-controls">
-
-        <!-- ZOOM IN -->
         <button class="zoom-btn" id="zoomInBtn">
           <i class="fa-solid fa-plus"></i>
         </button>
-
-        <!-- ZOOM OUT -->
         <button class="zoom-btn" id="zoomOutBtn">
           <i class="fa-solid fa-minus"></i>
         </button>
-
-        <!-- ZOOM RESET (FIXED ID) -->
+        <!-- [BUGFIX #2] ID konsisten: zoomResetBtn (bukan zoom-ResetBtn) -->
         <button class="zoom-btn" id="zoomResetBtn">
           <i class="fa-solid fa-rotate-right"></i>
         </button>
-
       </div>
 
-      <!-- [3] IMAGE VIEW -->
+      <!-- IMAGE VIEW -->
       <img id="lightboxImg" src="" alt="lightbox" />
 
     </div>
   </div>
-
-  <!-- <div class="modal" id="lightboxModal">
-    <div class="modal-content lightbox-content">
-      <span class="close" id="closeLightbox">&times;</span>
-      <div class="lightbox-controls">
-        <button class="zoom-btn" id="zoomInBtn"><i class="fa-solid fa-plus"></i></button>
-        <button class="zoom-btn" id="zoomOutBtn"><i class="fa-solid fa-minus"></i></button>
-        <button class="zoom-btn" id="zoom-ResetBtn"><i class="fa-solid fa-rotate-right"></i></button>
-      </div>
-      <img id="lightboxImg" src="" alt="lightbox" />
-    </div>          
-  </div> -->
 
   <!-- =============================
          TOAST NOTIFICATION

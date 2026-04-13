@@ -93,23 +93,6 @@ window.addEventListener("scroll", updateActiveMenu);
 window.addEventListener("load", updateActiveMenu);
 
 /* ===============================
-   SIDEBAR AUTO HIDE (DESKTOP ONLY)
-================================ */
-let lastScrollY = window.scrollY;
-
-window.addEventListener("scroll", () => {
-  if (window.innerWidth <= 768) return;
-
-  if (window.scrollY > lastScrollY) {
-    sidebar.classList.add("hide");
-  } else {
-    sidebar.classList.remove("hide");
-  }
-
-  lastScrollY = window.scrollY;
-});
-
-/* ===============================
    MEMBER MODAL (DETAIL MEMBER)
 ================================ */
 const memberCards = document.querySelectorAll(".member-card");
@@ -181,28 +164,31 @@ projectModal.addEventListener("click", (e) => {
 
 /* ============================================================
    GALLERY LIGHTBOX MODAL + ZOOM IN/OUT + ESC CLOSE
+   [BUGFIX #4] Hapus seluruh blok deklarasi ganda (lightboxModal,
+   lightboxImg, closeLightbox, zoomInBtn, zoomOutBtn, zoomResetBtn,
+   currentZoom, openLightbox) — hanya satu blok yang dipakai di sini
 ============================================================ */
 
-const lightbox = document.getElementById("lightboxModal");
+const lightboxModal = document.getElementById("lightboxModal");
 const lightboxImg = document.getElementById("lightboxImg");
-const lightboxClose = document.getElementById("closeLightbox");
+const closeLightbox = document.getElementById("closeLightbox");
 
 const zoomInBtn = document.getElementById("zoomInBtn");
 const zoomOutBtn = document.getElementById("zoomOutBtn");
+// [BUGFIX #5] Gunakan ID "zoomResetBtn" (konsisten dengan index.html yang sudah diperbaiki)
 const zoomResetBtn = document.getElementById("zoomResetBtn");
 
-// STATUS LIGHTBOX
 let isLightboxOpen = false;
-
 let currentZoom = 1;
 const zoomStep = 0.2;
 const maxZoom = 3;
-const minZoom = 1;
+const minZoom = 0.4;
 
-/* APPLY ZOOM FUNCTION */
+/* APPLY ZOOM */
 function applyZoom() {
   if (!lightboxImg) return;
   lightboxImg.style.transform = `scale(${currentZoom})`;
+  lightboxImg.style.transition = "transform 0.25s ease";
 }
 
 /* RESET ZOOM */
@@ -211,26 +197,59 @@ function resetZoom() {
   applyZoom();
 }
 
-/* OPEN LIGHTBOX (Jika kamu punya function openLightbox, tambahkan resetZoom disana) */
+/* OPEN LIGHTBOX */
 function openLightbox(imgSrc) {
-  if (!lightbox || !lightboxImg) return;
+  if (!lightboxModal || !lightboxImg) return;
 
   lightboxImg.src = imgSrc;
-  lightbox.classList.add("active");
-  isLightboxOpen = true;
   resetZoom();
+
+  // [BUGFIX #6] Gunakan class "show" agar konsisten dengan CSS .modal.show
+  // (kode asli mencampur .classList.add("active") dan style.display="flex")
+  lightboxModal.classList.add("show");
+  isLightboxOpen = true;
 }
 
 /* CLOSE LIGHTBOX */
-function closeLightbox() {
-  if (!lightbox) return;
-
-  lightbox.classList.remove("active");
+function closeLightboxFn() {
+  if (!lightboxModal) return;
+  lightboxModal.classList.remove("show");
   isLightboxOpen = false;
   resetZoom();
 }
 
-/* BUTTON ZOOM IN */
+/* TRIGGER LIGHTBOX DARI GAMBAR GALLERY */
+const galleryImages = document.querySelectorAll(".gallery-item img");
+
+galleryImages.forEach((img) => {
+  img.addEventListener("click", () => {
+    openLightbox(img.src);
+  });
+  img.style.cursor = "pointer";
+});
+
+/* CLOSE BUTTON (X) */
+if (closeLightbox) {
+  closeLightbox.addEventListener("click", closeLightboxFn);
+}
+
+/* CLOSE KLIK DI LUAR GAMBAR */
+if (lightboxModal) {
+  lightboxModal.addEventListener("click", (e) => {
+    if (e.target === lightboxModal) {
+      closeLightboxFn();
+    }
+  });
+}
+
+/* ESC CLOSE */
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && isLightboxOpen) {
+    closeLightboxFn();
+  }
+});
+
+/* ZOOM IN */
 if (zoomInBtn) {
   zoomInBtn.addEventListener("click", () => {
     if (currentZoom < maxZoom) {
@@ -240,7 +259,7 @@ if (zoomInBtn) {
   });
 }
 
-/* BUTTON ZOOM OUT */
+/* ZOOM OUT */
 if (zoomOutBtn) {
   zoomOutBtn.addEventListener("click", () => {
     if (currentZoom > minZoom) {
@@ -250,7 +269,7 @@ if (zoomOutBtn) {
   });
 }
 
-/* BUTTON RESET */
+/* ZOOM RESET */
 if (zoomResetBtn) {
   zoomResetBtn.addEventListener("click", resetZoom);
 }
@@ -266,27 +285,6 @@ if (lightboxImg) {
     }
   });
 }
-
-/* CLOSE BUTTON */
-if (lightboxClose) {
-  lightboxClose.addEventListener("click", closeLightbox);
-}
-
-/* CLOSE LIGHTBOX CLICK OUTSIDE */
-if (lightbox) {
-  lightbox.addEventListener("click", (e) => {
-    if (e.target === lightbox) {
-      closeLightbox();
-    }
-  });
-}
-
-/* ESC CLOSE */
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && isLightboxOpen) {
-    closeLightbox();
-  }
-});
 
 /* ===============================
    GALLERY SLIDER BUTTON
