@@ -831,6 +831,12 @@ body {
   cursor: zoom-in;
 }
 
+/* DRAG CURSOR */
+#lightboxImg {
+  cursor: grab;
+  transition: transform 0.2s ease;
+}
+
 /* =============================
    CONTACT FORM
 ============================= */

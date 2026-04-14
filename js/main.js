@@ -191,10 +191,15 @@ function applyZoom() {
   lightboxImg.style.transition = "transform 0.25s ease";
 }
 
-/* RESET ZOOM */
+/* RESET ZOOM + POSITION */
 function resetZoom() {
   currentZoom = 1;
-  applyZoom();
+
+  /* RESET POSISI DRAG */
+  translateX = 0;
+  translateY = 0;
+
+  lightboxImg.style.transform = "scale(1) translate(0,0)";
 }
 
 /* OPEN LIGHTBOX */
@@ -285,6 +290,46 @@ if (lightboxImg) {
     }
   });
 }
+
+/* ===============================
+   DRAG IMAGE WHEN ZOOM (PRO FEATURE)
+   [ADD BELOW DOUBLE CLICK ZOOM]
+================================ */
+
+/* STATE DRAG */
+let isDragging = false;
+let startX = 0;
+let startY = 0;
+let translateX = 0;
+let translateY = 0;
+
+/* MOUSE DOWN */
+lightboxImg.addEventListener("mousedown", (e) => {
+  if (currentZoom === 1) return;
+
+  isDragging = true;
+  startX = e.clientX - translateX;
+  startY = e.clientY - translateY;
+
+  lightboxImg.style.cursor = "grabbing";
+});
+
+/* MOUSE MOVE */
+document.addEventListener("mousemove", (e) => {
+  if (!isDragging) return;
+
+  translateX = e.clientX - startX;
+  translateY = e.clientY - startY;
+
+  lightboxImg.style.transform =
+    `scale(${currentZoom}) translate(${translateX}px, ${translateY}px)`;
+});
+
+/* MOUSE UP */
+document.addEventListener("mouseup", () => {
+  isDragging = false;
+  lightboxImg.style.cursor = "grab";
+});
 
 /* ===============================
    GALLERY SLIDER BUTTON
