@@ -6,26 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mangku Group - Company Profile</title>
 
-  <!-- =============================
-         FONT AWESOME (ICON)
-    ============================== -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
-  <!-- =============================
-         CSS CUSTOM
-    ============================== -->
   <link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body>
-  <!-- =============================
-         SCROLL PROGRESS BAR
-    ============================== -->
+  <!-- SCROLL PROGRESS BAR -->
   <div id="scrollProgress"></div>
 
-  <!-- =============================
-         PAGE LOADER
-    ============================== -->
+  <!-- PAGE LOADER -->
   <div class="page-loader" id="pageLoader">
     <div class="loader-box">
       <div class="spinner"></div>
@@ -33,21 +22,15 @@
     </div>
   </div>
 
-  <!-- =============================
-         MOBILE MENU TOGGLE BUTTON
-    ============================== -->
+  <!-- MOBILE MENU TOGGLE BUTTON -->
   <button class="menu-toggle" id="menuToggle">
     <i class="fa-solid fa-bars"></i>
   </button>
 
-  <!-- =============================
-         OVERLAY MOBILE
-    ============================== -->
+  <!-- OVERLAY MOBILE -->
   <div class="overlay" id="overlay"></div>
 
-  <!-- =============================
-         SIDEBAR
-    ============================== -->
+  <!-- SIDEBAR -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <h2 class="logo">Mangku Group</h2>
@@ -58,14 +41,10 @@
 
     <nav class="sidebar-menu">
       <div class="menu-highlight" id="menuHighlight"></div>
-
-      <!-- =====================================
-       SLIDING INDICATOR (CUSTOM FEATURE)
-       ====================================== -->
       <div class="nav-indicator"></div>
 
-      <!-- [BUGFIX #3] Hapus class "active" ganda pada link Members -->
-      <a href="#home" class="menu-link active sidebar-link active">
+      <!-- [BUGFIX #1] Home hanya boleh punya SATU class active, bukan dua -->
+      <a href="#home" class="menu-link sidebar-link active">
         <i class="fa-solid fa-house"></i>
         <span>Home</span>
       </a>
@@ -75,7 +54,6 @@
         <span>About</span>
       </a>
 
-      <!-- [BUGFIX #3] Members tidak boleh punya class active bawaan -->
       <a href="#members" class="menu-link sidebar-link">
         <i class="fa-solid fa-users"></i>
         <span>Members</span>
@@ -102,9 +80,6 @@
       </a>
     </nav>
 
-    <!-- =============================
-           DARK MODE BUTTON
-      ============================== -->
     <button class="dark-toggle" id="darkToggle">
       <i class="fa-solid fa-moon"></i>
       <span>Dark Mode</span>
@@ -115,53 +90,38 @@
     </div>
   </aside>
 
-  <!-- =============================
-         MAIN CONTENT
-    ============================== -->
+  <!-- MAIN CONTENT -->
   <main class="main-content">
-    <!-- =============================
-           HOME SECTION
-      ============================== -->
+
+    <!-- HOME SECTION -->
     <section class="section" id="home">
       <div class="section-inner">
-        <h1>
-          Selamat Datang di <span class="highlight">Mangku Group</span>
-        </h1>
+        <h1>Selamat Datang di <span class="highlight">Mangku Group</span></h1>
+        <p>Komunitas digital modern untuk berbagi pengalaman, belajar, dan berkembang bersama.</p>
 
-        <p>
-          Komunitas digital modern untuk berbagi pengalaman, belajar, dan
-          berkembang bersama.
-        </p>
-
-        <!-- Typing Animation -->
         <h3 class="typing-area">
           <span id="typingText"></span>
           <span class="typing-cursor">|</span>
         </h3>
 
-        <!-- Hero Buttons -->
         <div class="hero-buttons">
           <a href="https://wa.me/6281234567890" target="_blank" class="btn-primary btn-whatsapp">
             <i class="fa-brands fa-whatsapp"></i> Join WhatsApp
           </a>
-
           <a href="#projects" class="btn-outline">
             <i class="fa-solid fa-folder-open"></i> Lihat Projects
           </a>
         </div>
 
-        <!-- Home Stats -->
         <div class="home-stats">
           <div class="stat-card">
             <h2 class="count" data-target="120">0</h2>
             <p>Members</p>
           </div>
-
           <div class="stat-card">
             <h2 class="count" data-target="15">0</h2>
             <p>Projects</p>
           </div>
-
           <div class="stat-card">
             <h2 class="count" data-target="45">0</h2>
             <p>Activities</p>
@@ -170,30 +130,22 @@
       </div>
     </section>
 
-    <!-- =============================
-           ABOUT SECTION
-      ============================== -->
+    <!-- ABOUT SECTION -->
     <section class="section" id="about">
       <div class="section-inner">
         <h2>About Us</h2>
-        <p>
-          Mangku Group adalah komunitas yang berfokus pada kolaborasi,
-          teknologi, dan pengembangan skill digital.
-        </p>
-
+        <p>Mangku Group adalah komunitas yang berfokus pada kolaborasi, teknologi, dan pengembangan skill digital.</p>
         <div class="about-icons">
           <div class="about-card">
             <i class="fa-solid fa-users"></i>
             <h3>Komunitas</h3>
             <p>Tempat berkumpul dan sharing.</p>
           </div>
-
           <div class="about-card">
             <i class="fa-brands fa-whatsapp"></i>
             <h3>WhatsApp</h3>
             <p>Aktif diskusi dan support harian.</p>
           </div>
-
           <div class="about-card">
             <i class="fa-solid fa-lightbulb"></i>
             <h3>Inovasi</h3>
@@ -203,55 +155,45 @@
       </div>
     </section>
 
-    <!-- =============================
-           MEMBERS SECTION
-      ============================== -->
+    <!-- MEMBERS SECTION -->
     <section class="section" id="members">
       <div class="section-inner">
         <h2>Our Members</h2>
         <p>Klik member untuk melihat detail.</p>
-
         <div class="member-grid">
           <div class="member-card" data-name="Cahyo" data-role="Admin"
             data-desc="Cahyo adalah admin utama komunitas Mangku Group." data-img="img/member1.png">
-            <img src="img/member1.png" alt="img/member1.png" />
+            <img src="img/member1.png" alt="Cahyo" />
             <h3>Cahyo</h3>
             <p>Admin</p>
           </div>
-
           <div class="member-card" data-name="Rey" data-role="Admin"
             data-desc="Rey bertanggung jawab mengembangkan project komunitas." data-img="img/member2.jpg">
-            <img src="img/member2.jpg" alt="img/member2.jpg" />
+            <img src="img/member2.jpg" alt="Rey" />
             <h3>Rey</h3>
             <p>Admin</p>
           </div>
-
           <div class="member-card" data-name="Yogi" data-role="Admin"
             data-desc="Yogi membantu desain UI/UX project komunitas." data-img="img/member3.jpeg">
-            <img src="img/member3.jpeg" alt="img/member3.jpeg" />
+            <img src="img/member3.jpeg" alt="Yogi" />
             <h3>Yogi</h3>
             <p>Admin</p>
           </div>
-
-          <div class="member-card" data-name="Kori" data-role="Admin" data-desc="Kori pengatur suasana komunitas."
-            data-img="img/member4.jpg">
-            <img src="img/member4.jpg" alt="img/member4.jpg" />
+          <div class="member-card" data-name="Kori" data-role="Admin"
+            data-desc="Kori pengatur suasana komunitas." data-img="img/member4.jpg">
+            <img src="img/member4.jpg" alt="Kori" />
             <h3>Kori</h3>
             <p>Admin</p>
           </div>
-
         </div>
       </div>
     </section>
 
-    <!-- =============================
-           ACTIVITIES SECTION
-      ============================== -->
+    <!-- ACTIVITIES SECTION -->
     <section class="section" id="activities">
       <div class="section-inner">
         <h2>Activities</h2>
         <p>Kegiatan rutin komunitas Mangku Group.</p>
-
         <ul class="activity-list">
           <li><i class="fa-solid fa-check"></i> Sharing Session Mingguan</li>
           <li><i class="fa-solid fa-check"></i> Diskusi Project</li>
@@ -260,33 +202,31 @@
       </div>
     </section>
 
-    <!-- =============================
-           PROJECTS SECTION
-      ============================== -->
+    <!-- PROJECTS SECTION -->
     <section class="section" id="projects">
       <div class="section-inner">
         <h2>Projects</h2>
         <p>Kumpulan project yang sedang berjalan.</p>
-
         <div class="project-grid">
           <div class="project-card" data-title="Website Company Profile"
-            data-desc="Project website modern untuk komunitas." data-img="https://picsum.photos/500/300?random=1">
+            data-desc="Project website modern untuk komunitas."
+            data-img="https://picsum.photos/500/300?random=1">
             <span class="project-badge badge-blue">Web</span>
             <h3>Company Profile</h3>
             <p>Website modern komunitas.</p>
             <button class="btn-detail">Detail</button>
           </div>
-
-          <div class="project-card" data-title="Mobile App" data-desc="Aplikasi mobile untuk anggota komunitas."
+          <div class="project-card" data-title="Mobile App"
+            data-desc="Aplikasi mobile untuk anggota komunitas."
             data-img="https://picsum.photos/500/300?random=2">
             <span class="project-badge badge-green">Mobile</span>
             <h3>Mobile App</h3>
             <p>Project aplikasi komunitas.</p>
             <button class="btn-detail">Detail</button>
           </div>
-
           <div class="project-card" data-title="Kas Management"
-            data-desc="Sistem kas untuk laporan transaksi komunitas." data-img="https://picsum.photos/500/300?random=3">
+            data-desc="Sistem kas untuk laporan transaksi komunitas."
+            data-img="https://picsum.photos/500/300?random=3">
             <span class="project-badge badge-orange">Finance</span>
             <h3>Kas Management</h3>
             <p>Sistem laporan kas komunitas.</p>
@@ -296,80 +236,51 @@
       </div>
     </section>
 
-    <!-- =============================
-           GALLERY SECTION
-      ============================== -->
+    <!-- GALLERY SECTION -->
     <section class="section" id="gallery">
       <div class="section-inner">
         <h2>Gallery</h2>
         <p>Klik gambar untuk fullscreen.</p>
-
         <div class="gallery-slider">
           <button class="gallery-btn left" id="galleryPrev">
             <i class="fa-solid fa-chevron-left"></i>
           </button>
-
           <div class="gallery-track" id="galleryTrack">
-            <div class="gallery-item">
-              <img src="img/galeri1.jpeg" class="gallery-img" alt="galeri1" />
-            </div>
-
-            <div class="gallery-item">
-              <img src="img/galeri2.jpeg" class="gallery-img" alt="galeri2" />
-            </div>
-
-            <div class="gallery-item">
-              <img src="img/galeri3.jpeg" class="gallery-img" alt="galeri3" />
-            </div>
-
-            <div class="gallery-item">
-              <img src="img/galeri4.jpeg" class="gallery-img" alt="galeri4" />
-            </div>
-
-            <div class="gallery-item">
-              <img src="img/galeri5.jpeg" class="gallery-img" alt="galeri5">
-            </div>
+            <div class="gallery-item"><img src="img/galeri1.jpeg" class="gallery-img" alt="galeri1" /></div>
+            <div class="gallery-item"><img src="img/galeri2.jpeg" class="gallery-img" alt="galeri2" /></div>
+            <div class="gallery-item"><img src="img/galeri3.jpeg" class="gallery-img" alt="galeri3" /></div>
+            <div class="gallery-item"><img src="img/galeri4.jpeg" class="gallery-img" alt="galeri4" /></div>
+            <div class="gallery-item"><img src="img/galeri5.jpeg" class="gallery-img" alt="galeri5" /></div>
           </div>
-
           <button class="gallery-btn right" id="galleryNext">
             <i class="fa-solid fa-chevron-right"></i>
           </button>
         </div>
-
-        <!-- Gallery Dots -->
         <div class="gallery-dots" id="galleryDots"></div>
-
-        <!-- Gallery Progress -->
         <div class="gallery-progress">
           <div class="gallery-progress-bar" id="galleryProgressBar"></div>
         </div>
       </div>
     </section>
 
-    <!-- =============================
-           CONTACT SECTION
-      ============================== -->
+    <!-- CONTACT SECTION -->
     <section class="section" id="contact">
       <div class="section-inner">
         <h2>Contact</h2>
         <p>Hubungi kami melalui form berikut.</p>
-
         <form id="contactForm" class="contact-form">
           <div class="form-group">
             <input type="text" id="name" placeholder="Nama" />
             <small id="nameError" class="error-text"></small>
           </div>
-
           <div class="form-group">
             <input type="email" id="email" placeholder="Email" />
             <small id="emailError" class="error-text"></small>
           </div>
-
           <div class="form-group">
             <textarea id="message" placeholder="Pesan"></textarea>
             <small id="messageError" class="error-text"></small>
           </div>
-
           <button type="submit" class="btn-primary btn-send">
             <i class="fa-solid fa-paper-plane"></i> Kirim Pesan
           </button>
@@ -377,17 +288,12 @@
       </div>
     </section>
 
-    <!-- =============================
-           FOOTER MODERN
-      ============================== -->
+    <!-- FOOTER -->
     <footer class="footer" id="footer">
       <div class="footer-inner">
         <div class="footer-col">
           <h3>Mangku Group</h3>
-          <p>
-            Komunitas digital modern yang fokus pada kolaborasi dan teknologi.
-          </p>
-
+          <p>Komunitas digital modern yang fokus pada kolaborasi dan teknologi.</p>
           <div class="footer-social">
             <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
             <a href="#"><i class="fa-brands fa-instagram"></i></a>
@@ -395,7 +301,6 @@
             <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
           </div>
         </div>
-
         <div class="footer-col">
           <h4>Quick Links</h4>
           <ul>
@@ -405,27 +310,22 @@
             <li><a href="#contact">Contact</a></li>
           </ul>
         </div>
-
         <div class="footer-col">
           <h4>Newsletter</h4>
           <p>Dapatkan update terbaru dari komunitas.</p>
-
           <div class="newsletter-box">
             <input type="email" placeholder="Masukkan email..." />
             <button><i class="fa-solid fa-paper-plane"></i></button>
           </div>
         </div>
       </div>
-
       <div class="footer-bottom">
         <p>© 2026 Mangku Group. All Rights Reserved.</p>
       </div>
     </footer>
   </main>
 
-  <!-- =============================
-         MODAL MEMBER
-    ============================== -->
+  <!-- MODAL MEMBER -->
   <div class="modal" id="memberModal">
     <div class="modal-content">
       <span class="close" id="closeMemberModal">&times;</span>
@@ -436,9 +336,7 @@
     </div>
   </div>
 
-  <!-- =============================
-         MODAL PROJECT
-    ============================== -->
+  <!-- MODAL PROJECT -->
   <div class="modal" id="projectModal">
     <div class="modal-content">
       <span class="close" id="closeProjectModal">&times;</span>
@@ -448,74 +346,42 @@
     </div>
   </div>
 
-  <!-- =============================
-         LIGHTBOX GALLERY MODAL
-         [BUGFIX #1] Hapus elemen lightbox duplikat (ada 2 di kode asli)
-         [BUGFIX #2] Samakan ID zoomResetBtn (hilangkan tanda '-' di versi ke-2)
-    ============================== -->
+  <!-- LIGHTBOX GALLERY MODAL -->
   <div class="modal" id="lightboxModal">
     <div class="modal-content lightbox-content">
-
-      <!-- CLOSE BUTTON -->
       <span class="close" id="closeLightbox">&times;</span>
-
-      <!-- ZOOM CONTROLS -->
       <div class="lightbox-controls">
-        <button class="zoom-btn" id="zoomInBtn">
-          <i class="fa-solid fa-plus"></i>
-        </button>
-        <button class="zoom-btn" id="zoomOutBtn">
-          <i class="fa-solid fa-minus"></i>
-        </button>
-        <!-- [BUGFIX #2] ID konsisten: zoomResetBtn (bukan zoom-ResetBtn) -->
-        <button class="zoom-btn" id="zoomResetBtn">
-          <i class="fa-solid fa-rotate-right"></i>
-        </button>
+        <button class="zoom-btn" id="zoomInBtn"><i class="fa-solid fa-plus"></i></button>
+        <button class="zoom-btn" id="zoomOutBtn"><i class="fa-solid fa-minus"></i></button>
+        <button class="zoom-btn" id="zoomResetBtn"><i class="fa-solid fa-rotate-right"></i></button>
       </div>
-
-      <!-- IMAGE VIEW -->
       <img id="lightboxImg" src="" alt="lightbox" />
-
-
-      <!-- =============================
-          LIGHTBOX NAVIGATION BUTTON
-          ============================= -->
+      <!-- [BUGFIX #2] Tombol prev/next lightbox ada di HTML tapi TIDAK ADA di CSS &
+           JS menggunakannya — tambahkan style via CSS (sudah ada .lightbox-nav di CSS) -->
       <button id="lightboxPrev" class="lightbox-nav prev">&#10094;</button>
       <button id="lightboxNext" class="lightbox-nav next">&#10095;</button>
-
     </div>
   </div>
 
-  <!-- =============================
-         TOAST NOTIFICATION
-    ============================== -->
+  <!-- TOAST NOTIFICATION -->
   <div class="toast" id="toast">
     <i class="fa-solid fa-circle-check"></i>
     <span id="toastMsg">Pesan berhasil dikirim!</span>
   </div>
 
-  <!-- =============================
-         BACK TO TOP BUTTON
-    ============================== -->
+  <!-- BACK TO TOP BUTTON -->
   <button class="back-to-top" id="backToTop">
     <i class="fa-solid fa-arrow-up"></i>
   </button>
 
-  <!-- =============================
-         FLOATING WHATSAPP BUTTON
-    ============================== -->
+  <!-- FLOATING WHATSAPP BUTTON -->
   <a href="https://wa.me/6281234567890" target="_blank" class="floating-whatsapp" id="floatingWhatsapp">
     <i class="fa-brands fa-whatsapp"></i>
   </a>
 
-  <!-- =============================
-         CLICK SOUND EFFECT
-    ============================== -->
+  <!-- CLICK SOUND EFFECT -->
   <audio id="clickSound" src="click.mp3"></audio>
 
-  <!-- =============================
-         JS CUSTOM
-    ============================== -->
   <script src="js/main.js"></script>
 </body>
 

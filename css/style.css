@@ -185,6 +185,9 @@ body {
   color: white;
 }
 
+/* ============================================================
+   MENU HIGHLIGHT — dinonaktifkan, diganti nav-indicator
+============================================================ */
 .menu-highlight {
   position: absolute;
   width: 100%;
@@ -195,6 +198,10 @@ body {
   left: 0;
   transition: 0.25s ease;
   z-index: 1;
+  /* [BUGFIX #3] Dua kali deklarasi .menu-highlight di file asli (baris 188 & 224).
+     Digabung jadi satu — efek lama dinonaktifkan di sini */
+  opacity: 0 !important;
+  visibility: hidden !important;
 }
 
 .dark-toggle {
@@ -219,14 +226,6 @@ body {
 }
 
 /* ============================================================
-   MENU HIGHLIGHT OLD (DISABLE DOUBLE EFFECT)
-============================================================ */
-.menu-highlight {
-  opacity: 0 !important;
-  visibility: hidden !important;
-}
-
-/* ============================================================
    ACTIVE MENU TEXT NEON EFFECT
 ============================================================ */
 .menu-link.active span {
@@ -237,7 +236,7 @@ body {
 }
 
 /* ============================================================
-   NAVBAR ACTIVE UNDERLINE GRADIENT + GLOW (CUSTOM CSS)
+   NAVBAR ACTIVE UNDERLINE GRADIENT + GLOW
 ============================================================ */
 .sidebar-link {
   position: relative;
@@ -286,25 +285,19 @@ body {
   height: 50px;
   border-radius: 16px;
   pointer-events: none;
-
   background: linear-gradient(
     135deg,
     rgba(0, 198, 255, 0.22),
     rgba(0, 114, 255, 0.22)
   );
-
   overflow: hidden;
-
   border: 1px solid rgba(0, 198, 255, 0.35);
   backdrop-filter: blur(12px);
-
   box-shadow:
     0 0 18px rgba(0, 198, 255, 0.35),
     0 0 28px rgba(0, 114, 255, 0.25);
-
   z-index: 0;
   opacity: 0;
-
   transition:
     top 0.45s cubic-bezier(0.22, 1.4, 0.36, 1),
     height 0.45s cubic-bezier(0.22, 1.4, 0.36, 1),
@@ -312,7 +305,7 @@ body {
 }
 
 /* ============================================================
-   NAV INDICATOR SHIMMER EFFECT (CUSTOM)
+   NAV INDICATOR SHIMMER EFFECT
 ============================================================ */
 .nav-indicator::before {
   content: "";
@@ -321,24 +314,18 @@ body {
   left: -120%;
   width: 120%;
   height: 100%;
-
   background: linear-gradient(
     120deg,
     transparent,
     rgba(255, 255, 255, 0.18),
     transparent
   );
-
   animation: shimmerMove 2.2s infinite;
 }
 
 @keyframes shimmerMove {
-  0% {
-    left: -120%;
-  }
-  100% {
-    left: 120%;
-  }
+  0%   { left: -120%; }
+  100% { left:  120%; }
 }
 
 /* =============================
@@ -407,9 +394,7 @@ body {
 }
 
 @keyframes blink {
-  50% {
-    opacity: 0;
-  }
+  50% { opacity: 0; }
 }
 
 /* =============================
@@ -608,17 +593,9 @@ body {
   font-weight: bold;
 }
 
-.badge-blue {
-  background: var(--primary);
-}
-
-.badge-green {
-  background: var(--whatsapp);
-}
-
-.badge-orange {
-  background: #ff9800;
-}
+.badge-blue   { background: var(--primary); }
+.badge-green  { background: var(--whatsapp); }
+.badge-orange { background: #ff9800; }
 
 /* =============================
    MODAL GLOBAL
@@ -736,13 +713,8 @@ body {
   align-items: center;
 }
 
-.gallery-btn.left {
-  left: -18px;
-}
-
-.gallery-btn.right {
-  right: -18px;
-}
+.gallery-btn.left  { left:  -18px; }
+.gallery-btn.right { right: -18px; }
 
 /* =============================
    DOT INDICATOR (GALLERY)
@@ -788,7 +760,7 @@ body {
 }
 
 /* ============================================================
-   LIGHTBOX ZOOM CONTROLS (CUSTOM)
+   LIGHTBOX ZOOM CONTROLS
 ============================================================ */
 .lightbox-controls {
   position: absolute;
@@ -804,14 +776,11 @@ body {
   height: 42px;
   border-radius: 50%;
   border: none;
-
   background: rgba(0, 0, 0, 0.55);
   color: #fff;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   cursor: pointer;
   transition: 0.25s ease;
 }
@@ -823,18 +792,15 @@ body {
 }
 
 /* ============================================================
-   LIGHTBOX IMAGE ZOOM EFFECT
+   LIGHTBOX IMAGE
+   [BUGFIX #4] File asli mendefinisikan #lightboxImg DUA KALI
+   (baris 828 dan 835) — dua properti berbeda: zoom-in & grab.
+   Digabung jadi satu agar tidak saling menimpa.
 ============================================================ */
 #lightboxImg {
   transition: transform 0.25s ease;
   transform-origin: center center;
-  cursor: zoom-in;
-}
-
-/* DRAG CURSOR */
-#lightboxImg {
   cursor: grab;
-  transition: transform 0.2s ease;
 }
 
 /* ===============================
@@ -854,13 +820,8 @@ body {
   border-radius: 8px;
 }
 
-.lightbox-nav.prev {
-  left: 10px;
-}
-
-.lightbox-nav.next {
-  right: 10px;
-}
+.lightbox-nav.prev { left:  10px; }
+.lightbox-nav.next { right: 10px; }
 
 .lightbox-nav:hover {
   background: rgba(0, 0, 0, 0.8);
@@ -1131,13 +1092,8 @@ body.dark .form-group textarea {
     padding: 80px 20px;
   }
 
-  .gallery-btn.left {
-    left: 0;
-  }
-
-  .gallery-btn.right {
-    right: 0;
-  }
+  .gallery-btn.left  { left:  0; }
+  .gallery-btn.right { right: 0; }
 
   .hero-buttons {
     flex-direction: column;
@@ -1146,21 +1102,13 @@ body.dark .form-group textarea {
 }
 
 /* ============================================================
-   BOUNCE ANIMATION (CUSTOM)
+   BOUNCE ANIMATION
 ============================================================ */
 @keyframes bounceSoft {
-  0% {
-    transform: scale(1);
-  }
-  40% {
-    transform: scale(1.08);
-  }
-  70% {
-    transform: scale(0.98);
-  }
-  100% {
-    transform: scale(1);
-  }
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.08); }
+  70%  { transform: scale(0.98); }
+  100% { transform: scale(1); }
 }
 
 .bounce-active {
