@@ -837,6 +837,35 @@ body {
   transition: transform 0.2s ease;
 }
 
+/* ===============================
+   LIGHTBOX NAVIGATION BUTTON
+================================ */
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 30px;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  z-index: 1000;
+  border-radius: 8px;
+}
+
+.lightbox-nav.prev {
+  left: 10px;
+}
+
+.lightbox-nav.next {
+  right: 10px;
+}
+
+.lightbox-nav:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
 /* =============================
    CONTACT FORM
 ============================= */

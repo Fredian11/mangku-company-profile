@@ -172,6 +172,12 @@ projectModal.addEventListener("click", (e) => {
 const lightboxModal = document.getElementById("lightboxModal");
 const lightboxImg = document.getElementById("lightboxImg");
 const closeLightbox = document.getElementById("closeLightbox");
+const lightboxPrev = document.getElementById("lightboxPrev");
+const lightboxNext = document.getElementById("lightboxNext");
+
+/* BUTTON CONTROL */
+lightboxNext?.addEventListener("click", showNextImage);
+lightboxPrev?.addEventListener("click", showPrevImage);
 
 const zoomInBtn = document.getElementById("zoomInBtn");
 const zoomOutBtn = document.getElementById("zoomOutBtn");
@@ -226,12 +232,29 @@ function closeLightboxFn() {
 /* TRIGGER LIGHTBOX DARI GAMBAR GALLERY */
 const galleryImages = document.querySelectorAll(".gallery-item img");
 
-galleryImages.forEach((img) => {
+/* ===============================
+   [STATE] LIGHTBOX IMAGE INDEX
+================================ */
+let currentImageIndex = 0;
+const galleryArray = Array.from(galleryImages);
+
+/* ===============================
+   OPEN LIGHTBOX + SET INDEX
+================================ */
+galleryImages.forEach((img, index) => {
   img.addEventListener("click", () => {
+    currentImageIndex = index; // simpan posisi
     openLightbox(img.src);
   });
   img.style.cursor = "pointer";
 });
+
+// galleryImages.forEach((img) => {
+//   img.addEventListener("click", () => {
+//     openLightbox(img.src);
+//   });
+//   img.style.cursor = "pointer";
+// });
 
 /* CLOSE BUTTON (X) */
 if (closeLightbox) {
@@ -248,11 +271,30 @@ if (lightboxModal) {
 }
 
 /* ESC CLOSE */
+/* ===============================
+   KEYBOARD CONTROL LIGHTBOX
+================================ */
 document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && isLightboxOpen) {
+  if (!isLightboxOpen) return;
+
+  if (e.key === "Escape") {
     closeLightboxFn();
   }
+
+  if (e.key === "ArrowRight") {
+    showNextImage();
+  }
+
+  if (e.key === "ArrowLeft") {
+    showPrevImage();
+  }
 });
+
+// document.addEventListener("keydown", (e) => {
+//   if (e.key === "Escape" && isLightboxOpen) {
+//     closeLightboxFn();
+//   }
+// });
 
 /* ZOOM IN */
 if (zoomInBtn) {
@@ -280,6 +322,30 @@ if (zoomResetBtn) {
 }
 
 /* DOUBLE CLICK TOGGLE ZOOM */
+/* ===============================
+   NEXT / PREV LIGHTBOX IMAGE
+================================ */
+
+function showNextImage() {
+  currentImageIndex++;
+
+  if (currentImageIndex >= galleryArray.length) {
+    currentImageIndex = 0;
+  }
+
+  openLightbox(galleryArray[currentImageIndex].src);
+}
+
+function showPrevImage() {
+  currentImageIndex--;
+
+  if (currentImageIndex < 0) {
+    currentImageIndex = galleryArray.length - 1;
+  }
+
+  openLightbox(galleryArray[currentImageIndex].src);
+}
+
 if (lightboxImg) {
   lightboxImg.addEventListener("dblclick", () => {
     if (currentZoom === 1) {
@@ -321,8 +387,7 @@ document.addEventListener("mousemove", (e) => {
   translateX = e.clientX - startX;
   translateY = e.clientY - startY;
 
-  lightboxImg.style.transform =
-    `scale(${currentZoom}) translate(${translateX}px, ${translateY}px)`;
+  lightboxImg.style.transform = `scale(${currentZoom}) translate(${translateX}px, ${translateY}px)`;
 });
 
 /* MOUSE UP */
