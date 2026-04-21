@@ -69,9 +69,7 @@ function updateActiveMenu() {
     link.classList.remove("active");
     if (link.getAttribute("href") === `#${currentSection}`) {
       link.classList.add("active");
-      if (menuHighlight) {
-        menuHighlight.style.top = link.offsetTop + "px";
-      }
+      if (menuHighlight) menuHighlight.style.top = link.offsetTop + "px";
     }
   });
 }
@@ -100,10 +98,9 @@ memberCards.forEach((card) => {
   });
 });
 
-closeMemberModal.addEventListener("click", () => {
-  memberModal.classList.remove("show");
-});
-
+closeMemberModal.addEventListener("click", () =>
+  memberModal.classList.remove("show"),
+);
 memberModal.addEventListener("click", (e) => {
   if (e.target === memberModal) memberModal.classList.remove("show");
 });
@@ -131,16 +128,15 @@ projectCards.forEach((card) => {
   }
 });
 
-closeProjectModal.addEventListener("click", () => {
-  projectModal.classList.remove("show");
-});
-
+closeProjectModal.addEventListener("click", () =>
+  projectModal.classList.remove("show"),
+);
 projectModal.addEventListener("click", (e) => {
   if (e.target === projectModal) projectModal.classList.remove("show");
 });
 
 /* ============================================================
-   GALLERY LIGHTBOX — ZOOM, DRAG, NAVIGATE, SWIPE
+   GALLERY LIGHTBOX — ZOOM, DRAG, NAVIGATE, SWIPE, PINCH
 ============================================================ */
 const lightboxModal = document.getElementById("lightboxModal");
 const lightboxImg = document.getElementById("lightboxImg");
@@ -164,22 +160,58 @@ let startY = 0;
 let translateX = 0;
 let translateY = 0;
 
-/* STATE LIGHTBOX IMAGE INDEX */
+/* STATE INERTIA */
+let velocityX = 0;
+let velocityY = 0;
+let lastX = 0;
+let lastY = 0;
+let momentumFrame;
+
+/* STATE IMAGE INDEX */
 const galleryImages = document.querySelectorAll(".gallery-item img");
 const galleryArray = Array.from(galleryImages);
 let currentImageIndex = 0;
 
 /* ---- ZOOM ---- */
+/* BUG FIX #1: zoomToPoint() ada DI DALAM applyZoom() di file asli —
+   fungsi nested ini TIDAK BISA dipanggil dari luar (zoomInBtn, dblclick,
+   wheel). Setiap kali zoomInBtn diklik, browser melempar
+   "ReferenceError: zoomToPoint is not defined" dan fitur zoom mati total.
+   Dipindahkan ke luar menjadi fungsi mandiri. */
+function zoomToPoint(clientX, clientY, zoomFactor) {
+  const rect = lightboxImg.getBoundingClientRect();
+  const offsetX = clientX - rect.left;
+  const offsetY = clientY - rect.top;
+
+  const percentX = offsetX / rect.width;
+  const percentY = offsetY / rect.height;
+
+  const prevZoom = currentZoom;
+  let newZoom = currentZoom * zoomFactor;
+  if (newZoom > maxZoom) newZoom = maxZoom;
+  if (newZoom < minZoom) newZoom = minZoom;
+
+  const scaleChange = newZoom / prevZoom;
+  translateX -= (percentX - 0.5) * rect.width * (scaleChange - 1);
+  translateY -= (percentY - 0.5) * rect.height * (scaleChange - 1);
+
+  currentZoom = newZoom;
+  applyZoom();
+}
+
 function applyZoom() {
   if (!lightboxImg) return;
   lightboxImg.style.transform = `scale(${currentZoom}) translate(${translateX / currentZoom}px, ${translateY / currentZoom}px)`;
-  lightboxImg.style.transition = "transform 0.25s ease";
+  lightboxImg.style.transition = "transform 0.15s ease";
 }
 
 function resetZoom() {
   currentZoom = 1;
   translateX = 0;
   translateY = 0;
+  cancelAnimationFrame(momentumFrame);
+  velocityX = 0;
+  velocityY = 0;
   if (lightboxImg) {
     lightboxImg.style.transform = "scale(1) translate(0,0)";
     lightboxImg.style.transition = "transform 0.25s ease";
@@ -202,19 +234,46 @@ function closeLightboxFn() {
   resetZoom();
 }
 
+/* ---- SLIDE TRANSITION ---- */
+function changeImageWithSlide(newSrc, direction = "next") {
+  if (!lightboxImg) return;
+
+  const outClass = direction === "next" ? "slide-out-left" : "slide-out-right";
+  const inClass = direction === "next" ? "slide-in-right" : "slide-in-left";
+
+  lightboxImg.classList.add(outClass);
+
+  setTimeout(() => {
+    lightboxImg.src = newSrc;
+    resetZoom();
+    lightboxImg.classList.remove(outClass);
+    lightboxImg.classList.add(inClass);
+    /* paksa repaint agar browser menerapkan posisi awal sebelum animasi */
+    void lightboxImg.offsetWidth;
+    lightboxImg.classList.remove(inClass);
+    lightboxImg.classList.add("slide-center");
+
+    /* BUG FIX #2: class slide-center harus dihapus setelah transisi selesai
+       agar tidak mengunci transform dan membuat zoom tidak bisa bekerja */
+    setTimeout(() => {
+      lightboxImg.classList.remove("slide-center");
+    }, 350);
+  }, 200);
+}
+
 /* ---- NAVIGATE ---- */
 function showNextImage() {
   currentImageIndex = (currentImageIndex + 1) % galleryArray.length;
-  openLightbox(galleryArray[currentImageIndex].src);
+  changeImageWithSlide(galleryArray[currentImageIndex].src, "next");
 }
 
 function showPrevImage() {
   currentImageIndex =
     (currentImageIndex - 1 + galleryArray.length) % galleryArray.length;
-  openLightbox(galleryArray[currentImageIndex].src);
+  changeImageWithSlide(galleryArray[currentImageIndex].src, "prev");
 }
 
-/* ---- TRIGGER BUKA DARI GAMBAR GALLERY ---- */
+/* ---- TRIGGER BUKA DARI GALLERY ---- */
 galleryImages.forEach((img, index) => {
   img.addEventListener("click", () => {
     currentImageIndex = index;
@@ -227,7 +286,7 @@ galleryImages.forEach((img, index) => {
 lightboxNext?.addEventListener("click", showNextImage);
 lightboxPrev?.addEventListener("click", showPrevImage);
 
-/* ---- CLOSE BUTTON (X) ---- */
+/* ---- CLOSE BUTTON ---- */
 if (closeLightbox) {
   closeLightbox.addEventListener("click", closeLightboxFn);
 }
@@ -250,19 +309,15 @@ document.addEventListener("keydown", (e) => {
 /* ---- ZOOM IN / OUT / RESET ---- */
 if (zoomInBtn) {
   zoomInBtn.addEventListener("click", () => {
-    if (currentZoom < maxZoom) {
-      currentZoom += zoomStep;
-      applyZoom();
-    }
+    const rect = lightboxImg.getBoundingClientRect();
+    zoomToPoint(rect.left + rect.width / 2, rect.top + rect.height / 2, 1.2);
   });
 }
 
 if (zoomOutBtn) {
   zoomOutBtn.addEventListener("click", () => {
-    if (currentZoom > minZoom) {
-      currentZoom -= zoomStep;
-      applyZoom();
-    }
+    const rect = lightboxImg.getBoundingClientRect();
+    zoomToPoint(rect.left + rect.width / 2, rect.top + rect.height / 2, 0.8);
   });
 }
 
@@ -272,22 +327,33 @@ if (zoomResetBtn) {
 
 /* ---- DOUBLE CLICK TOGGLE ZOOM ---- */
 if (lightboxImg) {
-  lightboxImg.addEventListener("dblclick", () => {
-    if (currentZoom === 1) {
-      currentZoom = 2;
-      applyZoom();
-    } else {
-      resetZoom();
-    }
+  lightboxImg.addEventListener("dblclick", (e) => {
+    if (currentZoom === 1) zoomToPoint(e.clientX, e.clientY, 2);
+    else resetZoom();
   });
 }
 
-/* ---- DRAG SAAT ZOOM (MOUSE) ---- */
-// [BUGFIX #5] handleSwipe() di file asli ditaruh DI DALAM mousedown listener —
-// fungsi tersebut tidak pernah dipanggil dan variabel touchStartX/touchEndX
-// belum ada di titik itu. Dipindah ke luar & dibuat sendiri untuk lightbox.
+/* ---- SCROLL ZOOM TO CURSOR ---- */
+if (lightboxImg) {
+  lightboxImg.addEventListener(
+    "wheel",
+    (e) => {
+      e.preventDefault();
+      const zoomFactor = e.deltaY < 0 ? 1.2 : 0.8;
+      zoomToPoint(e.clientX, e.clientY, zoomFactor);
+    },
+    { passive: false },
+  );
+}
+
+/* ---- DRAG (MOUSE) ---- */
 if (lightboxImg) {
   lightboxImg.addEventListener("mousedown", (e) => {
+    cancelAnimationFrame(momentumFrame);
+    velocityX = 0;
+    velocityY = 0;
+    lastX = e.clientX;
+    lastY = e.clientY;
     isDragging = true;
     startX = e.clientX - translateX;
     startY = e.clientY - translateY;
@@ -297,46 +363,70 @@ if (lightboxImg) {
 
 document.addEventListener("mousemove", (e) => {
   if (!isDragging) return;
-  translateX = e.clientX - startX;
-  translateY = e.clientY - startY;
-  lightboxImg.style.transform = `scale(${currentZoom}) translate(${translateX / currentZoom}px, ${translateY / currentZoom}px)`;
+
+  velocityX = e.clientX - lastX;
+  velocityY = e.clientY - lastY;
+  lastX = e.clientX;
+  lastY = e.clientY;
+
+  let newX = e.clientX - startX;
+  let newY = e.clientY - startY;
+
+  const rect = lightboxImg.getBoundingClientRect();
+  const maxX = (rect.width * (currentZoom - 1)) / 2;
+  const maxY = (rect.height * (currentZoom - 1)) / 2;
+
+  translateX = Math.max(-maxX, Math.min(maxX, newX));
+  translateY = Math.max(-maxY, Math.min(maxY, newY));
+
+  lightboxImg.style.transform = `scale(${currentZoom}) translate(${translateX}px, ${translateY}px)`;
 });
 
+/* BUG FIX #3: mouseup di file asli memanggil startMomentum() SEBELUM
+   mengecek isDragging, sehingga momentum aktif bahkan saat user belum
+   pernah drag (misal klik tombol zoom). Dibalik urutannya. */
 document.addEventListener("mouseup", () => {
   if (!isDragging) return;
   isDragging = false;
   if (lightboxImg) lightboxImg.style.cursor = "grab";
+  startMomentum();
 });
 
+/* ---- INERTIA / MOMENTUM ---- */
+function startMomentum() {
+  const friction = 0.95;
+
+  function animate() {
+    velocityX *= friction;
+    velocityY *= friction;
+
+    translateX += velocityX;
+    translateY += velocityY;
+
+    const rect = lightboxImg.getBoundingClientRect();
+    const maxX = (rect.width * (currentZoom - 1)) / 2;
+    const maxY = (rect.height * (currentZoom - 1)) / 2;
+
+    translateX = Math.max(-maxX, Math.min(maxX, translateX));
+    translateY = Math.max(-maxY, Math.min(maxY, translateY));
+
+    lightboxImg.style.transform = `scale(${currentZoom}) translate(${translateX}px, ${translateY}px)`;
+
+    if (Math.abs(velocityX) < 0.1 && Math.abs(velocityY) < 0.1) return;
+    momentumFrame = requestAnimationFrame(animate);
+  }
+
+  momentumFrame = requestAnimationFrame(animate);
+}
+
 /* ---- SWIPE LIGHTBOX (TOUCH) ---- */
-// [BUGFIX #6] Variabel touchStartX & touchEndX dideklarasikan DUA KALI di file asli
-// (baris 187 untuk lightbox & baris 523 untuk gallery). Pisahkan namanya agar tidak
-// saling menimpa.
 let lbTouchStartX = 0;
 let lbTouchEndX = 0;
 
-if (lightboxImg) {
-  lightboxImg.addEventListener("touchstart", (e) => {
-    lbTouchStartX = e.changedTouches[0].screenX;
-  });
-
-  lightboxImg.addEventListener("touchend", (e) => {
-    lbTouchEndX = e.changedTouches[0].screenX;
-    if (currentZoom > 1 || isPinching) return; // nonaktifkan swipe saat zoom
-
-    const swipeThreshold = 50;
-    if (lbTouchEndX < lbTouchStartX - swipeThreshold) showNextImage();
-    if (lbTouchEndX > lbTouchStartX + swipeThreshold) showPrevImage();
-  });
-}
-
-/* ---- PINCH ZOOM (2 FINGER) ---- */
-/* Diletakkan di bawah SWIPE LIGHTBOX agar tidak bentrok */
-
+/* STATE PINCH */
 let initialDistance = 0;
 let isPinching = false;
 
-/* Hitung jarak 2 jari */
 function getDistance(touches) {
   const dx = touches[0].clientX - touches[1].clientX;
   const dy = touches[0].clientY - touches[1].clientY;
@@ -344,36 +434,49 @@ function getDistance(touches) {
 }
 
 if (lightboxImg) {
-  /* TOUCH START */
   lightboxImg.addEventListener("touchstart", (e) => {
     if (e.touches.length === 2) {
       isPinching = true;
       initialDistance = getDistance(e.touches);
+    } else {
+      lbTouchStartX = e.changedTouches[0].screenX;
     }
   });
 
-  /* TOUCH MOVE (MOBILE)*/
-  lightboxImg.addEventListener("touchmove", (e) => {
-    if (!isPinching || e.touches.length !== 2) return;
+  lightboxImg.addEventListener(
+    "touchmove",
+    (e) => {
+      if (!isPinching || e.touches.length !== 2) return;
+      e.preventDefault();
 
-    const currentDistance = getDistance(e.touches);
-    let scaleChange = currentDistance / initialDistance;
+      const currentDistance = getDistance(e.touches);
+      const scaleChange = currentDistance / initialDistance;
 
-    let newZoom = currentZoom * scaleChange;
+      let newZoom = currentZoom * scaleChange;
+      if (newZoom > maxZoom) newZoom = maxZoom;
+      if (newZoom < minZoom) newZoom = minZoom;
 
-    /* Batasi zoom */
-    if (newZoom > maxZoom) newZoom = maxZoom;
-    if (newZoom < minZoom) newZoom = minZoom;
+      currentZoom = newZoom;
+      initialDistance = currentDistance;
+      applyZoom();
+    },
+    { passive: false },
+  );
 
-    currentZoom = newZoom;
-    applyZoom();
+  /* BUG FIX #4: File asli punya DUA listener "touchend" terpisah pada
+     lightboxImg — satu untuk swipe dan satu untuk pinch. Keduanya berjalan
+     bersamaan dan bisa saling membatalkan. Digabung menjadi satu handler. */
+  lightboxImg.addEventListener("touchend", (e) => {
+    if (isPinching) {
+      isPinching = false;
+      return;
+    }
+    lbTouchEndX = e.changedTouches[0].screenX;
+    if (currentZoom > 1) return;
 
-    initialDistance = currentDistance;
-  });
-
-  /* TOUCH END */
-  lightboxImg.addEventListener("touchend", () => {
-    isPinching = false;
+    const swipeThreshold = 50;
+    if (lbTouchEndX < lbTouchStartX - swipeThreshold) showNextImage();
+    if (lbTouchEndX > lbTouchStartX + swipeThreshold) showPrevImage();
   });
 }
 
@@ -440,7 +543,6 @@ galleryTrack.addEventListener("scroll", updateGalleryDots);
 /* ===============================
    SWIPE GESTURE GALLERY (MOBILE)
 ================================ */
-// Nama variabel berbeda dari lightbox swipe agar tidak bentrok
 let galTouchStartX = 0;
 let galTouchEndX = 0;
 
@@ -723,7 +825,6 @@ function setActiveLink(id) {
 
 window.addEventListener("scroll", () => {
   let currentSection = "";
-
   PageSections.forEach((section) => {
     const sectionTop = section.offsetTop - 150;
     const sectionHeight = section.offsetHeight;
@@ -731,7 +832,6 @@ window.addEventListener("scroll", () => {
       currentSection = section.getAttribute("id");
     }
   });
-
   if (currentSection) setActiveLink(currentSection);
 });
 

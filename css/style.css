@@ -198,8 +198,6 @@ body {
   left: 0;
   transition: 0.25s ease;
   z-index: 1;
-  /* [BUGFIX #3] Dua kali deklarasi .menu-highlight di file asli (baris 188 & 224).
-     Digabung jadi satu — efek lama dinonaktifkan di sini */
   opacity: 0 !important;
   visibility: hidden !important;
 }
@@ -265,7 +263,6 @@ body {
 .sidebar-link:hover::after {
   width: 65%;
 }
-
 .sidebar-link.active::after {
   width: 75%;
 }
@@ -304,9 +301,6 @@ body {
     opacity 0.25s ease;
 }
 
-/* ============================================================
-   NAV INDICATOR SHIMMER EFFECT
-============================================================ */
 .nav-indicator::before {
   content: "";
   position: absolute;
@@ -324,8 +318,12 @@ body {
 }
 
 @keyframes shimmerMove {
-  0%   { left: -120%; }
-  100% { left:  120%; }
+  0% {
+    left: -120%;
+  }
+  100% {
+    left: 120%;
+  }
 }
 
 /* =============================
@@ -394,7 +392,9 @@ body {
 }
 
 @keyframes blink {
-  50% { opacity: 0; }
+  50% {
+    opacity: 0;
+  }
 }
 
 /* =============================
@@ -438,7 +438,6 @@ body {
 .btn-whatsapp {
   background: var(--whatsapp);
 }
-
 .btn-whatsapp:hover {
   opacity: 0.9;
 }
@@ -561,7 +560,6 @@ body {
 .project-card h3 {
   margin-top: 10px;
 }
-
 .project-card p {
   margin-top: 8px;
   opacity: 0.8;
@@ -593,9 +591,15 @@ body {
   font-weight: bold;
 }
 
-.badge-blue   { background: var(--primary); }
-.badge-green  { background: var(--whatsapp); }
-.badge-orange { background: #ff9800; }
+.badge-blue {
+  background: var(--primary);
+}
+.badge-green {
+  background: var(--whatsapp);
+}
+.badge-orange {
+  background: #ff9800;
+}
 
 /* =============================
    MODAL GLOBAL
@@ -644,6 +648,9 @@ body {
 .lightbox-content {
   width: 90%;
   max-width: 800px;
+  /* BUG #1 FIX: overflow:hidden diperlukan agar efek slide tidak
+     menyebabkan gambar terlihat di luar batas modal saat transisi */
+  overflow: hidden;
 }
 
 .lightbox-content img {
@@ -658,6 +665,9 @@ body {
   top: 10px;
   font-size: 28px;
   cursor: pointer;
+  /* BUG #2 FIX: z-index lebih tinggi dari slide, agar tombol X
+     tidak tertutup oleh gambar saat animasi slide berjalan */
+  z-index: 10;
 }
 
 /* =============================
@@ -713,8 +723,12 @@ body {
   align-items: center;
 }
 
-.gallery-btn.left  { left:  -18px; }
-.gallery-btn.right { right: -18px; }
+.gallery-btn.left {
+  left: -18px;
+}
+.gallery-btn.right {
+  right: -18px;
+}
 
 /* =============================
    DOT INDICATOR (GALLERY)
@@ -768,7 +782,9 @@ body {
   right: 60px;
   display: flex;
   gap: 10px;
-  z-index: 9999;
+  /* BUG #3 FIX: z-index harus lebih besar dari lightbox-nav (1000)
+     agar tombol zoom tidak tertutup tombol navigasi prev/next */
+  z-index: 1001;
 }
 
 .zoom-btn {
@@ -793,14 +809,59 @@ body {
 
 /* ============================================================
    LIGHTBOX IMAGE
-   [BUGFIX #4] File asli mendefinisikan #lightboxImg DUA KALI
-   (baris 828 dan 835) — dua properti berbeda: zoom-in & grab.
-   Digabung jadi satu agar tidak saling menimpa.
+   Satu deklarasi bersih — cursor grab, siap untuk zoom & drag
 ============================================================ */
 #lightboxImg {
-  transition: transform 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    opacity 0.3s ease;
   transform-origin: center center;
   cursor: grab;
+  will-change: transform, opacity;
+  position: relative;
+  /* BUG #4 FIX: display block menghilangkan gap bawaan inline image
+     yang bisa menyebabkan jitter saat slide transition */
+  display: block;
+}
+
+/* ===============================
+   SLIDE TRANSITION LIGHTBOX
+   BUG #5 FIX: transition ditambahkan langsung ke class slide agar
+   animasi benar-benar berjalan. Tanpa ini, perpindahan gambar
+   terasa instan tanpa efek geser.
+================================ */
+.slide-center {
+  transform: translateX(0) scale(1);
+  opacity: 1;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.slide-out-left {
+  transform: translateX(-100%) scale(1);
+  opacity: 0;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.slide-out-right {
+  transform: translateX(100%) scale(1);
+  opacity: 0;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.slide-in-right {
+  transform: translateX(100%) scale(1);
+  opacity: 0;
+}
+
+.slide-in-left {
+  transform: translateX(-100%) scale(1);
+  opacity: 0;
 }
 
 /* ===============================
@@ -818,10 +879,15 @@ body {
   cursor: pointer;
   z-index: 1000;
   border-radius: 8px;
+  transition: background 0.2s ease;
 }
 
-.lightbox-nav.prev { left:  10px; }
-.lightbox-nav.next { right: 10px; }
+.lightbox-nav.prev {
+  left: 10px;
+}
+.lightbox-nav.next {
+  right: 10px;
+}
 
 .lightbox-nav:hover {
   background: rgba(0, 0, 0, 0.8);
@@ -914,7 +980,6 @@ body {
 .footer-col ul {
   list-style: none;
 }
-
 .footer-col ul li {
   margin-bottom: 8px;
 }
@@ -1092,12 +1157,23 @@ body.dark .form-group textarea {
     padding: 80px 20px;
   }
 
-  .gallery-btn.left  { left:  0; }
-  .gallery-btn.right { right: 0; }
+  .gallery-btn.left {
+    left: 0;
+  }
+  .gallery-btn.right {
+    right: 0;
+  }
 
   .hero-buttons {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  /* BUG #6 FIX: Pada layar kecil tombol nav lightbox terlalu mepet ke tepi,
+     tambahkan padding agar mudah diklik */
+  .lightbox-nav {
+    padding: 8px 10px;
+    font-size: 22px;
   }
 }
 
@@ -1105,10 +1181,18 @@ body.dark .form-group textarea {
    BOUNCE ANIMATION
 ============================================================ */
 @keyframes bounceSoft {
-  0%   { transform: scale(1); }
-  40%  { transform: scale(1.08); }
-  70%  { transform: scale(0.98); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.08);
+  }
+  70% {
+    transform: scale(0.98);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .bounce-active {

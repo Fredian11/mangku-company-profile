@@ -5,12 +5,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mangku Group - Company Profile</title>
-
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body>
+
   <!-- SCROLL PROGRESS BAR -->
   <div id="scrollProgress"></div>
 
@@ -22,7 +22,7 @@
     </div>
   </div>
 
-  <!-- MOBILE MENU TOGGLE BUTTON -->
+  <!-- MOBILE MENU TOGGLE -->
   <button class="menu-toggle" id="menuToggle">
     <i class="fa-solid fa-bars"></i>
   </button>
@@ -43,37 +43,30 @@
       <div class="menu-highlight" id="menuHighlight"></div>
       <div class="nav-indicator"></div>
 
-      <!-- [BUGFIX #1] Home hanya boleh punya SATU class active, bukan dua -->
       <a href="#home" class="menu-link sidebar-link active">
         <i class="fa-solid fa-house"></i>
         <span>Home</span>
       </a>
-
       <a href="#about" class="menu-link sidebar-link">
         <i class="fa-solid fa-circle-info"></i>
         <span>About</span>
       </a>
-
       <a href="#members" class="menu-link sidebar-link">
         <i class="fa-solid fa-users"></i>
         <span>Members</span>
       </a>
-
       <a href="#activities" class="menu-link sidebar-link">
         <i class="fa-solid fa-calendar-days"></i>
         <span>Activities</span>
       </a>
-
       <a href="#projects" class="menu-link sidebar-link">
         <i class="fa-solid fa-folder-open"></i>
         <span>Projects</span>
       </a>
-
       <a href="#gallery" class="menu-link sidebar-link">
         <i class="fa-solid fa-image"></i>
         <span>Gallery</span>
       </a>
-
       <a href="#contact" class="menu-link sidebar-link">
         <i class="fa-solid fa-envelope"></i>
         <span>Contact</span>
@@ -93,17 +86,15 @@
   <!-- MAIN CONTENT -->
   <main class="main-content">
 
-    <!-- HOME SECTION -->
+    <!-- HOME -->
     <section class="section" id="home">
       <div class="section-inner">
         <h1>Selamat Datang di <span class="highlight">Mangku Group</span></h1>
         <p>Komunitas digital modern untuk berbagi pengalaman, belajar, dan berkembang bersama.</p>
-
         <h3 class="typing-area">
           <span id="typingText"></span>
           <span class="typing-cursor">|</span>
         </h3>
-
         <div class="hero-buttons">
           <a href="https://wa.me/6281234567890" target="_blank" class="btn-primary btn-whatsapp">
             <i class="fa-brands fa-whatsapp"></i> Join WhatsApp
@@ -112,7 +103,6 @@
             <i class="fa-solid fa-folder-open"></i> Lihat Projects
           </a>
         </div>
-
         <div class="home-stats">
           <div class="stat-card">
             <h2 class="count" data-target="120">0</h2>
@@ -130,7 +120,7 @@
       </div>
     </section>
 
-    <!-- ABOUT SECTION -->
+    <!-- ABOUT -->
     <section class="section" id="about">
       <div class="section-inner">
         <h2>About Us</h2>
@@ -155,7 +145,7 @@
       </div>
     </section>
 
-    <!-- MEMBERS SECTION -->
+    <!-- MEMBERS -->
     <section class="section" id="members">
       <div class="section-inner">
         <h2>Our Members</h2>
@@ -179,8 +169,8 @@
             <h3>Yogi</h3>
             <p>Admin</p>
           </div>
-          <div class="member-card" data-name="Kori" data-role="Admin"
-            data-desc="Kori pengatur suasana komunitas." data-img="img/member4.jpg">
+          <div class="member-card" data-name="Kori" data-role="Admin" data-desc="Kori pengatur suasana komunitas."
+            data-img="img/member4.jpg">
             <img src="img/member4.jpg" alt="Kori" />
             <h3>Kori</h3>
             <p>Admin</p>
@@ -189,7 +179,7 @@
       </div>
     </section>
 
-    <!-- ACTIVITIES SECTION -->
+    <!-- ACTIVITIES -->
     <section class="section" id="activities">
       <div class="section-inner">
         <h2>Activities</h2>
@@ -202,22 +192,20 @@
       </div>
     </section>
 
-    <!-- PROJECTS SECTION -->
+    <!-- PROJECTS -->
     <section class="section" id="projects">
       <div class="section-inner">
         <h2>Projects</h2>
         <p>Kumpulan project yang sedang berjalan.</p>
         <div class="project-grid">
           <div class="project-card" data-title="Website Company Profile"
-            data-desc="Project website modern untuk komunitas."
-            data-img="https://picsum.photos/500/300?random=1">
+            data-desc="Project website modern untuk komunitas." data-img="https://picsum.photos/500/300?random=1">
             <span class="project-badge badge-blue">Web</span>
             <h3>Company Profile</h3>
             <p>Website modern komunitas.</p>
             <button class="btn-detail">Detail</button>
           </div>
-          <div class="project-card" data-title="Mobile App"
-            data-desc="Aplikasi mobile untuk anggota komunitas."
+          <div class="project-card" data-title="Mobile App" data-desc="Aplikasi mobile untuk anggota komunitas."
             data-img="https://picsum.photos/500/300?random=2">
             <span class="project-badge badge-green">Mobile</span>
             <h3>Mobile App</h3>
@@ -225,8 +213,7 @@
             <button class="btn-detail">Detail</button>
           </div>
           <div class="project-card" data-title="Kas Management"
-            data-desc="Sistem kas untuk laporan transaksi komunitas."
-            data-img="https://picsum.photos/500/300?random=3">
+            data-desc="Sistem kas untuk laporan transaksi komunitas." data-img="https://picsum.photos/500/300?random=3">
             <span class="project-badge badge-orange">Finance</span>
             <h3>Kas Management</h3>
             <p>Sistem laporan kas komunitas.</p>
@@ -236,7 +223,7 @@
       </div>
     </section>
 
-    <!-- GALLERY SECTION -->
+    <!-- GALLERY -->
     <section class="section" id="gallery">
       <div class="section-inner">
         <h2>Gallery</h2>
@@ -263,7 +250,7 @@
       </div>
     </section>
 
-    <!-- CONTACT SECTION -->
+    <!-- CONTACT -->
     <section class="section" id="contact">
       <div class="section-inner">
         <h2>Contact</h2>
@@ -356,30 +343,28 @@
         <button class="zoom-btn" id="zoomResetBtn"><i class="fa-solid fa-rotate-right"></i></button>
       </div>
       <img id="lightboxImg" src="" alt="lightbox" />
-      <!-- [BUGFIX #2] Tombol prev/next lightbox ada di HTML tapi TIDAK ADA di CSS &
-           JS menggunakannya — tambahkan style via CSS (sudah ada .lightbox-nav di CSS) -->
       <button id="lightboxPrev" class="lightbox-nav prev">&#10094;</button>
       <button id="lightboxNext" class="lightbox-nav next">&#10095;</button>
     </div>
   </div>
 
-  <!-- TOAST NOTIFICATION -->
+  <!-- TOAST -->
   <div class="toast" id="toast">
     <i class="fa-solid fa-circle-check"></i>
     <span id="toastMsg">Pesan berhasil dikirim!</span>
   </div>
 
-  <!-- BACK TO TOP BUTTON -->
+  <!-- BACK TO TOP -->
   <button class="back-to-top" id="backToTop">
     <i class="fa-solid fa-arrow-up"></i>
   </button>
 
-  <!-- FLOATING WHATSAPP BUTTON -->
+  <!-- FLOATING WHATSAPP -->
   <a href="https://wa.me/6281234567890" target="_blank" class="floating-whatsapp" id="floatingWhatsapp">
     <i class="fa-brands fa-whatsapp"></i>
   </a>
 
-  <!-- CLICK SOUND EFFECT -->
+  <!-- AUDIO -->
   <audio id="clickSound" src="click.mp3"></audio>
 
   <script src="js/main.js"></script>
