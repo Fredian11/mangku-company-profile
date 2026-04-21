@@ -136,7 +136,7 @@ projectModal.addEventListener("click", (e) => {
 });
 
 /* ============================================================
-   GALLERY LIGHTBOX — ZOOM, DRAG, NAVIGATE, SWIPE, PINCH
+   GALLERY LIGHTBOX — ZOOM, DRAG, NAVIGATE, SWIPE, PINCH, FULLSCREEN
 ============================================================ */
 const lightboxModal = document.getElementById("lightboxModal");
 const lightboxImg = document.getElementById("lightboxImg");
@@ -146,6 +146,7 @@ const lightboxNext = document.getElementById("lightboxNext");
 const zoomInBtn = document.getElementById("zoomInBtn");
 const zoomOutBtn = document.getElementById("zoomOutBtn");
 const zoomResetBtn = document.getElementById("zoomResetBtn");
+const fullscreenBtn = document.getElementById("fullscreentBtn");
 
 let isLightboxOpen = false;
 let currentZoom = 1;
@@ -220,6 +221,19 @@ function resetZoom() {
   }
 }
 
+/* ===============================
+   FULLSCREEN MODE (BROWSER API)
+================================ */
+function toggleFullscreen() {
+  if (!document.fullscreenElement) {
+    lightbox.requestFullscreen().catch((err) => {
+      console.log("Fullscreen error:", err);
+    });
+  } else {
+    document.exitFullscreen();
+  }
+}
+
 /* ---- OPEN / CLOSE ---- */
 function openLightbox(imgSrc) {
   if (!lightboxModal || !lightboxImg) return;
@@ -233,6 +247,11 @@ function closeLightboxFn() {
   if (!lightboxModal) return;
   lightboxModal.classList.remove("show");
   isLightboxOpen = false;
+
+  if (document.fullscreenElement) {
+    document.exitFullscreen();
+  }
+
   resetZoom();
 }
 
@@ -325,6 +344,24 @@ if (zoomOutBtn) {
 
 if (zoomResetBtn) {
   zoomResetBtn.addEventListener("click", resetZoom);
+}
+
+/* FULLSCREEN BUTTON CLICK */
+if (fullscreenBtn) {
+  fullscreenBtn.addEventListener("click", toggleFullscreen);
+
+  /* ===============================
+   FULLSCREEN CHANGE (ICON SWITCH)
+================================ */
+  document.addEventListener("fullscreenchange", () => {
+    if (!fullscreenBtn) return;
+
+    if (document.fullscreenElement) {
+      fullscreenBtn.innerHTML = '<i class="fa-solid fa-compress"></i>';
+    } else {
+      fullscreenBtn.innerHTML = '<i class="fa-solid fa-expand"></i>';
+    }
+  });
 }
 
 /* ---- DOUBLE CLICK TOGGLE ZOOM ---- */
