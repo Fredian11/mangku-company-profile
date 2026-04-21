@@ -206,6 +206,8 @@ function applyZoom() {
 }
 
 function resetZoom() {
+  translateX = 0;
+  translateY = 0;
   currentZoom = 1;
   translateX = 0;
   translateY = 0;
@@ -440,12 +442,30 @@ function startMomentum() {
 
       lightboxImg.style.transform = `scale(${currentZoom}) translate(${translateX}px, ${translateY}px)`;
 
-      if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) return;
+      if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) {
+        clampToBounds();
+        return;
+      }
 
       requestAnimationFrame(animate);
     }
 
     requestAnimationFrame(animate);
+  }
+
+  /* ===============================
+   FINAL CLAMP (ANTI JITTER)
+================================ */
+  function clampToBounds() {
+    const rect = lightboxImg.getBoundingClientRect();
+
+    const maxX = (rect.width * (currentZoom - 1)) / 2;
+    const maxY = (rect.height * (currentZoom - 1)) / 2;
+
+    translateX = Math.max(-maxX, Math.min(maxX, translateX));
+    translateY = Math.max(-maxY, Math.min(maxY, translateY));
+
+    lightboxImg.style.transform = `scale(${currentZoom}) translate(${translateX}px, ${translateY}px)`;
   }
 
   function animate() {
@@ -472,7 +492,10 @@ function startMomentum() {
 
     lightboxImg.style.transform = `scale(${currentZoom}) translate(${translateX}px, ${translateY}px)`;
 
-    if (Math.abs(velocityX) < 0.1 && Math.abs(velocityY) < 0.1) return;
+    if (Math.abs(velocityX) < 0.1 && Math.abs(velocityY) < 0.1) {
+      clampToBounds();
+      return;
+    }
     momentumFrame = requestAnimationFrame(animate);
   }
 
