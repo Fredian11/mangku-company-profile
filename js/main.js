@@ -1,11 +1,11 @@
 /* ===============================
    GET ELEMENTS
 ================================ */
-const sections    = document.querySelectorAll(".section");
-const menuLinks   = document.querySelectorAll(".menu-link");
-const sidebar     = document.getElementById("sidebar");
-const menuToggle  = document.getElementById("menuToggle");
-const overlay     = document.getElementById("overlay");
+const sections = document.querySelectorAll(".section");
+const menuLinks = document.querySelectorAll(".menu-link");
+const sidebar = document.getElementById("sidebar");
+const menuToggle = document.getElementById("menuToggle");
+const overlay = document.getElementById("overlay");
 const menuHighlight = document.getElementById("menuHighlight");
 
 /* ===============================
@@ -55,9 +55,12 @@ function updateActiveMenu() {
   let currentSection = "";
 
   sections.forEach((section) => {
-    const sectionTop    = section.offsetTop - 200;
+    const sectionTop = section.offsetTop - 200;
     const sectionHeight = section.offsetHeight;
-    if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+    if (
+      window.scrollY >= sectionTop &&
+      window.scrollY < sectionTop + sectionHeight
+    ) {
       currentSection = section.id;
     }
   });
@@ -74,25 +77,25 @@ function updateActiveMenu() {
 }
 
 window.addEventListener("scroll", updateActiveMenu);
-window.addEventListener("load",   updateActiveMenu);
+window.addEventListener("load", updateActiveMenu);
 
 /* ===============================
    MEMBER MODAL
 ================================ */
-const memberCards      = document.querySelectorAll(".member-card");
-const memberModal      = document.getElementById("memberModal");
+const memberCards = document.querySelectorAll(".member-card");
+const memberModal = document.getElementById("memberModal");
 const closeMemberModal = document.getElementById("closeMemberModal");
-const modalImg         = document.getElementById("modalImg");
-const modalName        = document.getElementById("modalName");
-const modalRole        = document.getElementById("modalRole");
-const modalDesc        = document.getElementById("modalDesc");
+const modalImg = document.getElementById("modalImg");
+const modalName = document.getElementById("modalName");
+const modalRole = document.getElementById("modalRole");
+const modalDesc = document.getElementById("modalDesc");
 
 memberCards.forEach((card) => {
   card.addEventListener("click", () => {
-    modalImg.src             = card.dataset.img;
-    modalName.textContent    = card.dataset.name;
-    modalRole.textContent    = card.dataset.role;
-    modalDesc.textContent    = card.dataset.desc;
+    modalImg.src = card.dataset.img;
+    modalName.textContent = card.dataset.name;
+    modalRole.textContent = card.dataset.role;
+    modalDesc.textContent = card.dataset.desc;
     memberModal.classList.add("show");
   });
 });
@@ -108,21 +111,21 @@ memberModal.addEventListener("click", (e) => {
 /* ===============================
    PROJECT MODAL
 ================================ */
-const projectCards      = document.querySelectorAll(".project-card");
-const projectModal      = document.getElementById("projectModal");
+const projectCards = document.querySelectorAll(".project-card");
+const projectModal = document.getElementById("projectModal");
 const closeProjectModal = document.getElementById("closeProjectModal");
-const projectImg        = document.getElementById("projectImg");
-const projectTitle      = document.getElementById("projectTitle");
-const projectDesc       = document.getElementById("projectDesc");
+const projectImg = document.getElementById("projectImg");
+const projectTitle = document.getElementById("projectTitle");
+const projectDesc = document.getElementById("projectDesc");
 
 projectCards.forEach((card) => {
   const btn = card.querySelector(".btn-detail");
   if (btn) {
     btn.addEventListener("click", (e) => {
       e.stopPropagation();
-      projectImg.src           = card.dataset.img;
+      projectImg.src = card.dataset.img;
       projectTitle.textContent = card.dataset.title;
-      projectDesc.textContent  = card.dataset.desc;
+      projectDesc.textContent = card.dataset.desc;
       projectModal.classList.add("show");
     });
   }
@@ -140,45 +143,45 @@ projectModal.addEventListener("click", (e) => {
    GALLERY LIGHTBOX — ZOOM, DRAG, NAVIGATE, SWIPE
 ============================================================ */
 const lightboxModal = document.getElementById("lightboxModal");
-const lightboxImg   = document.getElementById("lightboxImg");
+const lightboxImg = document.getElementById("lightboxImg");
 const closeLightbox = document.getElementById("closeLightbox");
-const lightboxPrev  = document.getElementById("lightboxPrev");
-const lightboxNext  = document.getElementById("lightboxNext");
-const zoomInBtn     = document.getElementById("zoomInBtn");
-const zoomOutBtn    = document.getElementById("zoomOutBtn");
-const zoomResetBtn  = document.getElementById("zoomResetBtn");
+const lightboxPrev = document.getElementById("lightboxPrev");
+const lightboxNext = document.getElementById("lightboxNext");
+const zoomInBtn = document.getElementById("zoomInBtn");
+const zoomOutBtn = document.getElementById("zoomOutBtn");
+const zoomResetBtn = document.getElementById("zoomResetBtn");
 
-let isLightboxOpen    = false;
-let currentZoom       = 1;
-const zoomStep        = 0.2;
-const maxZoom         = 3;
-const minZoom         = 0.4;
+let isLightboxOpen = false;
+let currentZoom = 1;
+const zoomStep = 0.2;
+const maxZoom = 3;
+const minZoom = 0.4;
 
 /* STATE DRAG */
-let isDragging  = false;
-let startX      = 0;
-let startY      = 0;
-let translateX  = 0;
-let translateY  = 0;
+let isDragging = false;
+let startX = 0;
+let startY = 0;
+let translateX = 0;
+let translateY = 0;
 
 /* STATE LIGHTBOX IMAGE INDEX */
 const galleryImages = document.querySelectorAll(".gallery-item img");
-const galleryArray  = Array.from(galleryImages);
+const galleryArray = Array.from(galleryImages);
 let currentImageIndex = 0;
 
 /* ---- ZOOM ---- */
 function applyZoom() {
   if (!lightboxImg) return;
-  lightboxImg.style.transform  = `scale(${currentZoom}) translate(${translateX / currentZoom}px, ${translateY / currentZoom}px)`;
+  lightboxImg.style.transform = `scale(${currentZoom}) translate(${translateX / currentZoom}px, ${translateY / currentZoom}px)`;
   lightboxImg.style.transition = "transform 0.25s ease";
 }
 
 function resetZoom() {
   currentZoom = 1;
-  translateX  = 0;
-  translateY  = 0;
+  translateX = 0;
+  translateY = 0;
   if (lightboxImg) {
-    lightboxImg.style.transform  = "scale(1) translate(0,0)";
+    lightboxImg.style.transform = "scale(1) translate(0,0)";
     lightboxImg.style.transition = "transform 0.25s ease";
   }
 }
@@ -206,7 +209,8 @@ function showNextImage() {
 }
 
 function showPrevImage() {
-  currentImageIndex = (currentImageIndex - 1 + galleryArray.length) % galleryArray.length;
+  currentImageIndex =
+    (currentImageIndex - 1 + galleryArray.length) % galleryArray.length;
   openLightbox(galleryArray[currentImageIndex].src);
 }
 
@@ -238,21 +242,27 @@ if (lightboxModal) {
 /* ---- KEYBOARD (ESC, ARROW) ---- */
 document.addEventListener("keydown", (e) => {
   if (!isLightboxOpen) return;
-  if (e.key === "Escape")     closeLightboxFn();
+  if (e.key === "Escape") closeLightboxFn();
   if (e.key === "ArrowRight") showNextImage();
-  if (e.key === "ArrowLeft")  showPrevImage();
+  if (e.key === "ArrowLeft") showPrevImage();
 });
 
 /* ---- ZOOM IN / OUT / RESET ---- */
 if (zoomInBtn) {
   zoomInBtn.addEventListener("click", () => {
-    if (currentZoom < maxZoom) { currentZoom += zoomStep; applyZoom(); }
+    if (currentZoom < maxZoom) {
+      currentZoom += zoomStep;
+      applyZoom();
+    }
   });
 }
 
 if (zoomOutBtn) {
   zoomOutBtn.addEventListener("click", () => {
-    if (currentZoom > minZoom) { currentZoom -= zoomStep; applyZoom(); }
+    if (currentZoom > minZoom) {
+      currentZoom -= zoomStep;
+      applyZoom();
+    }
   });
 }
 
@@ -263,8 +273,12 @@ if (zoomResetBtn) {
 /* ---- DOUBLE CLICK TOGGLE ZOOM ---- */
 if (lightboxImg) {
   lightboxImg.addEventListener("dblclick", () => {
-    if (currentZoom === 1) { currentZoom = 2; applyZoom(); }
-    else                   { resetZoom(); }
+    if (currentZoom === 1) {
+      currentZoom = 2;
+      applyZoom();
+    } else {
+      resetZoom();
+    }
   });
 }
 
@@ -275,8 +289,8 @@ if (lightboxImg) {
 if (lightboxImg) {
   lightboxImg.addEventListener("mousedown", (e) => {
     isDragging = true;
-    startX     = e.clientX - translateX;
-    startY     = e.clientY - translateY;
+    startX = e.clientX - translateX;
+    startY = e.clientY - translateY;
     lightboxImg.style.cursor = "grabbing";
   });
 }
@@ -299,7 +313,7 @@ document.addEventListener("mouseup", () => {
 // (baris 187 untuk lightbox & baris 523 untuk gallery). Pisahkan namanya agar tidak
 // saling menimpa.
 let lbTouchStartX = 0;
-let lbTouchEndX   = 0;
+let lbTouchEndX = 0;
 
 if (lightboxImg) {
   lightboxImg.addEventListener("touchstart", (e) => {
@@ -308,7 +322,7 @@ if (lightboxImg) {
 
   lightboxImg.addEventListener("touchend", (e) => {
     lbTouchEndX = e.changedTouches[0].screenX;
-    if (currentZoom > 1) return; // nonaktifkan swipe saat zoom
+    if (currentZoom > 1 || isPinching) return; // nonaktifkan swipe saat zoom
 
     const swipeThreshold = 50;
     if (lbTouchEndX < lbTouchStartX - swipeThreshold) showNextImage();
@@ -316,12 +330,59 @@ if (lightboxImg) {
   });
 }
 
+/* ---- PINCH ZOOM (2 FINGER) ---- */
+/* Diletakkan di bawah SWIPE LIGHTBOX agar tidak bentrok */
+
+let initialDistance = 0;
+let isPinching = false;
+
+/* Hitung jarak 2 jari */
+function getDistance(touches) {
+  const dx = touches[0].clientX - touches[1].clientX;
+  const dy = touches[0].clientY - touches[1].clientY;
+  return Math.sqrt(dx * dx + dy * dy);
+}
+
+if (lightboxImg) {
+  /* TOUCH START */
+  lightboxImg.addEventListener("touchstart", (e) => {
+    if (e.touches.length === 2) {
+      isPinching = true;
+      initialDistance = getDistance(e.touches);
+    }
+  });
+
+  /* TOUCH MOVE (MOBILE)*/
+  lightboxImg.addEventListener("touchmove", (e) => {
+    if (!isPinching || e.touches.length !== 2) return;
+
+    const currentDistance = getDistance(e.touches);
+    let scaleChange = currentDistance / initialDistance;
+
+    let newZoom = currentZoom * scaleChange;
+
+    /* Batasi zoom */
+    if (newZoom > maxZoom) newZoom = maxZoom;
+    if (newZoom < minZoom) newZoom = minZoom;
+
+    currentZoom = newZoom;
+    applyZoom();
+
+    initialDistance = currentDistance;
+  });
+
+  /* TOUCH END */
+  lightboxImg.addEventListener("touchend", () => {
+    isPinching = false;
+  });
+}
+
 /* ===============================
    GALLERY SLIDER BUTTON
 ================================ */
 const galleryTrack = document.getElementById("galleryTrack");
-const galleryPrev  = document.getElementById("galleryPrev");
-const galleryNext  = document.getElementById("galleryNext");
+const galleryPrev = document.getElementById("galleryPrev");
+const galleryNext = document.getElementById("galleryNext");
 
 galleryNext.addEventListener("click", () => {
   galleryTrack.scrollLeft += 320;
@@ -381,7 +442,7 @@ galleryTrack.addEventListener("scroll", updateGalleryDots);
 ================================ */
 // Nama variabel berbeda dari lightbox swipe agar tidak bentrok
 let galTouchStartX = 0;
-let galTouchEndX   = 0;
+let galTouchEndX = 0;
 
 galleryTrack.addEventListener("touchstart", (e) => {
   galTouchStartX = e.changedTouches[0].screenX;
@@ -404,7 +465,7 @@ let progressInterval;
 let progressValue = 0;
 
 const slideDuration = 3000;
-const progressStep  = 100 / (slideDuration / 50);
+const progressStep = 100 / (slideDuration / 50);
 
 function resetProgress() {
   progressValue = 0;
@@ -416,7 +477,8 @@ function startProgress() {
   progressInterval = setInterval(() => {
     progressValue += progressStep;
     if (progressValue >= 100) progressValue = 100;
-    if (galleryProgressBar) galleryProgressBar.style.width = progressValue + "%";
+    if (galleryProgressBar)
+      galleryProgressBar.style.width = progressValue + "%";
   }, 50);
 }
 
@@ -426,7 +488,10 @@ function stopProgress() {
 
 function nextSlide() {
   galleryTrack.scrollLeft += 320;
-  if (galleryTrack.scrollLeft + galleryTrack.clientWidth >= galleryTrack.scrollWidth - 5) {
+  if (
+    galleryTrack.scrollLeft + galleryTrack.clientWidth >=
+    galleryTrack.scrollWidth - 5
+  ) {
     galleryTrack.scrollLeft = 0;
   }
   updateGalleryDots();
@@ -455,8 +520,8 @@ function stopGalleryAutoSlide() {
 const scrollProgress = document.getElementById("scrollProgress");
 
 window.addEventListener("scroll", () => {
-  const scrollTop     = window.scrollY;
-  const docHeight     = document.documentElement.scrollHeight - window.innerHeight;
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
   const scrollPercent = (scrollTop / docHeight) * 100;
   scrollProgress.style.width = scrollPercent + "%";
 });
@@ -468,7 +533,7 @@ const backToTop = document.getElementById("backToTop");
 
 window.addEventListener("scroll", () => {
   if (window.scrollY > 400) backToTop.classList.add("show");
-  else                       backToTop.classList.remove("show");
+  else backToTop.classList.remove("show");
 });
 
 backToTop.addEventListener("click", () => {
@@ -478,7 +543,7 @@ backToTop.addEventListener("click", () => {
 /* ===============================
    TOAST NOTIFICATION
 ================================ */
-const toast    = document.getElementById("toast");
+const toast = document.getElementById("toast");
 const toastMsg = document.getElementById("toastMsg");
 
 function showToast(message) {
@@ -490,20 +555,20 @@ function showToast(message) {
 /* ===============================
    CONTACT FORM VALIDATION
 ================================ */
-const contactForm  = document.getElementById("contactForm");
-const nameInput    = document.getElementById("name");
-const emailInput   = document.getElementById("email");
+const contactForm = document.getElementById("contactForm");
+const nameInput = document.getElementById("name");
+const emailInput = document.getElementById("email");
 const messageInput = document.getElementById("message");
-const nameError    = document.getElementById("nameError");
-const emailError   = document.getElementById("emailError");
+const nameError = document.getElementById("nameError");
+const emailError = document.getElementById("emailError");
 const messageError = document.getElementById("messageError");
 
 contactForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
   let valid = true;
-  nameError.textContent    = "";
-  emailError.textContent   = "";
+  nameError.textContent = "";
+  emailError.textContent = "";
   messageError.textContent = "";
 
   if (nameInput.value.trim() === "") {
@@ -535,14 +600,20 @@ contactForm.addEventListener("submit", (e) => {
 ================================ */
 const darkToggle = document.getElementById("darkToggle");
 
-function enableDarkMode()  { document.body.classList.add("dark");    localStorage.setItem("theme", "dark"); }
-function disableDarkMode() { document.body.classList.remove("dark"); localStorage.setItem("theme", "light"); }
+function enableDarkMode() {
+  document.body.classList.add("dark");
+  localStorage.setItem("theme", "dark");
+}
+function disableDarkMode() {
+  document.body.classList.remove("dark");
+  localStorage.setItem("theme", "light");
+}
 
 if (localStorage.getItem("theme") === "dark") enableDarkMode();
 
 darkToggle.addEventListener("click", () => {
   if (document.body.classList.contains("dark")) disableDarkMode();
-  else                                           enableDarkMode();
+  else enableDarkMode();
 });
 
 /* ===============================
@@ -557,8 +628,8 @@ const words = [
   "Tempat Sharing & Adu Nasip",
 ];
 
-let wordIndex  = 0;
-let charIndex  = 0;
+let wordIndex = 0;
+let charIndex = 0;
 let isDeleting = false;
 
 function typingLoop() {
@@ -577,7 +648,7 @@ function typingLoop() {
     charIndex--;
     if (charIndex === 0) {
       isDeleting = false;
-      wordIndex  = (wordIndex + 1) % words.length;
+      wordIndex = (wordIndex + 1) % words.length;
     }
   }
 
@@ -589,16 +660,16 @@ typingLoop();
 /* ===============================
    COUNTER ANIMATION (HOME STATS)
 ================================ */
-const counters       = document.querySelectorAll(".count");
-let counterStarted   = false;
+const counters = document.querySelectorAll(".count");
+let counterStarted = false;
 
 function startCounters() {
   if (counterStarted) return;
   counterStarted = true;
 
   counters.forEach((counter) => {
-    const target    = +counter.dataset.target;
-    let current     = 0;
+    const target = +counter.dataset.target;
+    let current = 0;
     const increment = Math.ceil(target / 60);
 
     const updateCounter = setInterval(() => {
@@ -616,8 +687,10 @@ function startCounters() {
 const homeSection = document.querySelector("#home");
 
 const counterObserver = new IntersectionObserver(
-  (entries) => { if (entries[0].isIntersecting) startCounters(); },
-  { threshold: 0.5 }
+  (entries) => {
+    if (entries[0].isIntersecting) startCounters();
+  },
+  { threshold: 0.5 },
 );
 
 counterObserver.observe(homeSection);
@@ -639,8 +712,8 @@ window.addEventListener("load", () => {
 /* ============================================================
    NAVBAR ACTIVE UNDERLINE + SCROLL DETECTION
 ============================================================ */
-const sidebarLinks  = document.querySelectorAll(".menu-link.sidebar-link");
-const PageSections  = document.querySelectorAll("section[id]");
+const sidebarLinks = document.querySelectorAll(".menu-link.sidebar-link");
+const PageSections = document.querySelectorAll("section[id]");
 
 function setActiveLink(id) {
   sidebarLinks.forEach((link) => link.classList.remove("active"));
@@ -652,7 +725,7 @@ window.addEventListener("scroll", () => {
   let currentSection = "";
 
   PageSections.forEach((section) => {
-    const sectionTop    = section.offsetTop - 150;
+    const sectionTop = section.offsetTop - 150;
     const sectionHeight = section.offsetHeight;
     if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
       currentSection = section.getAttribute("id");
@@ -676,8 +749,8 @@ const navIndicator = document.querySelector(".nav-indicator");
 
 function moveIndicator(targetLink) {
   if (!navIndicator || !targetLink) return;
-  navIndicator.style.top     = targetLink.offsetTop + "px";
-  navIndicator.style.height  = targetLink.offsetHeight + "px";
+  navIndicator.style.top = targetLink.offsetTop + "px";
+  navIndicator.style.height = targetLink.offsetHeight + "px";
   navIndicator.style.opacity = "1";
 }
 
