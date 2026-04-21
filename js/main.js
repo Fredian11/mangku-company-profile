@@ -376,8 +376,16 @@ document.addEventListener("mousemove", (e) => {
   const maxX = (rect.width * (currentZoom - 1)) / 2;
   const maxY = (rect.height * (currentZoom - 1)) / 2;
 
-  translateX = Math.max(-maxX, Math.min(maxX, newX));
-  translateY = Math.max(-maxY, Math.min(maxY, newY));
+  /* ===============================
+   SOFT LIMIT (EDGE BOUNCE PREP)
+================================ */
+  const overflowX = newX - Math.max(-maxX, Math.min(maxX, newX));
+  const overflowY = newY - Math.max(-maxY, Math.min(maxY, newY));
+
+  const resistance = 0.35;
+
+  translateX = Math.max(-maxX, Math.min(maxX, newX)) + overflowX * resistance;
+  translateY = Math.max(-maxY, Math.min(maxY, newY)) + overflowY * resistance;
 
   lightboxImg.style.transform = `scale(${currentZoom}) translate(${translateX}px, ${translateY}px)`;
 });
@@ -387,14 +395,58 @@ document.addEventListener("mousemove", (e) => {
    pernah drag (misal klik tombol zoom). Dibalik urutannya. */
 document.addEventListener("mouseup", () => {
   if (!isDragging) return;
+
   isDragging = false;
+
   if (lightboxImg) lightboxImg.style.cursor = "grab";
+
   startMomentum();
+
+  /* TAMBAHAN */
+  setTimeout(() => {
+    applyEdgeBounce();
+  }, 50);
 });
 
 /* ---- INERTIA / MOMENTUM ---- */
 function startMomentum() {
   const friction = 0.95;
+
+  /* ===============================
+   EDGE BOUNCE BACK (SPRING)
+================================ */
+  function applyEdgeBounce() {
+    const rect = lightboxImg.getBoundingClientRect();
+    const maxX = (rect.width * (currentZoom - 1)) / 2;
+    const maxY = (rect.height * (currentZoom - 1)) / 2;
+
+    let targetX = translateX;
+    let targetY = translateY;
+
+    if (translateX > maxX) targetX = maxX;
+    if (translateX < -maxX) targetX = -maxX;
+
+    if (translateY > maxY) targetY = maxY;
+    if (translateY < -maxY) targetY = -maxY;
+
+    const ease = 0.12;
+
+    function animate() {
+      const dx = targetX - translateX;
+      const dy = targetY - translateY;
+
+      translateX += dx * ease;
+      translateY += dy * ease;
+
+      lightboxImg.style.transform = `scale(${currentZoom}) translate(${translateX}px, ${translateY}px)`;
+
+      if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) return;
+
+      requestAnimationFrame(animate);
+    }
+
+    requestAnimationFrame(animate);
+  }
 
   function animate() {
     velocityX *= friction;
@@ -407,8 +459,16 @@ function startMomentum() {
     const maxX = (rect.width * (currentZoom - 1)) / 2;
     const maxY = (rect.height * (currentZoom - 1)) / 2;
 
-    translateX = Math.max(-maxX, Math.min(maxX, translateX));
-    translateY = Math.max(-maxY, Math.min(maxY, translateY));
+    const overflowX = translateX - Math.max(-maxX, Math.min(maxX, translateX));
+    const overflowY = translateY - Math.max(-maxY, Math.min(maxY, translateY));
+
+    const resistance = 0.35;
+
+    translateX =
+      Math.max(-maxX, Math.min(maxX, translateX)) + overflowX * resistance;
+
+    translateY =
+      Math.max(-maxY, Math.min(maxY, translateY)) + overflowY * resistance;
 
     lightboxImg.style.transform = `scale(${currentZoom}) translate(${translateX}px, ${translateY}px)`;
 
