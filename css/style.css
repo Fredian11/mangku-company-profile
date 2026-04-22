@@ -1,6 +1,6 @@
-/* =============================
-   RESET & BASE
-============================= */
+/* ============================================================
+  [1] RESET & BASE
+============================================================ */
 * {
   margin: 0;
   padding: 0;
@@ -18,9 +18,9 @@ body {
   overflow-x: hidden;
 }
 
-/* =============================
-   THEME COLOR VARIABLES
-============================= */
+/* ============================================================
+  [2] THEME COLOR VARIABLES
+============================================================ */
 :root {
   --primary: #0d6efd;
   --whatsapp: #25d366;
@@ -30,9 +30,9 @@ body {
   --soft-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
 }
 
-/* =============================
-   SCROLL PROGRESS BAR
-============================= */
+/* ============================================================
+  [3] SCROLL PROGRESS BAR (TOP)
+============================================================ */
 #scrollProgress {
   position: fixed;
   top: 0;
@@ -43,9 +43,9 @@ body {
   z-index: 9999;
 }
 
-/* =============================
-   PAGE LOADER
-============================= */
+/* ============================================================
+  [4] PAGE LOADER
+============================================================ */
 .page-loader {
   position: fixed;
   inset: 0;
@@ -78,14 +78,12 @@ body {
 }
 
 @keyframes spin {
-  100% {
-    transform: rotate(360deg);
-  }
+  100% { transform: rotate(360deg); }
 }
 
-/* =============================
-   MOBILE MENU TOGGLE BUTTON
-============================= */
+/* ============================================================
+  [5] MOBILE MENU TOGGLE BUTTON
+============================================================ */
 .menu-toggle {
   display: none;
   position: fixed;
@@ -101,9 +99,9 @@ body {
   z-index: 9999;
 }
 
-/* =============================
-   OVERLAY MOBILE
-============================= */
+/* ============================================================
+  [6] OVERLAY MOBILE
+============================================================ */
 .overlay {
   position: fixed;
   inset: 0;
@@ -119,9 +117,9 @@ body {
   pointer-events: auto;
 }
 
-/* =============================
-   SIDEBAR
-============================= */
+/* ============================================================
+  [7] SIDEBAR
+============================================================ */
 .sidebar {
   width: 240px;
   height: 100vh;
@@ -164,6 +162,7 @@ body {
   position: relative;
 }
 
+/* [7a] Base menu link */
 .menu-link {
   display: flex;
   align-items: center;
@@ -185,9 +184,7 @@ body {
   color: white;
 }
 
-/* ============================================================
-   MENU HIGHLIGHT — dinonaktifkan, diganti nav-indicator
-============================================================ */
+/* [7b] Menu highlight — dinonaktifkan, diganti nav-indicator */
 .menu-highlight {
   position: absolute;
   width: 100%;
@@ -202,30 +199,7 @@ body {
   visibility: hidden !important;
 }
 
-.dark-toggle {
-  margin-top: 15px;
-  width: 100%;
-  padding: 12px;
-  background: #222;
-  border: none;
-  color: white;
-  border-radius: 10px;
-  cursor: pointer;
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-
-.sidebar-footer {
-  margin-top: 20px;
-  color: white;
-  font-size: 12px;
-  opacity: 0.7;
-}
-
-/* ============================================================
-   ACTIVE MENU TEXT NEON EFFECT
-============================================================ */
+/* [7c] Active menu text neon effect */
 .menu-link.active span {
   color: #ffffff;
   text-shadow:
@@ -233,9 +207,7 @@ body {
     0 0 14px rgba(0, 114, 255, 0.6);
 }
 
-/* ============================================================
-   NAVBAR ACTIVE UNDERLINE GRADIENT + GLOW
-============================================================ */
+/* [7d] Sidebar link underline gradient + glow */
 .sidebar-link {
   position: relative;
   display: flex;
@@ -260,21 +232,15 @@ body {
   transition: width 0.35s ease;
 }
 
-.sidebar-link:hover::after {
-  width: 65%;
-}
-.sidebar-link.active::after {
-  width: 75%;
-}
+.sidebar-link:hover::after  { width: 65%; }
+.sidebar-link.active::after { width: 75%; }
 
 .sidebar-link.active {
   background: rgba(0, 198, 255, 0.08);
   border: 1px solid rgba(0, 198, 255, 0.25);
 }
 
-/* ============================================================
-   NAVBAR SLIDING INDICATOR (NEON + GLASS)
-============================================================ */
+/* [7e] Sliding nav indicator (neon + glass) */
 .nav-indicator {
   position: absolute;
   left: 10px;
@@ -318,17 +284,36 @@ body {
 }
 
 @keyframes shimmerMove {
-  0% {
-    left: -120%;
-  }
-  100% {
-    left: 120%;
-  }
+  0%   { left: -120%; }
+  100% { left:  120%; }
 }
 
-/* =============================
-   MAIN CONTENT
-============================= */
+/* [7f] Dark mode toggle button */
+.dark-toggle {
+  margin-top: 15px;
+  width: 100%;
+  padding: 12px;
+  background: #222;
+  border: none;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* [7g] Sidebar footer */
+.sidebar-footer {
+  margin-top: 20px;
+  color: white;
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+/* ============================================================
+  [8] MAIN CONTENT & SECTION BASE
+============================================================ */
 .main-content {
   margin-left: 240px;
   width: calc(100% - 240px);
@@ -348,37 +333,9 @@ body {
   color: var(--primary);
 }
 
-/* =============================
-   HOME HERO STATS
-============================= */
-.home-stats {
-  margin-top: 30px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-}
-
-.stat-card {
-  background: white;
-  padding: 20px;
-  border-radius: 14px;
-  text-align: center;
-  box-shadow: var(--soft-shadow);
-}
-
-.stat-card h2 {
-  font-size: 34px;
-  color: var(--primary);
-}
-
-.stat-card p {
-  margin-top: 5px;
-  opacity: 0.8;
-}
-
-/* =============================
-   TYPING ANIMATION STYLE
-============================= */
+/* ============================================================
+  [9] HOME — TYPING ANIMATION
+============================================================ */
 .typing-area {
   margin-top: 20px;
   font-size: 18px;
@@ -392,14 +349,12 @@ body {
 }
 
 @keyframes blink {
-  50% {
-    opacity: 0;
-  }
+  50% { opacity: 0; }
 }
 
-/* =============================
-   BUTTONS
-============================= */
+/* ============================================================
+  [10] HOME — BUTTONS
+============================================================ */
 .btn-primary,
 .btn-outline {
   padding: 12px 18px;
@@ -435,12 +390,8 @@ body {
   color: white;
 }
 
-.btn-whatsapp {
-  background: var(--whatsapp);
-}
-.btn-whatsapp:hover {
-  opacity: 0.9;
-}
+.btn-whatsapp           { background: var(--whatsapp); }
+.btn-whatsapp:hover     { opacity: 0.9; }
 
 .hero-buttons {
   margin-top: 25px;
@@ -449,13 +400,39 @@ body {
   flex-wrap: wrap;
 }
 
-.btn-send {
-  margin-top: 10px;
+.btn-send { margin-top: 10px; }
+
+/* ============================================================
+  [11] HOME — STATS CARDS
+============================================================ */
+.home-stats {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
 }
 
-/* =============================
-   ABOUT ICON CARD
-============================= */
+.stat-card {
+  background: white;
+  padding: 20px;
+  border-radius: 14px;
+  text-align: center;
+  box-shadow: var(--soft-shadow);
+}
+
+.stat-card h2 {
+  font-size: 34px;
+  color: var(--primary);
+}
+
+.stat-card p {
+  margin-top: 5px;
+  opacity: 0.8;
+}
+
+/* ============================================================
+  [12] ABOUT — ICON CARDS
+============================================================ */
 .about-icons {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -483,9 +460,9 @@ body {
   box-shadow: var(--soft-shadow);
 }
 
-/* =============================
-   MEMBER CARD
-============================= */
+/* ============================================================
+  [13] MEMBERS — CARDS
+============================================================ */
 .member-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -513,9 +490,9 @@ body {
   box-shadow: var(--soft-shadow);
 }
 
-/* =============================
-   ACTIVITY LIST
-============================= */
+/* ============================================================
+  [14] ACTIVITIES — LIST
+============================================================ */
 .activity-list {
   margin-top: 20px;
   list-style: none;
@@ -529,13 +506,11 @@ body {
   gap: 10px;
 }
 
-.activity-list i {
-  color: var(--primary);
-}
+.activity-list i { color: var(--primary); }
 
-/* =============================
-   PROJECTS
-============================= */
+/* ============================================================
+  [15] PROJECTS — CARDS & BADGES
+============================================================ */
 .project-grid {
   margin-top: 25px;
   display: grid;
@@ -557,13 +532,8 @@ body {
   box-shadow: var(--soft-shadow);
 }
 
-.project-card h3 {
-  margin-top: 10px;
-}
-.project-card p {
-  margin-top: 8px;
-  opacity: 0.8;
-}
+.project-card h3 { margin-top: 10px; }
+.project-card p  { margin-top: 8px; opacity: 0.8; }
 
 .btn-detail {
   margin-top: 15px;
@@ -576,9 +546,7 @@ body {
   font-weight: bold;
 }
 
-.btn-detail:hover {
-  opacity: 0.9;
-}
+.btn-detail:hover { opacity: 0.9; }
 
 .project-badge {
   position: absolute;
@@ -591,19 +559,129 @@ body {
   font-weight: bold;
 }
 
-.badge-blue {
-  background: var(--primary);
-}
-.badge-green {
-  background: var(--whatsapp);
-}
-.badge-orange {
-  background: #ff9800;
+.badge-blue   { background: var(--primary); }
+.badge-green  { background: var(--whatsapp); }
+.badge-orange { background: #ff9800; }
+
+/* ============================================================
+  [16] GALLERY — SLIDER
+============================================================ */
+.gallery-slider {
+  position: relative;
+  margin-top: 25px;
 }
 
-/* =============================
-   MODAL GLOBAL
-============================= */
+.gallery-track {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 10px;
+}
+
+.gallery-track::-webkit-scrollbar { display: none; }
+
+.gallery-item {
+  flex: 0 0 auto;
+  scroll-snap-align: center;
+}
+
+.gallery-img {
+  width: 300px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.gallery-img:hover { transform: scale(1.04); }
+
+.gallery-btn {
+  position: absolute;
+  top: 40%;
+  background: var(--primary);
+  border: none;
+  color: white;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gallery-btn.left  { left:  -18px; }
+.gallery-btn.right { right: -18px; }
+
+/* ============================================================
+  [17] GALLERY — LAZY LOAD IMAGE EFFECT
+  Satu deklarasi bersih — FIX: file asli mendefinisikan .lazy-img
+  DUA KALI (baris 676 & 750) dengan nilai berbeda saling menimpa.
+============================================================ */
+.lazy-img {
+  filter: blur(20px);
+  transform: scale(1.05);
+  opacity: 0.6;
+  transition:
+    filter 0.5s ease,
+    transform 0.5s ease,
+    opacity 0.5s ease;
+}
+
+.lazy-img.loaded {
+  filter: blur(0);
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* ============================================================
+  [18] GALLERY — DOT INDICATOR
+============================================================ */
+.gallery-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.gallery-dot {
+  width: 10px;
+  height: 10px;
+  background: #bbb;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.gallery-dot.active {
+  background: var(--primary);
+  transform: scale(1.3);
+}
+
+/* ============================================================
+  [19] GALLERY — PROGRESS BAR
+============================================================ */
+.gallery-progress {
+  width: 100%;
+  height: 4px;
+  background: #ddd;
+  margin-top: 10px;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.gallery-progress-bar {
+  height: 4px;
+  width: 0%;
+  background: var(--primary);
+  transition: width 0.1s linear;
+}
+
+/* ============================================================
+  [20] MODAL — GLOBAL (MEMBER & PROJECT)
+============================================================ */
 .modal {
   position: fixed;
   inset: 0;
@@ -645,11 +723,23 @@ body {
   object-fit: cover;
 }
 
+/* Tombol close — z-index cukup tinggi agar tidak tertutup gambar slide */
+.close {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  font-size: 28px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+/* ============================================================
+  [21] LIGHTBOX — CONTAINER
+============================================================ */
 .lightbox-content {
   width: 90%;
   max-width: 800px;
-  /* BUG #1 FIX: overflow:hidden diperlukan agar efek slide tidak
-     menyebabkan gambar terlihat di luar batas modal saat transisi */
+  /* overflow:hidden agar gambar slide tidak bocor keluar kotak */
   overflow: hidden;
 }
 
@@ -659,122 +749,8 @@ body {
   border-radius: 14px;
 }
 
-.close {
-  position: absolute;
-  right: 15px;
-  top: 10px;
-  font-size: 28px;
-  cursor: pointer;
-  /* BUG #2 FIX: z-index lebih tinggi dari slide, agar tombol X
-     tidak tertutup oleh gambar saat animasi slide berjalan */
-  z-index: 10;
-}
-
-/* =============================
-   GALLERY SLIDER
-============================= */
-.gallery-slider {
-  position: relative;
-  margin-top: 25px;
-}
-
-.gallery-track {
-  display: flex;
-  gap: 15px;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  scroll-snap-type: x mandatory;
-  padding-bottom: 10px;
-}
-
-.gallery-track::-webkit-scrollbar {
-  display: none;
-}
-
-.gallery-item {
-  flex: 0 0 auto;
-  scroll-snap-align: center;
-}
-
-.gallery-img {
-  width: 300px;
-  border-radius: 14px;
-  cursor: pointer;
-  transition: 0.3s ease;
-}
-
-.gallery-img:hover {
-  transform: scale(1.04);
-}
-
-.gallery-btn {
-  position: absolute;
-  top: 40%;
-  background: var(--primary);
-  border: none;
-  color: white;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  cursor: pointer;
-  z-index: 5;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.gallery-btn.left {
-  left: -18px;
-}
-.gallery-btn.right {
-  right: -18px;
-}
-
-/* =============================
-   DOT INDICATOR (GALLERY)
-============================= */
-.gallery-dots {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 18px;
-}
-
-.gallery-dot {
-  width: 10px;
-  height: 10px;
-  background: #bbb;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: 0.3s ease;
-}
-
-.gallery-dot.active {
-  background: var(--primary);
-  transform: scale(1.3);
-}
-
-/* =============================
-   GALLERY PROGRESS BAR
-============================= */
-.gallery-progress {
-  width: 100%;
-  height: 4px;
-  background: #ddd;
-  margin-top: 10px;
-  border-radius: 999px;
-  overflow: hidden;
-}
-
-.gallery-progress-bar {
-  height: 4px;
-  width: 0%;
-  background: var(--primary);
-  transition: width 0.1s linear;
-}
-
 /* ============================================================
-   LIGHTBOX ZOOM CONTROLS
+  [22] LIGHTBOX — ZOOM CONTROLS
 ============================================================ */
 .lightbox-controls {
   position: absolute;
@@ -782,8 +758,7 @@ body {
   right: 60px;
   display: flex;
   gap: 10px;
-  /* BUG #3 FIX: z-index harus lebih besar dari lightbox-nav (1000)
-     agar tombol zoom tidak tertutup tombol navigasi prev/next */
+  /* z-index di atas lightbox-nav (1000) agar tombol zoom tidak tertutup */
   z-index: 1001;
 }
 
@@ -808,50 +783,36 @@ body {
 }
 
 /* ============================================================
-   LIGHTBOX IMAGE
-   Satu deklarasi bersih — cursor grab, siap untuk zoom & drag
+  [23] LIGHTBOX — IMAGE (satu deklarasi bersih)
 ============================================================ */
 #lightboxImg {
-  transition:
-    transform 0.25s ease,
-    opacity 0.3s ease;
+  transition: transform 0.25s ease, opacity 0.3s ease;
   transform-origin: center center;
   cursor: grab;
   will-change: transform, opacity;
   position: relative;
-  /* BUG #4 FIX: display block menghilangkan gap bawaan inline image
-     yang bisa menyebabkan jitter saat slide transition */
   display: block;
 }
 
-/* ===============================
-   SLIDE TRANSITION LIGHTBOX
-   BUG #5 FIX: transition ditambahkan langsung ke class slide agar
-   animasi benar-benar berjalan. Tanpa ini, perpindahan gambar
-   terasa instan tanpa efek geser.
-================================ */
+/* ============================================================
+  [24] LIGHTBOX — SLIDE TRANSITION CLASSES
+============================================================ */
 .slide-center {
   transform: translateX(0) scale(1);
   opacity: 1;
-  transition:
-    transform 0.3s ease,
-    opacity 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .slide-out-left {
   transform: translateX(-100%) scale(1);
   opacity: 0;
-  transition:
-    transform 0.2s ease,
-    opacity 0.2s ease;
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
 .slide-out-right {
   transform: translateX(100%) scale(1);
   opacity: 0;
-  transition:
-    transform 0.2s ease,
-    opacity 0.2s ease;
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
 .slide-in-right {
@@ -864,9 +825,9 @@ body {
   opacity: 0;
 }
 
-/* ===============================
-   LIGHTBOX NAVIGATION BUTTON
-================================ */
+/* ============================================================
+  [25] LIGHTBOX — NAVIGATION BUTTONS (PREV / NEXT)
+============================================================ */
 .lightbox-nav {
   position: absolute;
   top: 50%;
@@ -882,20 +843,14 @@ body {
   transition: background 0.2s ease;
 }
 
-.lightbox-nav.prev {
-  left: 10px;
-}
-.lightbox-nav.next {
-  right: 10px;
-}
+.lightbox-nav.prev { left:  10px; }
+.lightbox-nav.next { right: 10px; }
 
-.lightbox-nav:hover {
-  background: rgba(0, 0, 0, 0.8);
-}
+.lightbox-nav:hover { background: rgba(0, 0, 0, 0.8); }
 
-/* =============================
-   CONTACT FORM
-============================= */
+/* ============================================================
+  [26] CONTACT — FORM
+============================================================ */
 .contact-form {
   margin-top: 20px;
   display: flex;
@@ -925,9 +880,9 @@ body {
   display: block;
 }
 
-/* =============================
-   FOOTER MODERN
-============================= */
+/* ============================================================
+  [27] FOOTER
+============================================================ */
 .footer {
   background: var(--dark);
   color: white;
@@ -943,9 +898,7 @@ body {
 }
 
 .footer-col h3,
-.footer-col h4 {
-  margin-bottom: 12px;
-}
+.footer-col h4 { margin-bottom: 12px; }
 
 .footer-col p {
   opacity: 0.8;
@@ -977,12 +930,8 @@ body {
   transform: translateY(-5px);
 }
 
-.footer-col ul {
-  list-style: none;
-}
-.footer-col ul li {
-  margin-bottom: 8px;
-}
+.footer-col ul            { list-style: none; }
+.footer-col ul li         { margin-bottom: 8px; }
 
 .footer-col ul li a {
   text-decoration: none;
@@ -990,9 +939,7 @@ body {
   opacity: 0.8;
 }
 
-.footer-col ul li a:hover {
-  opacity: 1;
-}
+.footer-col ul li a:hover { opacity: 1; }
 
 .newsletter-box {
   display: flex;
@@ -1024,9 +971,34 @@ body {
   font-size: 13px;
 }
 
-/* =============================
-   BACK TO TOP BUTTON
-============================= */
+/* ============================================================
+  [28] TOAST NOTIFICATION
+============================================================ */
+.toast {
+  position: fixed;
+  top: 25px;
+  right: 25px;
+  background: #111;
+  color: white;
+  padding: 14px 18px;
+  border-radius: 12px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.4s ease;
+  z-index: 99999;
+}
+
+.toast.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ============================================================
+  [29] BACK TO TOP BUTTON
+============================================================ */
 .back-to-top {
   position: fixed;
   bottom: 90px;
@@ -1053,9 +1025,9 @@ body {
   pointer-events: auto;
 }
 
-/* =============================
-   FLOATING WHATSAPP BUTTON
-============================= */
+/* ============================================================
+  [30] FLOATING WHATSAPP BUTTON
+============================================================ */
 .floating-whatsapp {
   position: fixed;
   bottom: 20px;
@@ -1079,42 +1051,15 @@ body {
   transition: 0.25s ease;
 }
 
-/* =============================
-   TOAST NOTIFICATION
-============================= */
-.toast {
-  position: fixed;
-  top: 25px;
-  right: 25px;
-  background: #111;
-  color: white;
-  padding: 14px 18px;
-  border-radius: 12px;
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: 0.4s ease;
-  z-index: 99999;
-}
-
-.toast.show {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-/* =============================
-   DARK MODE
-============================= */
+/* ============================================================
+  [31] DARK MODE
+============================================================ */
 body.dark {
   background: #0b0b0b;
   color: white;
 }
 
-body.dark .section {
-  background: #0b0b0b;
-}
+body.dark .section { background: #0b0b0b; }
 
 body.dark .about-card,
 body.dark .member-card,
@@ -1132,45 +1077,31 @@ body.dark .form-group textarea {
   border: 1px solid #333;
 }
 
-/* =============================
-   RESPONSIVE MOBILE
-============================= */
+/* ============================================================
+  [32] RESPONSIVE — MOBILE (max-width: 768px)
+============================================================ */
 @media (max-width: 768px) {
-  .menu-toggle {
-    display: block;
-  }
+  .menu-toggle { display: block; }
 
-  .sidebar {
-    left: -260px;
-  }
-
-  .sidebar.active {
-    left: 0;
-  }
+  .sidebar       { left: -260px; }
+  .sidebar.active { left: 0; }
 
   .main-content {
     margin-left: 0;
     width: 100%;
   }
 
-  .section {
-    padding: 80px 20px;
-  }
+  .section { padding: 80px 20px; }
 
-  .gallery-btn.left {
-    left: 0;
-  }
-  .gallery-btn.right {
-    right: 0;
-  }
+  .gallery-btn.left  { left:  0; }
+  .gallery-btn.right { right: 0; }
 
   .hero-buttons {
     flex-direction: column;
     align-items: flex-start;
   }
 
-  /* BUG #6 FIX: Pada layar kecil tombol nav lightbox terlalu mepet ke tepi,
-     tambahkan padding agar mudah diklik */
+  /* tombol navigasi lightbox lebih mudah diklik di layar kecil */
   .lightbox-nav {
     padding: 8px 10px;
     font-size: 22px;
@@ -1178,21 +1109,13 @@ body.dark .form-group textarea {
 }
 
 /* ============================================================
-   BOUNCE ANIMATION
+  [33] ANIMATIONS — BOUNCE
 ============================================================ */
 @keyframes bounceSoft {
-  0% {
-    transform: scale(1);
-  }
-  40% {
-    transform: scale(1.08);
-  }
-  70% {
-    transform: scale(0.98);
-  }
-  100% {
-    transform: scale(1);
-  }
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.08); }
+  70%  { transform: scale(0.98); }
+  100% { transform: scale(1); }
 }
 
 .bounce-active {
