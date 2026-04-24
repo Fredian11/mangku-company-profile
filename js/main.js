@@ -166,8 +166,8 @@ function updateActiveMenu() {
 function moveIndicator(targetLink) {
   if (!navIndicator || !targetLink) return;
   navIndicator.style.top = targetLink.offsetTop + "px";
-  navIndicator.style.height = targetLink.offsetHeight + "px";
   navIndicator.style.opacity = "1";
+  navIndicator.style.transform = "scale(1)";
 }
 
 sidebarLinks.forEach((link) => {
@@ -178,7 +178,7 @@ sidebarLinks.forEach((link) => {
 
     // bounce effect
     link.classList.add("bounce-active");
-    setTimeout(() => link.classList.remove("bounce-active"), 400);
+    setTimeout(() => link.classList.remove("bounce-active"), 350);
   });
 });
 
@@ -377,10 +377,19 @@ $("closeProjectModal")?.addEventListener("click", () =>
 /* ============================================================
   [16] GALLERY SLIDER
 ============================================================ */
-const SLIDE_WIDTH = 320;
+function getSlideWidth() {
+  const item = document.querySelector(".gallery-item");
+  if (!item) return 320;
+
+  const style = window.getComputedStyle(item);
+  const marginRight = parseInt(style.marginRight) || 15;
+
+  return item.offsetWidth + marginRight;
+}
 
 function scrollGallery(dir) {
-  galleryTrack.scrollLeft += dir * SLIDE_WIDTH;
+  const width = getSlideWidth();
+  galleryTrack.scrollLeft += dir * width;
   updateGalleryDots();
   resetProgress();
   startProgress();
@@ -406,7 +415,8 @@ function createGalleryDots() {
     dot.setAttribute("aria-label", `Slide ${i + 1}`);
 
     dot.addEventListener("click", () => {
-      galleryTrack.scrollTo({ left: i * 315, behavior: "smooth" });
+      const width = getSlideWidth();
+      galleryTrack.scrollTo({ left: i * width, behavior: "smooth" });
       setTimeout(updateGalleryDots, 200);
       resetProgress();
       startProgress();
@@ -421,13 +431,18 @@ function createGalleryDots() {
 
 function updateGalleryDots() {
   if (!galleryDots.length) return;
-  const idx = Math.round(galleryTrack.scrollLeft / 315);
+  const width = getSlideWidth();
+  const idx = Math.round(galleryTrack.scrollLeft / width);
   galleryDots.forEach((d, i) => d.classList.toggle("active", i === idx));
 }
 
 galleryTrack?.addEventListener("scroll", rafThrottle(updateGalleryDots), {
   passive: true,
 });
+
+galleryTrack?.addEventListener("mouseleave", startGalleryAutoSlide);
+galleryTrack.addEventListener("mousedown", () => stopGalleryAutoSlide());
+galleryTrack.addEventListener("mouseup", () => startGalleryAutoSlide());
 
 /* ============================================================
   [18] GALLERY — TOUCH SWIPE
@@ -481,11 +496,12 @@ function stopProgress() {
 }
 
 function autoNextSlide() {
-  const maxLeft = galleryTrack.scrollWidth - galleryTrack.clientWidth;
+  const width = getSlideWidth();
+
   galleryTrack.scrollLeft =
     galleryTrack.scrollLeft >= maxLeft - 5
       ? 0
-      : galleryTrack.scrollLeft + SLIDE_WIDTH;
+      : galleryTrack.scrollLeft + width;
   updateGalleryDots();
 }
 
@@ -546,6 +562,7 @@ function applyZoom() {
   if (!lightboxImg) return;
   lightboxImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom})`;
   lightboxImg.style.transition = "transform 0.15s ease";
+  lightboxImg.style.willChange = "transform";
 }
 
 function resetZoom() {
@@ -1088,3 +1105,13 @@ function showToast(msg) {
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => toast.classList.remove("show"), 3000);
 }
+
+/* ============================================================
+  [37] WINDOW RESIZE HANDLER
+============================================================ */
+window.addEventListener(
+  "resize",
+  rafThrottle(() => {
+    updateGalleryDots();
+  }),
+);
