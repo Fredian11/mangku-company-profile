@@ -544,7 +544,7 @@ let currentImgIdx = 0;
 ============================================================ */
 function applyZoom() {
   if (!lightboxImg) return;
-  lightboxImg.style.transform = `scale(${currentZoom}) translate(${translateX / currentZoom}px, ${translateY / currentZoom}px)`;
+  lightboxImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom})`;
   lightboxImg.style.transition = "transform 0.15s ease";
 }
 
@@ -591,7 +591,7 @@ function clampToBounds() {
   translateX = Math.max(-maxX, Math.min(maxX, translateX));
   translateY = Math.max(-maxY, Math.min(maxY, translateY));
   if (lightboxImg) {
-    lightboxImg.style.transform = `scale(${currentZoom}) translate(${translateX / currentZoom}px, ${translateY / currentZoom}px)`;
+    lightboxImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom})`;
   }
 }
 
@@ -606,7 +606,7 @@ function applyEdgeBounce() {
     translateX += dx;
     translateY += dy;
     if (lightboxImg) {
-      lightboxImg.style.transform = `scale(${currentZoom}) translate(${translateX / currentZoom}px, ${translateY / currentZoom}px)`;
+      lightboxImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom})`;
     }
     if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) {
       clampToBounds();
@@ -630,7 +630,7 @@ function startMomentum() {
     translateY = Math.max(-maxY, Math.min(maxY, translateY)) + oy * 0.35;
 
     if (lightboxImg) {
-      lightboxImg.style.transform = `scale(${currentZoom}) translate(${translateX / currentZoom}px, ${translateY / currentZoom}px)`;
+      lightboxImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom})`;
     }
     if (Math.abs(velocityX) < 0.1 && Math.abs(velocityY) < 0.1) {
       clampToBounds();
@@ -900,7 +900,7 @@ document.addEventListener("mousemove", (e) => {
   translateX = Math.max(-maxX, Math.min(maxX, rawX)) + ovX * 0.35;
   translateY = Math.max(-maxY, Math.min(maxY, rawY)) + ovY * 0.35;
 
-  lightboxImg.style.transform = `scale(${currentZoom}) translate(${translateX / currentZoom}px, ${translateY / currentZoom}px)`;
+  lightboxImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom})`;
 });
 
 document.addEventListener("mouseup", () => {
