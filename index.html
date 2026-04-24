@@ -11,14 +11,10 @@
 
 <body>
 
-  <!-- ============================================================
-    [1] SCROLL PROGRESS BAR
-  ============================================================ -->
+  <!-- [1] SCROLL PROGRESS BAR -->
   <div id="scrollProgress"></div>
 
-  <!-- ============================================================
-    [2] PAGE LOADER
-  ============================================================ -->
+  <!-- [2] PAGE LOADER -->
   <div class="page-loader" id="pageLoader">
     <div class="loader-box">
       <div class="spinner"></div>
@@ -26,21 +22,15 @@
     </div>
   </div>
 
-  <!-- ============================================================
-    [3] MOBILE MENU TOGGLE
-  ============================================================ -->
-  <button class="menu-toggle" id="menuToggle">
+  <!-- [3] MOBILE MENU TOGGLE -->
+  <button class="menu-toggle" id="menuToggle" aria-label="Buka Menu">
     <i class="fa-solid fa-bars"></i>
   </button>
 
-  <!-- ============================================================
-    [4] OVERLAY MOBILE
-  ============================================================ -->
+  <!-- [4] OVERLAY MOBILE -->
   <div class="overlay" id="overlay"></div>
 
-  <!-- ============================================================
-    [5] SIDEBAR
-  ============================================================ -->
+  <!-- [5] SIDEBAR -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <h2 class="logo">Mangku Group</h2>
@@ -49,41 +39,22 @@
 
     <hr class="sidebar-line" />
 
-    <nav class="sidebar-menu">
+    <nav class="sidebar-menu" aria-label="Menu Utama">
       <div class="menu-highlight" id="menuHighlight"></div>
       <div class="nav-indicator"></div>
 
-      <a href="#home" class="menu-link sidebar-link active">
-        <i class="fa-solid fa-house"></i>
-        <span>Home</span>
-      </a>
-      <a href="#about" class="menu-link sidebar-link">
-        <i class="fa-solid fa-circle-info"></i>
-        <span>About</span>
-      </a>
-      <a href="#members" class="menu-link sidebar-link">
-        <i class="fa-solid fa-users"></i>
-        <span>Members</span>
-      </a>
-      <a href="#activities" class="menu-link sidebar-link">
-        <i class="fa-solid fa-calendar-days"></i>
-        <span>Activities</span>
-      </a>
-      <a href="#projects" class="menu-link sidebar-link">
-        <i class="fa-solid fa-folder-open"></i>
-        <span>Projects</span>
-      </a>
-      <a href="#gallery" class="menu-link sidebar-link">
-        <i class="fa-solid fa-image"></i>
-        <span>Gallery</span>
-      </a>
-      <a href="#contact" class="menu-link sidebar-link">
-        <i class="fa-solid fa-envelope"></i>
-        <span>Contact</span>
-      </a>
+      <a href="#home" class="menu-link sidebar-link active"><i class="fa-solid fa-house"></i><span>Home</span></a>
+      <a href="#about" class="menu-link sidebar-link"><i class="fa-solid fa-circle-info"></i><span>About</span></a>
+      <a href="#members" class="menu-link sidebar-link"><i class="fa-solid fa-users"></i><span>Members</span></a>
+      <a href="#activities" class="menu-link sidebar-link"><i
+          class="fa-solid fa-calendar-days"></i><span>Activities</span></a>
+      <a href="#projects" class="menu-link sidebar-link"><i
+          class="fa-solid fa-folder-open"></i><span>Projects</span></a>
+      <a href="#gallery" class="menu-link sidebar-link"><i class="fa-solid fa-image"></i><span>Gallery</span></a>
+      <a href="#contact" class="menu-link sidebar-link"><i class="fa-solid fa-envelope"></i><span>Contact</span></a>
     </nav>
 
-    <button class="dark-toggle" id="darkToggle">
+    <button class="dark-toggle" id="darkToggle" aria-label="Toggle Dark Mode">
       <i class="fa-solid fa-moon"></i>
       <span>Dark Mode</span>
     </button>
@@ -93,22 +64,22 @@
     </div>
   </aside>
 
-  <!-- ============================================================
-    [6] MAIN CONTENT
-  ============================================================ -->
+  <!-- [6] MAIN CONTENT -->
   <main class="main-content">
 
-    <!-- [6.1] HOME -->
+    <!-- HOME -->
     <section class="section" id="home">
       <div class="section-inner">
-        <h1>Selamat Datang di <span class="highlight">Mangku Group</span></h1>
-        <p>Komunitas digital modern untuk berbagi pengalaman, belajar, dan berkembang bersama.</p>
+        <h1 class="reveal">Selamat Datang di <span class="highlight">Mangku Group</span></h1>
+        <p class="reveal delay-1">Komunitas digital modern untuk berbagi pengalaman, belajar, dan berkembang bersama.
+        </p>
         <h3 class="typing-area">
           <span id="typingText"></span>
-          <span class="typing-cursor">|</span>
+          <span class="typing-cursor" aria-hidden="true">|</span>
         </h3>
         <div class="hero-buttons">
-          <a href="https://wa.me/6281234567890" target="_blank" class="btn-primary btn-whatsapp">
+          <a href="https://wa.me/6281234567890" target="_blank" rel="noopener noreferrer"
+            class="btn-primary btn-whatsapp">
             <i class="fa-brands fa-whatsapp"></i> Join WhatsApp
           </a>
           <a href="#projects" class="btn-outline">
@@ -116,15 +87,15 @@
           </a>
         </div>
         <div class="home-stats">
-          <div class="stat-card">
+          <div class="stat-card reveal">
             <h2 class="count" data-target="120">0</h2>
             <p>Members</p>
           </div>
-          <div class="stat-card">
+          <div class="stat-card reveal delay-1">
             <h2 class="count" data-target="15">0</h2>
             <p>Projects</p>
           </div>
-          <div class="stat-card">
+          <div class="stat-card reveal delay-2">
             <h2 class="count" data-target="45">0</h2>
             <p>Activities</p>
           </div>
@@ -132,23 +103,24 @@
       </div>
     </section>
 
-    <!-- [6.2] ABOUT -->
+    <!-- ABOUT -->
     <section class="section" id="about">
       <div class="section-inner">
-        <h2>About Us</h2>
-        <p>Mangku Group adalah komunitas yang berfokus pada kolaborasi, teknologi, dan pengembangan skill digital.</p>
+        <h2 class="reveal">About Us</h2>
+        <p class="reveal delay-1">Mangku Group adalah komunitas yang berfokus pada kolaborasi, teknologi, dan
+          pengembangan skill digital.</p>
         <div class="about-icons">
-          <div class="about-card">
+          <div class="about-card reveal">
             <i class="fa-solid fa-users"></i>
             <h3>Komunitas</h3>
             <p>Tempat berkumpul dan sharing.</p>
           </div>
-          <div class="about-card">
+          <div class="about-card reveal delay-1">
             <i class="fa-brands fa-whatsapp"></i>
             <h3>WhatsApp</h3>
             <p>Aktif diskusi dan support harian.</p>
           </div>
-          <div class="about-card">
+          <div class="about-card reveal delay-2">
             <i class="fa-solid fa-lightbulb"></i>
             <h3>Inovasi</h3>
             <p>Project digital modern.</p>
@@ -157,33 +129,33 @@
       </div>
     </section>
 
-    <!-- [6.3] MEMBERS -->
+    <!-- MEMBERS -->
     <section class="section" id="members">
       <div class="section-inner">
-        <h2>Our Members</h2>
+        <h2 class="reveal">Our Members</h2>
         <p>Klik member untuk melihat detail.</p>
         <div class="member-grid">
-          <div class="member-card" data-name="Cahyo" data-role="Admin"
+          <div class="member-card reveal" data-name="Cahyo" data-role="Admin"
             data-desc="Cahyo adalah admin utama komunitas Mangku Group." data-img="img/member1.png">
-            <img src="img/member1.png" alt="Cahyo" />
+            <img src="img/member1.png" alt="Foto Cahyo" loading="lazy" />
             <h3>Cahyo</h3>
             <p>Admin</p>
           </div>
-          <div class="member-card" data-name="Rey" data-role="Admin"
+          <div class="member-card reveal delay-1" data-name="Rey" data-role="Admin"
             data-desc="Rey bertanggung jawab mengembangkan project komunitas." data-img="img/member2.jpg">
-            <img src="img/member2.jpg" alt="Rey" />
+            <img src="img/member2.jpg" alt="Foto Rey" loading="lazy" />
             <h3>Rey</h3>
             <p>Admin</p>
           </div>
-          <div class="member-card" data-name="Yogi" data-role="Admin"
+          <div class="member-card reveal delay-2" data-name="Yogi" data-role="Admin"
             data-desc="Yogi membantu desain UI/UX project komunitas." data-img="img/member3.jpeg">
-            <img src="img/member3.jpeg" alt="Yogi" />
+            <img src="img/member3.jpeg" alt="Foto Yogi" loading="lazy" />
             <h3>Yogi</h3>
             <p>Admin</p>
           </div>
-          <div class="member-card" data-name="Kori" data-role="Admin"
+          <div class="member-card reveal delay-3" data-name="Kori" data-role="Admin"
             data-desc="Kori pengatur suasana komunitas." data-img="img/member4.jpg">
-            <img src="img/member4.jpg" alt="Kori" />
+            <img src="img/member4.jpg" alt="Foto Kori" loading="lazy" />
             <h3>Kori</h3>
             <p>Admin</p>
           </div>
@@ -191,44 +163,41 @@
       </div>
     </section>
 
-    <!-- [6.4] ACTIVITIES -->
+    <!-- ACTIVITIES -->
     <section class="section" id="activities">
       <div class="section-inner">
-        <h2>Activities</h2>
+        <h2 class="reveal">Activities</h2>
         <p>Kegiatan rutin komunitas Mangku Group.</p>
         <ul class="activity-list">
-          <li><i class="fa-solid fa-check"></i> Sharing Session Mingguan</li>
-          <li><i class="fa-solid fa-check"></i> Diskusi Project</li>
-          <li><i class="fa-solid fa-check"></i> Event Online Bulanan</li>
+          <li class="reveal"><i class="fa-solid fa-check"></i> Sharing Session Mingguan</li>
+          <li class="reveal delay-1"><i class="fa-solid fa-check"></i> Diskusi Project</li>
+          <li class="reveal delay-2"><i class="fa-solid fa-check"></i> Event Online Bulanan</li>
         </ul>
       </div>
     </section>
 
-    <!-- [6.5] PROJECTS -->
+    <!-- PROJECTS -->
     <section class="section" id="projects">
       <div class="section-inner">
-        <h2>Projects</h2>
+        <h2 class="reveal">Projects</h2>
         <p>Kumpulan project yang sedang berjalan.</p>
         <div class="project-grid">
-          <div class="project-card" data-title="Website Company Profile"
-            data-desc="Project website modern untuk komunitas."
-            data-img="https://picsum.photos/500/300?random=1">
+          <div class="project-card reveal reveal-zoom" data-title="Website Company Profile"
+            data-desc="Project website modern untuk komunitas." data-img="https://picsum.photos/500/300?random=1">
             <span class="project-badge badge-blue">Web</span>
             <h3>Company Profile</h3>
             <p>Website modern komunitas.</p>
             <button class="btn-detail">Detail</button>
           </div>
-          <div class="project-card" data-title="Mobile App"
-            data-desc="Aplikasi mobile untuk anggota komunitas."
-            data-img="https://picsum.photos/500/300?random=2">
+          <div class="project-card reveal reveal-zoom delay-1" data-title="Mobile App"
+            data-desc="Aplikasi mobile untuk anggota komunitas." data-img="https://picsum.photos/500/300?random=2">
             <span class="project-badge badge-green">Mobile</span>
             <h3>Mobile App</h3>
             <p>Project aplikasi komunitas.</p>
             <button class="btn-detail">Detail</button>
           </div>
-          <div class="project-card" data-title="Kas Management"
-            data-desc="Sistem kas untuk laporan transaksi komunitas."
-            data-img="https://picsum.photos/500/300?random=3">
+          <div class="project-card reveal reveal-zoom delay-2" data-title="Kas Management"
+            data-desc="Sistem kas untuk laporan transaksi komunitas." data-img="https://picsum.photos/500/300?random=3">
             <span class="project-badge badge-orange">Finance</span>
             <h3>Kas Management</h3>
             <p>Sistem laporan kas komunitas.</p>
@@ -238,60 +207,60 @@
       </div>
     </section>
 
-    <!-- [6.6] GALLERY -->
+    <!-- GALLERY -->
     <section class="section" id="gallery">
       <div class="section-inner">
         <h2>Gallery</h2>
         <p>Klik gambar untuk fullscreen.</p>
         <div class="gallery-slider">
-          <button class="gallery-btn left" id="galleryPrev">
+          <button class="gallery-btn left" id="galleryPrev" aria-label="Slide Sebelumnya">
             <i class="fa-solid fa-chevron-left"></i>
           </button>
           <div class="gallery-track" id="galleryTrack">
             <div class="gallery-item">
-              <img data-src="img/galeri1.jpeg" src="placeholder.jpg" class="gallery-img lazy-img" alt="galeri1" />
+              <img data-src="img/galeri1.jpeg" src="placeholder.jpg" class="gallery-img lazy-img" alt="Galeri 1" />
             </div>
             <div class="gallery-item">
-              <img data-src="img/galeri2.jpeg" src="placeholder.jpg" class="gallery-img lazy-img" alt="galeri2" />
+              <img data-src="img/galeri2.jpeg" src="placeholder.jpg" class="gallery-img lazy-img" alt="Galeri 2" />
             </div>
             <div class="gallery-item">
-              <img data-src="img/galeri3.jpeg" src="placeholder.jpg" class="gallery-img lazy-img" alt="galeri3" />
+              <img data-src="img/galeri3.jpeg" src="placeholder.jpg" class="gallery-img lazy-img" alt="Galeri 3" />
             </div>
             <div class="gallery-item">
-              <img data-src="img/galeri4.jpeg" src="placeholder.jpg" class="gallery-img lazy-img" alt="galeri4" />
+              <img data-src="img/galeri4.jpeg" src="placeholder.jpg" class="gallery-img lazy-img" alt="Galeri 4" />
             </div>
             <div class="gallery-item">
-              <img data-src="img/galeri5.jpeg" src="placeholder.jpg" class="gallery-img lazy-img" alt="galeri5" />
+              <img data-src="img/galeri5.jpeg" src="placeholder.jpg" class="gallery-img lazy-img" alt="Galeri 5" />
             </div>
           </div>
-          <button class="gallery-btn right" id="galleryNext">
+          <button class="gallery-btn right" id="galleryNext" aria-label="Slide Berikutnya">
             <i class="fa-solid fa-chevron-right"></i>
           </button>
         </div>
-        <div class="gallery-dots" id="galleryDots"></div>
-        <div class="gallery-progress">
+        <div class="gallery-dots" id="galleryDots" role="tablist" aria-label="Navigasi Gallery"></div>
+        <div class="gallery-progress" aria-hidden="true">
           <div class="gallery-progress-bar" id="galleryProgressBar"></div>
         </div>
       </div>
     </section>
 
-    <!-- [6.7] CONTACT -->
+    <!-- CONTACT -->
     <section class="section" id="contact">
       <div class="section-inner">
-        <h2>Contact</h2>
+        <h2 class="reveal">Contact</h2>
         <p>Hubungi kami melalui form berikut.</p>
-        <form id="contactForm" class="contact-form">
+        <form id="contactForm" class="contact-form" novalidate>
           <div class="form-group">
-            <input type="text" id="name" placeholder="Nama" />
-            <small id="nameError" class="error-text"></small>
+            <input type="text" id="name" placeholder="Nama" autocomplete="name" />
+            <small id="nameError" class="error-text" role="alert"></small>
           </div>
           <div class="form-group">
-            <input type="email" id="email" placeholder="Email" />
-            <small id="emailError" class="error-text"></small>
+            <input type="email" id="email" placeholder="Email" autocomplete="email" />
+            <small id="emailError" class="error-text" role="alert"></small>
           </div>
           <div class="form-group">
             <textarea id="message" placeholder="Pesan"></textarea>
-            <small id="messageError" class="error-text"></small>
+            <small id="messageError" class="error-text" role="alert"></small>
           </div>
           <button type="submit" class="btn-primary btn-send">
             <i class="fa-solid fa-paper-plane"></i> Kirim Pesan
@@ -300,17 +269,17 @@
       </div>
     </section>
 
-    <!-- [6.8] FOOTER -->
+    <!-- FOOTER -->
     <footer class="footer" id="footer">
       <div class="footer-inner">
         <div class="footer-col">
           <h3>Mangku Group</h3>
           <p>Komunitas digital modern yang fokus pada kolaborasi dan teknologi.</p>
           <div class="footer-social">
-            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-            <a href="#"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#"><i class="fa-brands fa-youtube"></i></a>
-            <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+            <a href="#" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
           </div>
         </div>
         <div class="footer-col">
@@ -326,8 +295,8 @@
           <h4>Newsletter</h4>
           <p>Dapatkan update terbaru dari komunitas.</p>
           <div class="newsletter-box">
-            <input type="email" placeholder="Masukkan email..." />
-            <button><i class="fa-solid fa-paper-plane"></i></button>
+            <input type="email" placeholder="Masukkan email..." aria-label="Email Newsletter" />
+            <button type="button" aria-label="Daftar Newsletter"><i class="fa-solid fa-paper-plane"></i></button>
           </div>
         </div>
       </div>
@@ -337,82 +306,69 @@
     </footer>
   </main>
 
-  <!-- ============================================================
-    [7] MODAL MEMBER
-  ============================================================ -->
-  <div class="modal" id="memberModal">
+  <!-- [7] MODAL MEMBER -->
+  <div class="modal" id="memberModal" role="dialog" aria-modal="true" aria-labelledby="modalName">
     <div class="modal-content">
-      <span class="close" id="closeMemberModal">&times;</span>
-      <img id="modalImg" src="" alt="member" />
+      <button class="close" id="closeMemberModal" aria-label="Tutup">&times;</button>
+      <img id="modalImg" src="" alt="Foto Member" />
       <h3 id="modalName"></h3>
       <p id="modalRole"></p>
       <p id="modalDesc"></p>
     </div>
   </div>
 
-  <!-- ============================================================
-    [8] MODAL PROJECT
-  ============================================================ -->
-  <div class="modal" id="projectModal">
+  <!-- [8] MODAL PROJECT -->
+  <div class="modal" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="projectTitle">
     <div class="modal-content">
-      <span class="close" id="closeProjectModal">&times;</span>
-      <img id="projectImg" src="" alt="project" />
+      <button class="close" id="closeProjectModal" aria-label="Tutup">&times;</button>
+      <img id="projectImg" src="" alt="Gambar Project" />
       <h3 id="projectTitle"></h3>
       <p id="projectDesc"></p>
     </div>
   </div>
 
-  <!-- ============================================================
-    [9] LIGHTBOX GALLERY MODAL
-  ============================================================ -->
-  <div class="modal" id="lightboxModal">
+  <!-- [9] LIGHTBOX GALLERY MODAL -->
+  <div class="modal" id="lightboxModal" role="dialog" aria-modal="true" aria-label="Lightbox Gallery">
     <div class="modal-content lightbox-content">
-      <span class="close" id="closeLightbox">&times;</span>
+      <button class="close" id="closeLightbox" aria-label="Tutup Lightbox">&times;</button>
       <div class="lightbox-controls">
-        <!-- FIX: id="fullscreenBtn" (bukan fullscreentBtn dengan typo 't') -->
-        <button class="zoom-btn" id="fullscreenBtn">
+        <button class="zoom-btn" id="fullscreenBtn" aria-label="Fullscreen">
           <i class="fa-solid fa-expand"></i>
         </button>
-        <button class="zoom-btn" id="zoomInBtn"><i class="fa-solid fa-plus"></i></button>
-        <button class="zoom-btn" id="zoomOutBtn"><i class="fa-solid fa-minus"></i></button>
-        <button class="zoom-btn" id="zoomResetBtn"><i class="fa-solid fa-rotate-right"></i></button>
+        <button class="zoom-btn" id="zoomInBtn" aria-label="Zoom In"><i class="fa-solid fa-plus"></i></button>
+        <button class="zoom-btn" id="zoomOutBtn" aria-label="Zoom Out"><i class="fa-solid fa-minus"></i></button>
+        <button class="zoom-btn" id="zoomResetBtn" aria-label="Reset Zoom"><i
+            class="fa-solid fa-rotate-right"></i></button>
       </div>
-      <img id="lightboxImg" src="" alt="lightbox" />
-      <button id="lightboxPrev" class="lightbox-nav prev">&#10094;</button>
-      <button id="lightboxNext" class="lightbox-nav next">&#10095;</button>
+      <img id="lightboxImg" src="" alt="Lightbox Image" />
+      <div id="lightboxCounter" class="lightbox-counter" aria-live="polite"></div>
+      <div id="lightboxThumbs" class="lightbox-thumbs" aria-label="Thumbnail Gallery"></div>
+      <button id="lightboxPrev" class="lightbox-nav prev" aria-label="Gambar Sebelumnya">&#10094;</button>
+      <button id="lightboxNext" class="lightbox-nav next" aria-label="Gambar Berikutnya">&#10095;</button>
     </div>
   </div>
 
-  <!-- ============================================================
-    [10] TOAST NOTIFICATION
-  ============================================================ -->
-  <div class="toast" id="toast">
+  <!-- [10] TOAST -->
+  <div class="toast" id="toast" role="status" aria-live="polite">
     <i class="fa-solid fa-circle-check"></i>
     <span id="toastMsg">Pesan berhasil dikirim!</span>
   </div>
 
-  <!-- ============================================================
-    [11] BACK TO TOP
-  ============================================================ -->
-  <button class="back-to-top" id="backToTop">
+  <!-- [11] BACK TO TOP -->
+  <button class="back-to-top" id="backToTop" aria-label="Kembali ke Atas">
     <i class="fa-solid fa-arrow-up"></i>
   </button>
 
-  <!-- ============================================================
-    [12] FLOATING WHATSAPP
-  ============================================================ -->
-  <a href="https://wa.me/6281234567890" target="_blank" class="floating-whatsapp" id="floatingWhatsapp">
+  <!-- [12] FLOATING WHATSAPP -->
+  <a href="https://wa.me/6281234567890" target="_blank" rel="noopener noreferrer" class="floating-whatsapp"
+    id="floatingWhatsapp" aria-label="Hubungi via WhatsApp">
     <i class="fa-brands fa-whatsapp"></i>
   </a>
 
-  <!-- ============================================================
-    [13] AUDIO CLICK SOUND
-  ============================================================ -->
-  <audio id="clickSound" src="click.mp3"></audio>
+  <!-- [13] AUDIO -->
+  <audio id="clickSound" src="click.mp3" preload="none"></audio>
 
-  <!-- ============================================================
-    [14] JAVASCRIPT
-  ============================================================ -->
+  <!-- [14] JAVASCRIPT -->
   <script src="js/main.js"></script>
 </body>
 

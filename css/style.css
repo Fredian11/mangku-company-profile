@@ -1,7 +1,9 @@
 /* ============================================================
   [1] RESET & BASE
 ============================================================ */
-* {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -19,19 +21,19 @@ body {
 }
 
 /* ============================================================
-  [2] THEME COLOR VARIABLES
+  [2] THEME VARIABLES
 ============================================================ */
 :root {
   --primary: #0d6efd;
   --whatsapp: #25d366;
   --dark: #111;
-  --light: #ffffff;
-  --text: #333;
   --soft-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  --radius: 14px;
+  --transition: 0.3s ease;
 }
 
 /* ============================================================
-  [3] SCROLL PROGRESS BAR (TOP)
+  [3] SCROLL PROGRESS BAR
 ============================================================ */
 #scrollProgress {
   position: fixed;
@@ -41,6 +43,7 @@ body {
   width: 0%;
   background: var(--primary);
   z-index: 9999;
+  transition: width 0.1s linear;
 }
 
 /* ============================================================
@@ -54,12 +57,12 @@ body {
   justify-content: center;
   align-items: center;
   z-index: 99999;
+  transition: opacity 0.5s ease;
 }
 
 .page-loader.hide {
   opacity: 0;
   pointer-events: none;
-  transition: 0.5s ease;
 }
 
 .loader-box {
@@ -71,18 +74,20 @@ body {
   width: 45px;
   height: 45px;
   border: 5px solid rgba(255, 255, 255, 0.2);
-  border-top: 5px solid white;
+  border-top-color: white;
   border-radius: 50%;
   animation: spin 1s linear infinite;
-  margin: auto;
+  margin: 0 auto 12px;
 }
 
 @keyframes spin {
-  100% { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ============================================================
-  [5] MOBILE MENU TOGGLE BUTTON
+  [5] MOBILE MENU TOGGLE
 ============================================================ */
 .menu-toggle {
   display: none;
@@ -108,7 +113,7 @@ body {
   background: rgba(0, 0, 0, 0.55);
   opacity: 0;
   pointer-events: none;
-  transition: 0.3s ease;
+  transition: var(--transition);
   z-index: 998;
 }
 
@@ -127,11 +132,7 @@ body {
   background: var(--dark);
   padding: 20px;
   z-index: 999;
-  transition: 0.35s ease;
-}
-
-.sidebar.hide {
-  transform: translateX(-240px);
+  transition: left 0.35s ease;
 }
 
 .sidebar-header {
@@ -141,7 +142,6 @@ body {
 .logo {
   font-size: 20px;
 }
-
 .tagline {
   font-size: 12px;
   opacity: 0.7;
@@ -162,17 +162,18 @@ body {
   position: relative;
 }
 
-/* [7a] Base menu link */
+/* [7a] Menu link base */
 .menu-link {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px;
+  padding: 12px 14px;
   text-decoration: none;
   color: white;
-  border-radius: 10px;
+  border-radius: 12px;
   position: relative;
   z-index: 2;
+  transition: all 0.25s ease;
 }
 
 .menu-link i {
@@ -180,45 +181,28 @@ body {
   text-align: center;
 }
 
-.menu-link.active {
-  color: white;
-}
-
-/* [7b] Menu highlight — dinonaktifkan, diganti nav-indicator */
+/* [7b] Menu highlight (disabled — replaced by nav-indicator) */
 .menu-highlight {
   position: absolute;
   width: 100%;
   height: 44px;
-  background: var(--primary);
   border-radius: 10px;
   top: 0;
   left: 0;
-  transition: 0.25s ease;
   z-index: 1;
   opacity: 0 !important;
   visibility: hidden !important;
 }
 
-/* [7c] Active menu text neon effect */
+/* [7c] Active neon text */
 .menu-link.active span {
-  color: #ffffff;
+  color: #fff;
   text-shadow:
     0 0 8px rgba(0, 198, 255, 0.8),
     0 0 14px rgba(0, 114, 255, 0.6);
 }
 
-/* [7d] Sidebar link underline gradient + glow */
-.sidebar-link {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 14px;
-  border-radius: 12px;
-  text-decoration: none;
-  transition: all 0.25s ease;
-}
-
+/* [7d] Underline gradient on active/hover */
 .sidebar-link::after {
   content: "";
   position: absolute;
@@ -232,15 +216,19 @@ body {
   transition: width 0.35s ease;
 }
 
-.sidebar-link:hover::after  { width: 65%; }
-.sidebar-link.active::after { width: 75%; }
+.sidebar-link:hover::after {
+  width: 65%;
+}
+.sidebar-link.active::after {
+  width: 75%;
+}
 
 .sidebar-link.active {
   background: rgba(0, 198, 255, 0.08);
   border: 1px solid rgba(0, 198, 255, 0.25);
 }
 
-/* [7e] Sliding nav indicator (neon + glass) */
+/* [7e] Sliding nav indicator */
 .nav-indicator {
   position: absolute;
   left: 10px;
@@ -253,12 +241,12 @@ body {
     rgba(0, 198, 255, 0.22),
     rgba(0, 114, 255, 0.22)
   );
-  overflow: hidden;
   border: 1px solid rgba(0, 198, 255, 0.35);
   backdrop-filter: blur(12px);
   box-shadow:
     0 0 18px rgba(0, 198, 255, 0.35),
     0 0 28px rgba(0, 114, 255, 0.25);
+  overflow: hidden;
   z-index: 0;
   opacity: 0;
   transition:
@@ -284,11 +272,15 @@ body {
 }
 
 @keyframes shimmerMove {
-  0%   { left: -120%; }
-  100% { left:  120%; }
+  from {
+    left: -120%;
+  }
+  to {
+    left: 120%;
+  }
 }
 
-/* [7f] Dark mode toggle button */
+/* [7f] Dark mode toggle */
 .dark-toggle {
   margin-top: 15px;
   width: 100%;
@@ -301,6 +293,11 @@ body {
   display: flex;
   gap: 10px;
   align-items: center;
+  transition: background 0.2s ease;
+}
+
+.dark-toggle:hover {
+  background: #333;
 }
 
 /* [7g] Sidebar footer */
@@ -312,7 +309,7 @@ body {
 }
 
 /* ============================================================
-  [8] MAIN CONTENT & SECTION BASE
+  [8] MAIN CONTENT & SECTION
 ============================================================ */
 .main-content {
   margin-left: 240px;
@@ -334,7 +331,7 @@ body {
 }
 
 /* ============================================================
-  [9] HOME — TYPING ANIMATION
+  [9] TYPING ANIMATION
 ============================================================ */
 .typing-area {
   margin-top: 20px;
@@ -349,11 +346,13 @@ body {
 }
 
 @keyframes blink {
-  50% { opacity: 0; }
+  50% {
+    opacity: 0;
+  }
 }
 
 /* ============================================================
-  [10] HOME — BUTTONS
+  [10] BUTTONS
 ============================================================ */
 .btn-primary,
 .btn-outline {
@@ -366,14 +365,13 @@ body {
   font-weight: bold;
   cursor: pointer;
   border: none;
-  transition: 0.25s ease;
+  transition: var(--transition);
 }
 
 .btn-primary {
   background: var(--primary);
   color: white;
 }
-
 .btn-primary:hover {
   transform: translateY(-3px);
   opacity: 0.95;
@@ -384,14 +382,17 @@ body {
   color: var(--primary);
   background: transparent;
 }
-
 .btn-outline:hover {
   background: var(--primary);
   color: white;
 }
 
-.btn-whatsapp           { background: var(--whatsapp); }
-.btn-whatsapp:hover     { opacity: 0.9; }
+.btn-whatsapp {
+  background: var(--whatsapp);
+}
+.btn-whatsapp:hover {
+  opacity: 0.9;
+}
 
 .hero-buttons {
   margin-top: 25px;
@@ -399,11 +400,12 @@ body {
   gap: 12px;
   flex-wrap: wrap;
 }
-
-.btn-send { margin-top: 10px; }
+.btn-send {
+  margin-top: 10px;
+}
 
 /* ============================================================
-  [11] HOME — STATS CARDS
+  [11] HOME — STATS
 ============================================================ */
 .home-stats {
   margin-top: 30px;
@@ -415,7 +417,7 @@ body {
 .stat-card {
   background: white;
   padding: 20px;
-  border-radius: 14px;
+  border-radius: var(--radius);
   text-align: center;
   box-shadow: var(--soft-shadow);
 }
@@ -424,14 +426,13 @@ body {
   font-size: 34px;
   color: var(--primary);
 }
-
 .stat-card p {
   margin-top: 5px;
   opacity: 0.8;
 }
 
 /* ============================================================
-  [12] ABOUT — ICON CARDS
+  [12] ABOUT — CARDS
 ============================================================ */
 .about-icons {
   display: grid;
@@ -443,10 +444,10 @@ body {
 .about-card {
   background: white;
   padding: 20px;
-  border-radius: 14px;
+  border-radius: var(--radius);
   text-align: center;
-  transition: 0.3s ease;
   cursor: pointer;
+  transition: var(--transition);
 }
 
 .about-card i {
@@ -454,7 +455,6 @@ body {
   color: var(--primary);
   margin-bottom: 12px;
 }
-
 .about-card:hover {
   transform: translateY(-8px);
   box-shadow: var(--soft-shadow);
@@ -473,18 +473,18 @@ body {
 .member-card {
   background: white;
   padding: 20px;
-  border-radius: 14px;
+  border-radius: var(--radius);
   text-align: center;
   cursor: pointer;
-  transition: 0.3s ease;
+  transition: var(--transition);
 }
 
 .member-card img {
   width: 110px;
   height: 110px;
   border-radius: 50%;
+  object-fit: cover;
 }
-
 .member-card:hover {
   transform: translateY(-7px);
   box-shadow: var(--soft-shadow);
@@ -504,9 +504,12 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 
-.activity-list i { color: var(--primary); }
+.activity-list i {
+  color: var(--primary);
+}
 
 /* ============================================================
   [15] PROJECTS — CARDS & BADGES
@@ -521,19 +524,23 @@ body {
 .project-card {
   background: white;
   padding: 20px;
-  border-radius: 14px;
+  border-radius: var(--radius);
   position: relative;
-  transition: 0.3s ease;
   cursor: pointer;
+  transition: var(--transition);
 }
 
 .project-card:hover {
   transform: translateY(-8px);
   box-shadow: var(--soft-shadow);
 }
-
-.project-card h3 { margin-top: 10px; }
-.project-card p  { margin-top: 8px; opacity: 0.8; }
+.project-card h3 {
+  margin-top: 10px;
+}
+.project-card > p {
+  margin-top: 8px;
+  opacity: 0.8;
+}
 
 .btn-detail {
   margin-top: 15px;
@@ -544,9 +551,12 @@ body {
   color: white;
   cursor: pointer;
   font-weight: bold;
+  transition: opacity 0.2s ease;
 }
 
-.btn-detail:hover { opacity: 0.9; }
+.btn-detail:hover {
+  opacity: 0.9;
+}
 
 .project-badge {
   position: absolute;
@@ -559,9 +569,15 @@ body {
   font-weight: bold;
 }
 
-.badge-blue   { background: var(--primary); }
-.badge-green  { background: var(--whatsapp); }
-.badge-orange { background: #ff9800; }
+.badge-blue {
+  background: var(--primary);
+}
+.badge-green {
+  background: var(--whatsapp);
+}
+.badge-orange {
+  background: #ff9800;
+}
 
 /* ============================================================
   [16] GALLERY — SLIDER
@@ -578,9 +594,15 @@ body {
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
   padding-bottom: 10px;
+  cursor: grab;
 }
 
-.gallery-track::-webkit-scrollbar { display: none; }
+.gallery-track:active {
+  cursor: grabbing;
+}
+.gallery-track::-webkit-scrollbar {
+  display: none;
+}
 
 .gallery-item {
   flex: 0 0 auto;
@@ -589,16 +611,20 @@ body {
 
 .gallery-img {
   width: 300px;
-  border-radius: 14px;
+  border-radius: var(--radius);
   cursor: pointer;
-  transition: 0.3s ease;
+  transition: transform 0.3s ease;
+  display: block;
 }
 
-.gallery-img:hover { transform: scale(1.04); }
+.gallery-img:hover {
+  transform: scale(1.04);
+}
 
 .gallery-btn {
   position: absolute;
-  top: 40%;
+  top: 50%;
+  transform: translateY(-50%);
   background: var(--primary);
   border: none;
   color: white;
@@ -610,15 +636,21 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: opacity 0.2s ease;
 }
 
-.gallery-btn.left  { left:  -18px; }
-.gallery-btn.right { right: -18px; }
+.gallery-btn:hover {
+  opacity: 0.85;
+}
+.gallery-btn.left {
+  left: -18px;
+}
+.gallery-btn.right {
+  right: -18px;
+}
 
 /* ============================================================
-  [17] GALLERY — LAZY LOAD IMAGE EFFECT
-  Satu deklarasi bersih — FIX: file asli mendefinisikan .lazy-img
-  DUA KALI (baris 676 & 750) dengan nilai berbeda saling menimpa.
+  [17] GALLERY — LAZY LOAD
 ============================================================ */
 .lazy-img {
   filter: blur(20px);
@@ -652,7 +684,7 @@ body {
   background: #bbb;
   border-radius: 50%;
   cursor: pointer;
-  transition: 0.3s ease;
+  transition: var(--transition);
 }
 
 .gallery-dot.active {
@@ -680,7 +712,7 @@ body {
 }
 
 /* ============================================================
-  [20] MODAL — GLOBAL (MEMBER & PROJECT)
+  [20] MODAL — GLOBAL
 ============================================================ */
 .modal {
   position: fixed;
@@ -691,7 +723,7 @@ body {
   align-items: center;
   opacity: 0;
   pointer-events: none;
-  transition: 0.3s ease;
+  transition: opacity 0.3s ease;
   z-index: 9999;
 }
 
@@ -703,11 +735,11 @@ body {
 .modal-content {
   background: white;
   padding: 25px;
-  border-radius: 14px;
+  border-radius: var(--radius);
   width: 340px;
   text-align: center;
   transform: scale(0.85);
-  transition: 0.3s ease;
+  transition: transform 0.3s ease;
   position: relative;
 }
 
@@ -721,16 +753,20 @@ body {
   border-radius: 12px;
   margin: 10px auto;
   object-fit: cover;
+  display: block;
 }
 
-/* Tombol close — z-index cukup tinggi agar tidak tertutup gambar slide */
 .close {
   position: absolute;
   right: 15px;
   top: 10px;
   font-size: 28px;
   cursor: pointer;
+  background: none;
+  border: none;
+  color: inherit;
   z-index: 10;
+  line-height: 1;
 }
 
 /* ============================================================
@@ -739,14 +775,14 @@ body {
 .lightbox-content {
   width: 90%;
   max-width: 800px;
-  /* overflow:hidden agar gambar slide tidak bocor keluar kotak */
   overflow: hidden;
 }
 
-.lightbox-content img {
+.lightbox-content > img {
   width: 100%;
   height: auto;
-  border-radius: 14px;
+  border-radius: var(--radius);
+  display: block;
 }
 
 /* ============================================================
@@ -758,7 +794,6 @@ body {
   right: 60px;
   display: flex;
   gap: 10px;
-  /* z-index di atas lightbox-nav (1000) agar tombol zoom tidak tertutup */
   z-index: 1001;
 }
 
@@ -773,7 +808,7 @@ body {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: 0.25s ease;
+  transition: var(--transition);
 }
 
 .zoom-btn:hover {
@@ -783,50 +818,43 @@ body {
 }
 
 /* ============================================================
-  [23] LIGHTBOX — IMAGE (satu deklarasi bersih)
+  [23] LIGHTBOX — IMAGE
 ============================================================ */
 #lightboxImg {
-  transition: transform 0.25s ease, opacity 0.3s ease;
+  transition:
+    transform 0.25s ease,
+    opacity 0.3s ease;
   transform-origin: center center;
   cursor: grab;
   will-change: transform, opacity;
-  position: relative;
   display: block;
+  position: relative;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
 }
 
 /* ============================================================
-  [24] LIGHTBOX — SLIDE TRANSITION CLASSES
+  [24] LIGHTBOX — SLIDE TRANSITION
 ============================================================ */
-.slide-center {
-  transform: translateX(0) scale(1);
-  opacity: 1;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.slide-out-left {
-  transform: translateX(-100%) scale(1);
-  opacity: 0;
-  transition: transform 0.2s ease, opacity 0.2s ease;
-}
-
+.slide-out-left,
 .slide-out-right {
-  transform: translateX(100%) scale(1);
   opacity: 0;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition: opacity 0.2s ease;
 }
 
+.slide-in-left,
 .slide-in-right {
-  transform: translateX(100%) scale(1);
   opacity: 0;
 }
 
-.slide-in-left {
-  transform: translateX(-100%) scale(1);
-  opacity: 0;
+.slide-center {
+  opacity: 1;
+  transition: opacity 0.3s ease;
 }
 
 /* ============================================================
-  [25] LIGHTBOX — NAVIGATION BUTTONS (PREV / NEXT)
+  [25] LIGHTBOX — NAV BUTTONS
 ============================================================ */
 .lightbox-nav {
   position: absolute;
@@ -843,13 +871,106 @@ body {
   transition: background 0.2s ease;
 }
 
-.lightbox-nav.prev { left:  10px; }
-.lightbox-nav.next { right: 10px; }
-
-.lightbox-nav:hover { background: rgba(0, 0, 0, 0.8); }
+.lightbox-nav.prev {
+  left: 10px;
+}
+.lightbox-nav.next {
+  right: 10px;
+}
+.lightbox-nav:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
 
 /* ============================================================
-  [26] CONTACT — FORM
+  [26] LIGHTBOX — THUMBNAILS
+============================================================ */
+.lightbox-thumbs {
+  position: relative;
+  margin-top: 14px;
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 8px 5px;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+.lightbox-thumbs::-webkit-scrollbar {
+  display: none;
+}
+
+.lightbox-thumbs img {
+  width: 70px;
+  height: 52px;
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+  opacity: 0.55;
+  border: 2px solid transparent;
+  flex-shrink: 0;
+  transition: all 0.25s ease;
+  scroll-snap-align: center;
+}
+
+.lightbox-thumbs img:hover {
+  opacity: 1;
+  transform: scale(1.06);
+}
+
+.lightbox-thumbs img.active {
+  opacity: 1;
+  transform: scale(1.1);
+  border-color: var(--primary);
+  box-shadow: 0 0 12px rgba(0, 114, 255, 0.6);
+}
+
+/* ============================================================
+  [27] LIGHTBOX — COUNTER
+============================================================ */
+.lightbox-counter {
+  text-align: center;
+  margin-top: 8px;
+  font-size: 13px;
+  color: #fff;
+  opacity: 0.75;
+}
+
+/* ============================================================
+  [28] LIGHTBOX — UI AUTO HIDE
+============================================================ */
+.lightbox-ui-hidden .lightbox-controls,
+.lightbox-ui-hidden .lightbox-nav,
+.lightbox-ui-hidden .lightbox-thumbs,
+.lightbox-ui-hidden .lightbox-counter,
+.lightbox-ui-hidden .close {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+/* ============================================================
+  [29] LIGHTBOX — IMMERSIVE MODE
+============================================================ */
+.lightbox-immersive {
+  background: rgba(0, 0, 0, 0.95) !important;
+}
+
+.lightbox-immersive .lightbox-controls,
+.lightbox-immersive .lightbox-nav,
+.lightbox-immersive .lightbox-thumbs,
+.lightbox-immersive .lightbox-counter,
+.lightbox-immersive .close {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.lightbox-immersive #lightboxImg {
+  cursor: zoom-out;
+}
+
+/* ============================================================
+  [30] CONTACT — FORM
 ============================================================ */
 .contact-form {
   margin-top: 20px;
@@ -866,22 +987,29 @@ body {
   border: 1px solid #ccc;
   outline: none;
   font-size: 14px;
+  transition: border-color 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--primary);
 }
 
 .form-group textarea {
   min-height: 120px;
-  resize: none;
+  resize: vertical;
 }
 
 .error-text {
-  color: red;
+  color: #e53935;
   font-size: 12px;
-  margin-top: 5px;
+  margin-top: 4px;
   display: block;
+  min-height: 16px;
 }
 
 /* ============================================================
-  [27] FOOTER
+  [31] FOOTER
 ============================================================ */
 .footer {
   background: var(--dark);
@@ -898,7 +1026,9 @@ body {
 }
 
 .footer-col h3,
-.footer-col h4 { margin-bottom: 12px; }
+.footer-col h4 {
+  margin-bottom: 12px;
+}
 
 .footer-col p {
   opacity: 0.8;
@@ -921,8 +1051,8 @@ body {
   align-items: center;
   color: white;
   font-size: 18px;
-  transition: 0.3s ease;
   text-decoration: none;
+  transition: var(--transition);
 }
 
 .footer-social a:hover {
@@ -930,16 +1060,20 @@ body {
   transform: translateY(-5px);
 }
 
-.footer-col ul            { list-style: none; }
-.footer-col ul li         { margin-bottom: 8px; }
-
+.footer-col ul {
+  list-style: none;
+}
+.footer-col ul li {
+  margin-bottom: 8px;
+}
 .footer-col ul li a {
   text-decoration: none;
   color: white;
   opacity: 0.8;
 }
-
-.footer-col ul li a:hover { opacity: 1; }
+.footer-col ul li a:hover {
+  opacity: 1;
+}
 
 .newsletter-box {
   display: flex;
@@ -972,7 +1106,7 @@ body {
 }
 
 /* ============================================================
-  [28] TOAST NOTIFICATION
+  [32] TOAST
 ============================================================ */
 .toast {
   position: fixed;
@@ -987,17 +1121,21 @@ body {
   align-items: center;
   opacity: 0;
   pointer-events: none;
-  transition: 0.4s ease;
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
+  transform: translateY(-10px);
   z-index: 99999;
 }
 
 .toast.show {
   opacity: 1;
   pointer-events: auto;
+  transform: translateY(0);
 }
 
 /* ============================================================
-  [29] BACK TO TOP BUTTON
+  [33] BACK TO TOP
 ============================================================ */
 .back-to-top {
   position: fixed;
@@ -1006,13 +1144,15 @@ body {
   background: var(--primary);
   border: none;
   color: white;
-  width: 55px;
-  height: 55px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   cursor: pointer;
   opacity: 0;
   pointer-events: none;
-  transition: 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
   z-index: 9999;
   display: flex;
   justify-content: center;
@@ -1025,8 +1165,12 @@ body {
   pointer-events: auto;
 }
 
+.back-to-top:hover {
+  transform: translateY(-3px);
+}
+
 /* ============================================================
-  [30] FLOATING WHATSAPP BUTTON
+  [34] FLOATING WHATSAPP
 ============================================================ */
 .floating-whatsapp {
   position: fixed;
@@ -1044,80 +1188,160 @@ body {
   align-items: center;
   text-decoration: none;
   box-shadow: var(--soft-shadow);
+  transition: transform 0.25s ease;
 }
 
 .floating-whatsapp:hover {
-  transform: scale(1.05);
-  transition: 0.25s ease;
+  transform: scale(1.08);
 }
 
 /* ============================================================
-  [31] DARK MODE
+  [35] DARK MODE
 ============================================================ */
 body.dark {
   background: #0b0b0b;
   color: white;
 }
-
-body.dark .section { background: #0b0b0b; }
+body.dark .section {
+  background: #0b0b0b;
+}
 
 body.dark .about-card,
 body.dark .member-card,
 body.dark .project-card,
 body.dark .stat-card,
 body.dark .modal-content {
-  background: #111;
+  background: #1a1a1a;
   color: white;
 }
 
 body.dark .form-group input,
 body.dark .form-group textarea {
-  background: #111;
+  background: #1a1a1a;
   color: white;
-  border: 1px solid #333;
+  border-color: #333;
+}
+
+body.dark .activity-list li {
+  border-color: rgba(255, 255, 255, 0.06);
 }
 
 /* ============================================================
-  [32] RESPONSIVE — MOBILE (max-width: 768px)
+  [36] SCROLL REVEAL
+  Satu blok bersih — file asli mendefinisikan .reveal DUA KALI
+  (baris 1199 dan 1379) dengan class trigger berbeda (.show vs
+  .active) yang bentrok dan menyebabkan animasi tidak konsisten.
+============================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+.reveal-left {
+  transform: translateX(-60px);
+}
+.reveal-right {
+  transform: translateX(60px);
+}
+.reveal-zoom {
+  transform: scale(0.85);
+}
+
+/* Delay utilities */
+.delay-1 {
+  transition-delay: 0.1s;
+}
+.delay-2 {
+  transition-delay: 0.2s;
+}
+.delay-3 {
+  transition-delay: 0.3s;
+}
+.delay-4 {
+  transition-delay: 0.4s;
+}
+.delay-5 {
+  transition-delay: 0.5s;
+}
+
+/* ============================================================
+  [37] ANIMATIONS
+============================================================ */
+@keyframes bounceSoft {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.08);
+  }
+  70% {
+    transform: scale(0.98);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.bounce-active {
+  animation: bounceSoft 0.4s ease;
+}
+
+/* ============================================================
+  [38] RESPONSIVE — MOBILE
 ============================================================ */
 @media (max-width: 768px) {
-  .menu-toggle { display: block; }
+  .menu-toggle {
+    display: block;
+  }
 
-  .sidebar       { left: -260px; }
-  .sidebar.active { left: 0; }
+  .sidebar {
+    left: -260px;
+  }
+  .sidebar.active {
+    left: 0;
+  }
 
   .main-content {
     margin-left: 0;
     width: 100%;
   }
 
-  .section { padding: 80px 20px; }
+  .section {
+    padding: 80px 20px;
+  }
 
-  .gallery-btn.left  { left:  0; }
-  .gallery-btn.right { right: 0; }
+  .gallery-btn.left {
+    left: 0;
+  }
+  .gallery-btn.right {
+    right: 0;
+  }
 
   .hero-buttons {
     flex-direction: column;
     align-items: flex-start;
   }
 
-  /* tombol navigasi lightbox lebih mudah diklik di layar kecil */
   .lightbox-nav {
     padding: 8px 10px;
     font-size: 22px;
   }
-}
 
-/* ============================================================
-  [33] ANIMATIONS — BOUNCE
-============================================================ */
-@keyframes bounceSoft {
-  0%   { transform: scale(1); }
-  40%  { transform: scale(1.08); }
-  70%  { transform: scale(0.98); }
-  100% { transform: scale(1); }
-}
+  .lightbox-thumbs img {
+    width: 60px;
+    height: 44px;
+  }
 
-.bounce-active {
-  animation: bounceSoft 0.4s ease;
+  .reveal {
+    transform: translateY(30px);
+  }
 }
