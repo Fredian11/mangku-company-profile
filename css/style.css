@@ -25,6 +25,24 @@ body {
 }
 
 /* ============================================================
+  [1a] GLOBAL RESPONSIVE SAFETY
+============================================================ */
+
+html,
+body {
+  max-width: 100%;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+section {
+  width: 100%;
+}
+
+/* ============================================================
   [2] THEME VARIABLES
 ============================================================ */
 :root {
@@ -33,7 +51,9 @@ body {
   --dark: #111;
   --soft-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
   --radius: 14px;
+  --transition-fast: 0.2s ease;
   --transition: 0.3s ease;
+  --transition-slow: 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* ============================================================
@@ -177,12 +197,18 @@ body {
   border-radius: 12px;
   position: relative;
   z-index: 2;
-  transition: all 0.25s ease;
+  /* Gunakan properti spesifik, bukan "all", agar background active
+     tidak ikut ter-transition dan tidak terlihat bocor ke link lain */
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    color 0.25s ease;
 }
 
+/* Active: hanya transform — background diatur .sidebar-link.active */
 .menu-link.active {
-  background: rgba(0, 198, 255, 0.12);
   transform: translateX(6px);
+  pointer-events: none;
 }
 
 .menu-link.active:hover {
@@ -202,7 +228,8 @@ body {
   color: #00c6ff;
 }
 
-.menu-link:hover {
+/* Hover HANYA untuk link yang belum active, mencegah double-active visual */
+.menu-link:not(.active):hover {
   transform: translateX(6px);
   box-shadow: 0 0 8px rgba(0, 198, 255, 0.08);
 }
@@ -245,17 +272,21 @@ body {
 .sidebar-link:hover::after {
   width: 65%;
 }
+
+/* Sembunyikan underline saat active — indicator neon sudah cukup */
 .sidebar-link.active::after {
-  width: 75%;
+  width: 0%;
+  opacity: 0;
 }
 
+/* Background active — satu rule, satu tempat */
 .sidebar-link.active {
   background: linear-gradient(
     90deg,
-    rgba(0, 198, 255, 0.12),
+    rgba(0, 198, 255, 0.14),
     rgba(0, 114, 255, 0.08)
   );
-  border: 1px solid rgba(0, 198, 255, 0.2);
+  border: 1px solid rgba(0, 198, 255, 0.22);
 }
 
 /* [7e] Sliding nav indicator */
@@ -281,10 +312,10 @@ body {
   opacity: 0;
   transform: scale(0.95);
   transition:
-    top 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-    height 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.2s ease;
-  transform: 0.25s ease;
+    top 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+    height 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.2s ease,
+    transform 0.25s ease;
 }
 
 .nav-indicator::before {
@@ -646,6 +677,7 @@ body {
 
 .gallery-item {
   flex: 0 0 auto;
+  width: min(320px, 85vw);
   scroll-snap-stop: always;
   scroll-snap-align: center;
 }
@@ -1348,6 +1380,7 @@ body.dark .activity-list li {
   .sidebar {
     left: -260px;
   }
+
   .sidebar.active {
     left: 0;
   }
@@ -1364,6 +1397,7 @@ body.dark .activity-list li {
   .gallery-btn.left {
     left: 0;
   }
+
   .gallery-btn.right {
     right: 0;
   }
@@ -1371,6 +1405,33 @@ body.dark .activity-list li {
   .hero-buttons {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  /* ============================================================
+     HERO RESPONSIVE POLISH
+  ============================================================ */
+
+  .hero-content h1 {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+
+  .hero-content p {
+    font-size: 0.95rem;
+  }
+
+  .hero-buttons {
+    width: 100%;
+    gap: 12px;
+  }
+
+  .hero-buttons .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .stats-container {
+    grid-template-columns: 1fr;
   }
 
   .lightbox-nav {
@@ -1385,5 +1446,81 @@ body.dark .activity-list li {
 
   .reveal {
     transform: translateY(30px);
+  }
+
+  /* ========================================================
+    GALLERY RESPONSIVE POLISH
+  ======================================================== */
+
+  .gallery-track {
+    gap: 12px;
+    padding-inline: 10px;
+  }
+
+  .gallery-item {
+    width: 85vw;
+  }
+
+  .gallery-img {
+    width: 100%;
+    height: auto;
+  }
+
+  .gallery-btn {
+    width: 38px;
+    height: 38px;
+    font-size: 14px;
+  }
+
+  /* ========================================================
+    MODAL RESPONSIVE POLISH
+  ======================================================== */
+
+  .modal-content {
+    width: min(92vw, 340px);
+    padding: 20px;
+  }
+
+  .modal-content img {
+    width: 110px;
+    height: 110px;
+  }
+
+  .close {
+    right: 12px;
+    top: 8px;
+    font-size: 24px;
+  }
+}
+
+/* ============================================================
+   [RESPONSIVE] EXTRA SMALL DEVICES
+============================================================ */
+
+@media (max-width: 480px) {
+  .sidebar {
+    width: 260px;
+  }
+
+  .hero-content h1 {
+    font-size: 1.7rem;
+  }
+
+  .menu-link {
+    font-size: 0.95rem;
+    padding: 11px 12px;
+  }
+
+  .gallery-item {
+    width: 82vw;
+  }
+
+  .lightbox-controls {
+    gap: 8px;
+  }
+
+  .lightbox-controls button {
+    width: 38px;
+    height: 38px;
   }
 }

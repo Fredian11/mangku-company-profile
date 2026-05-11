@@ -83,6 +83,8 @@ window.addEventListener("load", () => {
     updateGalleryDots();
     startGalleryAutoSlide();
     initReveal();
+    handleScroll(); // inisialisasi scroll progress & active menu dari awal
+    initSidebarActive(); // pastikan hanya 1 link active saat halaman buka
   }, 600);
 });
 
@@ -141,23 +143,46 @@ allMenuLinks.forEach((link) => {
 /* ============================================================
   [7] NAVBAR — ACTIVE SECTION DETECTION
 ============================================================ */
+
+/**
+ * Flag isManualClick: saat user klik menu → smooth scroll berjalan
+ * → scroll event 16ms kemudian men-trigger updateActiveMenu dengan
+ * posisi lama → double/wrong active.
+ * Solusi: bekukan updateActiveMenu selama smooth scroll (~950ms).
+ */
+let isManualClick = false;
+let manualClickTimer;
+
 function getActiveSectionId() {
+  // Proporsi viewport — lebih akurat dari angka hardcode 160px
+  const offset = Math.round(window.innerHeight * 0.28);
   let current = "";
+
   pageSections.forEach((sec) => {
-    if (window.scrollY >= sec.offsetTop - 160) current = sec.id;
+    const top = sec.offsetTop - offset;
+    const bottom = top + sec.offsetHeight;
+    if (window.scrollY >= top && window.scrollY < bottom) {
+      current = sec.id;
+    }
   });
+
+  // Fallback ke section pertama jika di paling atas
+  if (!current && pageSections.length) current = pageSections[0].id;
   return current;
 }
 
-function updateActiveMenu() {
-  const id = getActiveSectionId();
+function setActiveLinkById(id) {
   if (!id) return;
-
   sidebarLinks.forEach((link) => {
     const isActive = link.getAttribute("href") === `#${id}`;
     link.classList.toggle("active", isActive);
     if (isActive) moveIndicator(link);
   });
+}
+
+function updateActiveMenu() {
+  if (isManualClick) return; // bekukan saat smooth scroll sedang berjalan
+  setActiveLinkById(getActiveSectionId());
 }
 
 /* ============================================================
@@ -166,26 +191,35 @@ function updateActiveMenu() {
 function moveIndicator(targetLink) {
   if (!navIndicator || !targetLink) return;
   navIndicator.style.top = targetLink.offsetTop + "px";
+  navIndicator.style.height = targetLink.offsetHeight + "px";
   navIndicator.style.opacity = "1";
   navIndicator.style.transform = "scale(1)";
 }
 
+/* Klik sidebar link */
 sidebarLinks.forEach((link) => {
   link.addEventListener("click", () => {
+    /* 1. Bekukan scroll detection selama smooth scroll berjalan */
+    isManualClick = true;
+    clearTimeout(manualClickTimer);
+    manualClickTimer = setTimeout(() => {
+      isManualClick = false;
+      updateActiveMenu(); // sinkron ulang setelah scroll selesai
+    }, 950);
+
+    /* 2. Hapus semua active dulu, set hanya yang diklik */
     sidebarLinks.forEach((l) => l.classList.remove("active"));
     link.classList.add("active");
     moveIndicator(link);
 
-    // bounce effect
+    /* 3. Bounce effect */
     link.classList.add("bounce-active");
     setTimeout(() => link.classList.remove("bounce-active"), 350);
   });
 });
 
 /* ============================================================
-  [9] UNIFIED SCROLL HANDLER (single rAF — replaces 3 duplicates)
-  Bug lama: ada 3 window.addEventListener("scroll") terpisah untuk
-  scroll progress, back-to-top, dan active menu. Digabung satu.
+  [9] UNIFIED SCROLL HANDLER
 ============================================================ */
 function handleScroll() {
   const scrollTop = window.scrollY;
@@ -200,12 +234,13 @@ function handleScroll() {
 
 window.addEventListener("scroll", rafThrottle(handleScroll), { passive: true });
 
-// Init on load
-window.addEventListener("load", () => {
-  handleScroll();
-  const active = document.querySelector(".menu-link.sidebar-link.active");
-  if (active) moveIndicator(active);
-});
+/* Dipanggil dari PAGE LOADER setelah 600ms — inisialisasi active menu awal */
+function initSidebarActive() {
+  const id = getActiveSectionId();
+  // Hapus semua active dari HTML, set ulang berdasarkan posisi aktual
+  sidebarLinks.forEach((link) => link.classList.remove("active"));
+  setActiveLinkById(id);
+}
 
 /* ============================================================
   [10] COUNTER ANIMATION
@@ -282,17 +317,13 @@ function typingLoop() {
 typingLoop();
 
 /* ============================================================
-  [12] SCROLL REVEAL (single observer — replaces 2 duplicates)
-  Bug lama: ada 2 IntersectionObserver untuk .reveal, satu pakai
-  class "show" dan satu pakai class "active" — keduanya berjalan
-  bersamaan, CSS hanya mengenal "active", sehingga "show" tidak
-  melakukan apa-apa dan elemen reveal tidak selalu muncul.
+  [12] SCROLL REVEAL
 ============================================================ */
 function initReveal() {
   const els = document.querySelectorAll(".reveal");
   if (!els.length) return;
 
-  new IntersectionObserver(
+  const revealObs = new IntersectionObserver(
     (entries, obs) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
@@ -301,21 +332,9 @@ function initReveal() {
       });
     },
     { threshold: 0.15, rootMargin: "0px 0px -40px 0px" },
-  ).observe = (() => {
-    // override observe untuk bulk register
-    const observer = new IntersectionObserver(
-      (entries, obs) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add("active");
-          obs.unobserve(entry.target);
-        });
-      },
-      { threshold: 0.15, rootMargin: "0px 0px -40px 0px" },
-    );
-    els.forEach((el) => observer.observe(el));
-    return observer.observe.bind(observer);
-  })();
+  );
+
+  els.forEach((el) => revealObs.observe(el));
 }
 
 /* ============================================================
@@ -440,10 +459,6 @@ galleryTrack?.addEventListener("scroll", rafThrottle(updateGalleryDots), {
   passive: true,
 });
 
-galleryTrack?.addEventListener("mouseleave", startGalleryAutoSlide);
-galleryTrack.addEventListener("mousedown", () => stopGalleryAutoSlide());
-galleryTrack.addEventListener("mouseup", () => startGalleryAutoSlide());
-
 /* ============================================================
   [18] GALLERY — TOUCH SWIPE
 ============================================================ */
@@ -496,7 +511,9 @@ function stopProgress() {
 }
 
 function autoNextSlide() {
+  if (!galleryTrack) return;
   const width = getSlideWidth();
+  const maxLeft = galleryTrack.scrollWidth - galleryTrack.clientWidth;
 
   galleryTrack.scrollLeft =
     galleryTrack.scrollLeft >= maxLeft - 5
