@@ -2,11 +2,63 @@
 <html lang="id">
 
 <head>
+  <!-- =========================================================
+       BASIC META
+  ========================================================== -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mangku Group - Company Profile</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <title>Mangku Group | Komunitas Digital Modern</title>
+
+  <meta name="description"
+    content="Mangku Group adalah komunitas digital modern untuk belajar, berbagi pengalaman, membangun project, dan berkembang bersama." />
+
+  <meta name="keywords"
+    content="Mangku Group, komunitas digital, komunitas programmer, komunitas teknologi, project digital, komunitas modern" />
+
+  <meta name="author" content="Mangku Group" />
+
+  <!-- =========================================================
+       THEME COLOR
+  ========================================================== -->
+  <meta name="theme-color" content="#0f172a" />
+
+  <!-- =========================================================
+       OPEN GRAPH (FACEBOOK / DISCORD / WHATSAPP)
+  ========================================================== -->
+  <meta property="og:title" content="Mangku Group | Komunitas Digital Modern" />
+
+  <meta property="og:description" content="Tempat belajar, sharing, membuat project, dan berkembang bersama." />
+
+  <meta property="og:type" content="website" />
+
+  <meta property="og:image" content="img/preview.jpg" />
+
+  <!-- =========================================================
+       TWITTER CARD
+  ========================================================== -->
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <meta name="twitter:title" content="Mangku Group | Komunitas Digital Modern" />
+
+  <meta name="twitter:description" content="Komunitas digital modern untuk belajar dan berkembang bersama." />
+
+  <meta name="twitter:image" content="img/preview.jpg" />
+
+  <!-- =========================================================
+       FAVICON
+  ========================================================== -->
+  <link rel="icon" type="image/png" href="img/favicon.png" />
+
+  <!-- =========================================================
+       CSS
+  ========================================================== -->
   <link rel="stylesheet" href="css/style.css" />
+
+  <!-- =========================================================
+       FONT AWESOME
+  ========================================================== -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 </head>
 
 <body>
@@ -23,7 +75,7 @@
   </div>
 
   <!-- [3] MOBILE MENU TOGGLE -->
-  <button class="menu-toggle" id="menuToggle" aria-label="Buka Menu">
+  <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
     <i class="fa-solid fa-bars"></i>
   </button>
 
@@ -135,25 +187,25 @@
         <div class="member-grid">
           <div class="member-card reveal" data-name="Cahyo" data-role="Admin"
             data-desc="Cahyo adalah admin utama komunitas Mangku Group." data-img="img/member1.png">
-            <img src="img/member1.png" alt="Foto Cahyo" loading="lazy" />
+            <img src="img//members/member1.png" alt="Foto Cahyo" loading="lazy" />
             <h3>Cahyo</h3>
             <p>Admin</p>
           </div>
           <div class="member-card reveal delay-1" data-name="Rey" data-role="Admin"
             data-desc="Rey bertanggung jawab mengembangkan project komunitas." data-img="img/member2.jpg">
-            <img src="img/member2.jpg" alt="Foto Rey" loading="lazy" />
+            <img src="img//members/member2.jpg" alt="Foto Rey" loading="lazy" />
             <h3>Rey</h3>
             <p>Admin</p>
           </div>
           <div class="member-card reveal delay-2" data-name="Yogi" data-role="Admin"
             data-desc="Yogi membantu desain UI/UX project komunitas." data-img="img/member3.jpeg">
-            <img src="img/member3.jpeg" alt="Foto Yogi" loading="lazy" />
+            <img src="img/members/member3.jpeg" alt="Foto Yogi" loading="lazy" />
             <h3>Yogi</h3>
             <p>Admin</p>
           </div>
           <div class="member-card reveal delay-3" data-name="Kori" data-role="Admin"
             data-desc="Kori pengatur suasana komunitas." data-img="img/member4.jpg">
-            <img src="img/member4.jpg" alt="Foto Kori" loading="lazy" />
+            <img src="img/members/member4.jpg" alt="Foto Kori" loading="lazy" />
             <h3>Kori</h3>
             <p>Admin</p>
           </div>
@@ -211,27 +263,32 @@
         <h2>Gallery</h2>
         <p>Klik gambar untuk fullscreen.</p>
         <div class="gallery-slider">
-          <button class="gallery-btn left" id="galleryPrev" aria-label="Slide Sebelumnya">
+          <button class="gallery-btn left" id="galleryPrev" aria-label="Previous gallery image">
             <i class="fa-solid fa-chevron-left"></i>
           </button>
           <div class="gallery-track" id="galleryTrack">
             <div class="gallery-item">
-              <img data-src="img/galeri1.jpeg" src="placeholder.jpg" class="gallery-img lazy-img" alt="Galeri 1" />
+              <img data-src="img/gallery/galeri1.jpeg" src="placeholder.jpg" class="gallery-img lazy-img"
+                alt="Galeri 1" />
             </div>
             <div class="gallery-item">
-              <img data-src="img/galeri2.jpeg" src="placeholder.jpg" class="gallery-img lazy-img" alt="Galeri 2" />
+              <img data-src="img/gallery/galeri2.jpeg" src="placeholder.jpg" class="gallery-img lazy-img"
+                alt="Galeri 2" />
             </div>
             <div class="gallery-item">
-              <img data-src="img/galeri3.jpeg" src="placeholder.jpg" class="gallery-img lazy-img" alt="Galeri 3" />
+              <img data-src="img/gallery/galeri3.jpeg" src="placeholder.jpg" class="gallery-img lazy-img"
+                alt="Galeri 3" />
             </div>
             <div class="gallery-item">
-              <img data-src="img/galeri4.jpeg" src="placeholder.jpg" class="gallery-img lazy-img" alt="Galeri 4" />
+              <img data-src="img/gallery/galeri4.jpeg" src="placeholder.jpg" class="gallery-img lazy-img"
+                alt="Galeri 4" />
             </div>
             <div class="gallery-item">
-              <img data-src="img/galeri5.jpeg" src="placeholder.jpg" class="gallery-img lazy-img" alt="Galeri 5" />
+              <img data-src="img/gallery/galeri5.jpeg" src="placeholder.jpg" class="gallery-img lazy-img"
+                alt="Galeri 5" />
             </div>
           </div>
-          <button class="gallery-btn right" id="galleryNext" aria-label="Slide Berikutnya">
+          <button class="gallery-btn right" id="galleryNext" aria-label="Next gallery image">
             <i class="fa-solid fa-chevron-right"></i>
           </button>
         </div>
