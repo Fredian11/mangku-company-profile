@@ -401,9 +401,14 @@ function getSlideWidth() {
   if (!item) return 320;
 
   const style = window.getComputedStyle(item);
-  const marginRight = parseInt(style.marginRight) || 15;
+  const gap =
+    parseInt(getComputedStyle(galleryTrack).columnGap) ||
+    parseInt(getComputedStyle(galleryTrack).gap) ||
+    15;
 
-  return item.offsetWidth + marginRight;
+  // const marginRight = parseInt(style.marginRight) || 15;
+
+  return item.offsetWidth + gap;
 }
 
 function scrollGallery(dir) {
