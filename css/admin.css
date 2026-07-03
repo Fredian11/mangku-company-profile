@@ -1,0 +1,218 @@
+/* ===================================== */
+/* [1] GOOGLE FONT */
+/* ===================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+/* ===================================== */
+/* [2] RESET */
+/* ===================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: #f3f6fb;
+  min-height: 100vh;
+}
+
+/* ===================================== */
+/* [3] LOGIN PAGE */
+/* ===================================== */
+
+.login-page {
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 30px;
+}
+
+/* ===================================== */
+/* [4] LOGIN CARD */
+/* ===================================== */
+
+.login-card {
+  width: 100%;
+  max-width: 430px;
+
+  background: #ffffff;
+
+  border-radius: 20px;
+
+  padding: 40px;
+
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* ===================================== */
+/* [5] LOGO */
+/* ===================================== */
+
+.login-logo {
+  text-align: center;
+
+  margin-bottom: 35px;
+}
+
+.login-logo h1 {
+  color: #2563eb;
+
+  font-size: 34px;
+
+  font-weight: 700;
+}
+
+.login-logo p {
+  margin-top: 8px;
+
+  color: #666;
+
+  font-size: 15px;
+}
+
+/* ===================================== */
+/* [6] FORM */
+/* ===================================== */
+
+.login-form {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 20px;
+}
+
+/* ===================================== */
+/* [7] INPUT GROUP */
+/* ===================================== */
+
+.input-group {
+  display: flex;
+
+  flex-direction: column;
+}
+
+.input-group label {
+  margin-bottom: 8px;
+
+  font-weight: 500;
+
+  color: #333;
+}
+
+.input-group label i {
+  color: #2563eb;
+
+  margin-right: 8px;
+}
+
+.input-group input {
+  width: 100%;
+
+  padding: 14px 16px;
+
+  border: 1px solid #d9d9d9;
+
+  border-radius: 10px;
+
+  font-size: 15px;
+
+  transition: 0.3s;
+}
+
+.input-group input:focus {
+  border-color: #2563eb;
+
+  outline: none;
+
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+}
+
+/* ===================================== */
+/* [8] MESSAGE */
+/* ===================================== */
+
+.login-message {
+  min-height: 22px;
+
+  color: #dc2626;
+
+  font-size: 14px;
+
+  text-align: center;
+}
+
+/* ===================================== */
+/* [9] BUTTON */
+/* ===================================== */
+
+.login-btn {
+  width: 100%;
+
+  border: none;
+
+  border-radius: 10px;
+
+  padding: 15px;
+
+  cursor: pointer;
+
+  background: #2563eb;
+
+  color: white;
+
+  font-size: 16px;
+
+  font-weight: 600;
+
+  transition: 0.3s;
+}
+
+.login-btn:hover {
+  background: #1d4ed8;
+
+  transform: translateY(-2px);
+}
+
+.login-btn i {
+  margin-right: 8px;
+}
+
+/* ===================================== */
+/* [10] FOOTER */
+/* ===================================== */
+
+.login-footer {
+  margin-top: 30px;
+
+  text-align: center;
+
+  color: #777;
+
+  font-size: 14px;
+}
+
+/* ===================================== */
+/* [11] RESPONSIVE */
+/* ===================================== */
+
+@media (max-width: 480px) {
+  .login-card {
+    padding: 30px 24px;
+  }
+
+  .login-logo h1 {
+    font-size: 28px;
+  }
+}

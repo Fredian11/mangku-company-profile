@@ -1,0 +1,112 @@
+<!-- ===================================== -->
+<!-- [1] HTML -->
+<!-- ===================================== -->
+
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <!-- ===================================== -->
+    <!-- [2] META -->
+    <!-- ===================================== -->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Login | Mangku Group</title>
+
+    <!-- ===================================== -->
+    <!-- [3] FONT AWESOME -->
+    <!-- ===================================== -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <!-- ===================================== -->
+    <!-- [4] CSS -->
+    <!-- ===================================== -->
+
+    <link rel="stylesheet" href="css/admin.css">
+
+</head>
+
+<body>
+
+    <!-- ===================================== -->
+    <!-- [5] LOGIN CONTAINER -->
+    <!-- ===================================== -->
+
+    <main class="login-page">
+
+        <div class="login-card">
+
+            <!-- [5.1] Logo -->
+            <div class="login-logo">
+                <h1>Mangku Group</h1>
+                <p>Panel Administrator</p>
+            </div>
+
+            <!-- [5.2] Form Login -->
+            <form id="loginForm" class="login-form">
+
+                <!-- Email -->
+                <div class="input-group">
+                    <label for="email">
+                        <i class="fa-solid fa-envelope"></i>
+                        Email
+                    </label>
+
+                    <input type="email" id="email" placeholder="Masukkan email admin" required>
+                </div>
+
+                <!-- Password -->
+                <div class="input-group">
+                    <label for="password">
+                        <i class="fa-solid fa-lock"></i>
+                        Password
+                    </label>
+
+                    <input type="password" id="password" placeholder="Masukkan password" required>
+                </div>
+
+                <!-- Pesan Error -->
+                <p id="loginMessage" class="login-message"></p>
+
+                <!-- Tombol Login -->
+                <button type="submit" id="loginBtn" class="login-btn">
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                    Login
+                </button>
+
+            </form>
+
+            <!-- Footer -->
+            <div class="login-footer">
+                © 2026 Mangku Group
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- ===================================== -->
+    <!-- [6] SUPABASE -->
+    <!-- ===================================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- ===================================== -->
+    <!-- [7] CONFIG -->
+    <!-- ===================================== -->
+
+    <script src="js/config.js"></script>
+
+    <!-- ===================================== -->
+    <!-- [8] ADMIN JS -->
+    <!-- ===================================== -->
+
+    <script src="js/admin.js"></script>
+
+</body>
+
+</html>

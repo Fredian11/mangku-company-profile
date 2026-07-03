@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <!-- ============================================================
+         [1] META
+    ============================================================= -->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard Admin | Mangku Group</title>
+
+    <!-- ============================================================
+         [2] FONT AWESOME
+    ============================================================= -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- ============================================================
+         [3] CSS
+    ============================================================= -->
+
+    <link rel="stylesheet" href="css/dashboard.css">
+
+</head>
+
+<body>
+
+    <!-- ============================================================
+         [1] DASHBOARD
+    ============================================================= -->
+
+    <div class="dashboard">
+
+        <!-- ========================================================
+             [1.1] SIDEBAR
+        ========================================================= -->
+
+        <aside class="sidebar">
+
+            <div class="logo">
+
+                <h2>Mangku Group</h2>
+
+                <p>Admin Panel</p>
+
+            </div>
+
+            <nav>
+
+                <ul>
+
+                    <li><a href="#"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+
+                    <li><a href="#"><i class="fa-solid fa-users"></i> Members</a></li>
+
+                    <li><a href="#"><i class="fa-solid fa-calendar"></i> Activities</a></li>
+
+                    <li><a href="#"><i class="fa-solid fa-folder"></i> Projects</a></li>
+
+                    <li><a href="#"><i class="fa-solid fa-image"></i> Gallery</a></li>
+
+                    <li><a href="#"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+
+                </ul>
+
+            </nav>
+
+            <button id="logoutBtn">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                Logout
+
+            </button>
+
+        </aside>
+
+        <!-- ========================================================
+             [1.2] CONTENT
+        ========================================================= -->
+
+        <main class="content">
+
+            <!-- HEADER -->
+
+            <header>
+
+                <h1>Dashboard</h1>
+
+                <div class="admin-info">
+
+                    <h3 id="adminName">Loading...</h3>
+
+                    <p id="adminRole">Loading...</p>
+
+                </div>
+
+            </header>
+
+            <!-- WELCOME -->
+
+            <section class="welcome-card">
+
+                <h2>
+
+                    Selamat Datang,
+
+                    <span id="adminName">
+
+                        Administrator
+
+                    </span>
+
+                </h2>
+
+                <p>
+
+                    Kelola seluruh data website Mangku Group dari Dashboard Admin.
+
+                </p>
+
+            </section>
+
+            <!-- STATISTIC -->
+
+            <section class="stats">
+
+                <div class="card">
+
+                    <h3>Members</h3>
+
+                    <span id="totalMembers">0</span>
+
+                </div>
+
+                <div class="card">
+
+                    <h3>Activities</h3>
+
+                    <span id="totalActivities">0</span>
+
+                </div>
+
+                <div class="card">
+
+                    <h3>Projects</h3>
+
+                    <span id="totalProjects">0</span>
+
+                </div>
+
+                <div class="card">
+
+                    <h3>Gallery</h3>
+
+                    <span id="totalGallery">0</span>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <!-- ============================================================
+         [4] SUPABASE
+    ============================================================= -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- ============================================================
+         [5] CONFIG
+    ============================================================= -->
+
+    <script src="js/config.js"></script>
+
+    <!-- ============================================================
+         [6] JAVASCRIPT
+    ============================================================= -->
+
+    <script src="js/dashboard.js"></script>
+
+</body>
+
+</html>
