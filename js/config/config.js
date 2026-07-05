@@ -1,5 +1,5 @@
 /* ============================================================
-   SUPABASE CONFIGURATION
+   [1] SUPABASE CONFIGURATION
 ============================================================ */
 
 // URL Project Supabase
@@ -9,7 +9,7 @@ const SUPABASE_URL = "https://qrnggmbgctenaeoqcpym.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_wo8TwONjSAlZAOARdczzkw_Et1mCECS";
 
 /* ============================================================
-   CREATE SUPABASE CLIENT
+   [2] CREATE SUPABASE CLIENT
 ============================================================ */
 
 if (!window.__supabaseClient) {
@@ -20,13 +20,14 @@ if (!window.__supabaseClient) {
 }
 
 /* ============================================================
-   GLOBAL DATABASE CLIENT
+   [3] GLOBAL DATABASE CLIENT
 ============================================================ */
 
 window.db = window.__supabaseClient;
 
 /* ============================================================
-   CONNECTION TEST
+   [4] CONNECTION TEST
 ============================================================ */
 
 console.log("✅ Supabase Connected");
+console.log(window.db);

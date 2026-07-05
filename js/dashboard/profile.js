@@ -6,7 +6,7 @@
 ============================================================ */
 
 /* ============================================================
-   [1] LOAD PROFILE ADMIN
+   [2] LOAD PROFILE ADMIN
 ============================================================ */
 
 async function loadProfile(userId) {
@@ -39,6 +39,5 @@ async function loadProfile(userId) {
   document.getElementById("adminName").textContent =
     data.full_name || "Administrator";
 
-  document.getElementById("adminRole").textContent =
-    data.role || "Admin";
+  document.getElementById("adminRole").textContent = data.role || "Admin";
 }
