@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="id">
+
+<head>
+     <!-- ============================================================
+         [1] META
+    ============================================================= -->
+     <meta charset="UTF-8" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+     <!-- ============================================================
+         [2] TITLE
+    ============================================================= -->
+     <title>Members | Mangku Group Admin Panel</title>
+
+     <!-- ============================================================
+         [3] FONT AWESOME
+    ============================================================= -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+
+     <!-- ============================================================
+         [4] FAVICON
+    ============================================================= -->
+     <link rel="icon" type="image/jpeg" href="img/Logo.jpeg" />
+
+     <!-- ============================================================
+         [5] CSS
+    ============================================================= -->
+
+     <!-- Global Dashboard Style -->
+     <link rel="stylesheet" href="css/dashboard.css" />
+
+     <!-- Members Module Style -->
+     <link rel="stylesheet" href="css/members.css" />
+</head>
+
+<body>
+     <!-- ================================================================
+     [1] DASHBOARD LAYOUT
+================================================================ -->
+
+     <div class="dashboard">
+          <!-- ============================================================
+         [1.1] SIDEBAR
+    ============================================================= -->
+
+          <aside class="sidebar">
+               <!-- LOGO -->
+               <div class="logo">
+                    <h2>Mangku Group</h2>
+
+                    <p>Admin Panel</p>
+               </div>
+
+               <!-- MENU NAVIGATION -->
+               <nav>
+                    <ul>
+                         <!-- Dashboard -->
+                         <li>
+                              <a href="dashboard.html">
+                                   <i class="fa-solid fa-house"></i>
+
+                                   Dashboard
+                              </a>
+                         </li>
+
+                         <!-- Members Active -->
+                         <li>
+                              <a class="active" href="members.html">
+                                   <i class="fa-solid fa-users"></i>
+
+                                   Members
+                              </a>
+                         </li>
+
+                         <!-- Activities -->
+                         <li>
+                              <a href="activities.html">
+                                   <i class="fa-solid fa-calendar"></i>
+
+                                   Activities
+                              </a>
+                         </li>
+
+                         <!-- Projects -->
+                         <li>
+                              <a href="projects.html">
+                                   <i class="fa-solid fa-folder"></i>
+
+                                   Projects
+                              </a>
+                         </li>
+
+                         <!-- Gallery -->
+                         <li>
+                              <a href="gallery.html">
+                                   <i class="fa-solid fa-image"></i>
+
+                                   Gallery
+                              </a>
+                         </li>
+
+                         <!-- Contact -->
+                         <li>
+                              <a href="contact.html">
+                                   <i class="fa-solid fa-envelope"></i>
+
+                                   Contact
+                              </a>
+                         </li>
+                    </ul>
+               </nav>
+
+               <!-- LOGOUT BUTTON -->
+
+               <button id="logoutBtn">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+
+                    Logout
+               </button>
+          </aside>
+
+          <!-- ============================================================
+         [1.2] MAIN CONTENT
+    ============================================================= -->
+
+          <main class="content">
+               <!-- ========================================================
+             [2] MEMBERS HEADER
+        ========================================================= -->
+
+               <section class="members-header">
+                    <div class="members-title">
+                         <h1>Members</h1>
+
+                         <p>Kelola seluruh anggota Mangku Group.</p>
+                    </div>
+
+                    <!-- ADD MEMBER BUTTON -->
+
+                    <button id="openMemberModal" class="btn-add-member">
+                         <i class="fa-solid fa-user-plus"></i>
+
+                         Add Member
+                    </button>
+               </section>
+
+               <!-- ========================================================
+             [3] MEMBERS STATISTICS
+        ========================================================= -->
+
+               <section class="members-statistics">
+                    <!-- TOTAL MEMBER -->
+
+                    <div class="stat-card">
+                         <div class="stat-icon">
+                              <i class="fa-solid fa-users"></i>
+                         </div>
+
+                         <div class="stat-info">
+                              <h3>Total Member</h3>
+
+                              <span id="totalMember"> 0 </span>
+                         </div>
+                    </div>
+
+                    <!-- ACTIVE MEMBER -->
+
+                    <div class="stat-card">
+                         <div class="stat-icon">
+                              <i class="fa-solid fa-user-check"></i>
+                         </div>
+
+                         <div class="stat-info">
+                              <h3>Aktif</h3>
+
+                              <span id="activeMember"> 0 </span>
+                         </div>
+                    </div>
+
+                    <!-- INACTIVE MEMBER -->
+
+                    <div class="stat-card">
+                         <div class="stat-icon">
+                              <i class="fa-solid fa-user-slash"></i>
+                         </div>
+
+                         <div class="stat-info">
+                              <h3>Non Aktif</h3>
+
+                              <span id="inactiveMember"> 0 </span>
+                         </div>
+                    </div>
+               </section>
+
+               <!-- ========================================================
+             [4] MEMBERS SEARCH
+        ========================================================= -->
+
+               <section class="members-search">
+                    <div class="search-box">
+                         <i class="fa-solid fa-magnifying-glass"></i>
+
+                         <input type="text" id="searchMember" placeholder="Cari nama anggota..." />
+                    </div>
+               </section>
+
+               <!-- ========================================================
+             [5] MEMBERS TABLE CARD
+        ========================================================= -->
+
+               <section class="members-table-card">
+                    <!-- ====================================================
+                 TABLE HEADER
+            ===================================================== -->
+
+                    <div class="members-table-header">
+                         <div>
+                              <h2>Daftar Anggota</h2>
+
+                              <p>Data anggota Mangku Group</p>
+                         </div>
+
+                         <span id="memberCount"> Total : 0 Member </span>
+                    </div>
+
+                    <!-- ====================================================
+                 TABLE CONTENT
+            ===================================================== -->
+
+                    <div class="members-table-wrapper">
+                         <table class="members-table">
+                              <thead>
+                                   <tr>
+                                        <th width="90">Foto</th>
+
+                                        <th>Nama</th>
+
+                                        <th>Jabatan</th>
+
+                                        <th>Divisi</th>
+
+                                        <th>Status</th>
+
+                                        <th>Bergabung</th>
+
+                                        <th width="150">Aksi</th>
+                                   </tr>
+                              </thead>
+
+                              <tbody id="membersTableBody">
+                                   <!-- =================================================
+                             DEFAULT EMPTY STATE
+
+                             Data akan diganti oleh:
+                             js/members/load.js
+                        ================================================== -->
+
+                                   <tr>
+                                        <td colspan="7" class="empty-table">
+                                             <div class="empty-state">
+                                                  <i class="fa-solid fa-users"></i>
+
+                                                  <h3>Belum ada data anggota</h3>
+
+                                                  <p>
+                                                       Klik tombol
+
+                                                       <strong> Add Member </strong>
+
+                                                       untuk menambahkan anggota baru.
+                                                  </p>
+                                             </div>
+                                        </td>
+                                   </tr>
+                              </tbody>
+                         </table>
+                    </div>
+               </section>
+
+               <!-- ========================================================
+             [6] PAGINATION
+             
+             Sementara frontend.
+             Akan digunakan saat data Supabase sudah aktif.
+        ========================================================= -->
+
+               <section class="members-pagination">
+                    <button id="prevPage" class="pagination-btn" disabled>
+                         <i class="fa-solid fa-chevron-left"></i>
+
+                         Previous
+                    </button>
+
+                    <div id="pageNumber" class="page-number">1</div>
+
+                    <button id="nextPage" class="pagination-btn">
+                         Next
+
+                         <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+               </section>
+
+               <!-- ========================================================
+             [7] MEMBER MODAL
+             
+             Digunakan untuk:
+             - Tambah Member
+             - Edit Member
+
+             Controller:
+             js/members/modal.js
+        ========================================================= -->
+
+               <div class="modal" id="memberModal">
+                    <div class="modal-content">
+                         <!-- ================================================
+                     MODAL HEADER
+                ================================================= -->
+
+                         <div class="modal-header">
+                              <h2 id="memberModalTitle">
+                                   <i class="fa-solid fa-user-plus"></i>
+
+                                   Tambah Member
+                              </h2>
+
+                              <button type="button" id="closeMemberModal" class="modal-close">
+                                   <i class="fa-solid fa-xmark"></i>
+                              </button>
+                         </div>
+
+                         <!-- ================================================
+                     MODAL FORM
+                ================================================= -->
+
+                         <form id="memberForm">
+                              <!-- Hidden ID
+                         Digunakan saat EDIT data
+                    -->
+
+                              <input type="hidden" id="memberId" />
+
+                              <!-- NAMA -->
+
+                              <div class="form-group">
+                                   <label for="memberName"> Nama Lengkap </label>
+
+                                   <input type="text" id="memberName" placeholder="Masukkan nama lengkap" />
+                              </div>
+
+                              <!-- JABATAN -->
+
+                              <div class="form-group">
+                                   <label for="memberPosition"> Jabatan </label>
+
+                                   <input type="text" id="memberPosition" placeholder="Masukkan jabatan" />
+                              </div>
+
+                              <!-- DIVISI -->
+
+                              <div class="form-group">
+                                   <label for="memberDivision"> Divisi </label>
+
+                                   <input type="text" id="memberDivision" placeholder="Masukkan divisi" />
+                              </div>
+
+                              <!-- STATUS -->
+
+                              <div class="form-group">
+                                   <label for="memberStatus"> Status </label>
+
+                                   <select id="memberStatus">
+                                        <option value="Aktif">Aktif</option>
+
+                                        <option value="Non Aktif">Non Aktif</option>
+                                   </select>
+                              </div>
+
+                              <!-- FOTO -->
+
+                              <div class="form-group">
+                                   <label for="memberPhoto"> Foto Member </label>
+
+                                   <input type="file" id="memberPhoto" accept="image/*" />
+                              </div>
+
+                              <!-- MODAL FOOTER -->
+
+                              <div class="modal-footer">
+                                   <button type="button" id="cancelMemberModal" class="btn-cancel">
+                                        Batal
+                                   </button>
+
+                                   <button type="submit" class="btn-save">Simpan</button>
+                              </div>
+                         </form>
+                    </div>
+               </div>
+          </main>
+     </div>
+
+     <!-- =============================================================
+     [8] JAVASCRIPT
+================================================================ -->
+
+     <!-- Supabase Config -->
+
+     <script src="js/config/config.js"></script>
+
+     <!-- Members Module -->
+
+     <script src="js/members/load.js"></script>
+
+     <script src="js/members/pagination.js"></script>
+
+     <script src="js/members/search.js"></script>
+
+     <script src="js/members/modal.js"></script>
+
+     <script src="js/members/delete.js"></script>
+
+     <script src="js/members/members.js"></script>
+
+     <!-- Logout -->
+
+     <script src="js/dashboard/logout.js"></script>
+</body>
+
+</html>
