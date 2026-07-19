@@ -1,308 +1,132 @@
 /* ============================================================
-   FILE : load.js
-   FOLDER : js/members/
-   DESKRIPSI :
-   Mengatur loading dan rendering data Members.
+   FILE     : load.js
+   FOLDER   : js/members/
 
-   STATUS:
-   Dummy Data (sebelum Supabase)
+   RELEASE  : v0.2.4-B
+
+   DESKRIPSI:
+   Mengatur loading dan rendering data Members
+   dari Supabase Database.
+
 ============================================================ */
 
 /* ============================================================
-   [1] DUMMY MEMBERS DATA
+   [1] GLOBAL MEMBERS DATA
 
-   Nanti diganti:
-   Supabase SELECT members
+   Data awal kosong.
+
+   Data akan diisi melalui:
+   Supabase -> loadMembers()
 ============================================================ */
 
-window.membersData = [
-  {
-    id: 1,
-
-    nama: "Budi Santoso",
-
-    jabatan: "Ketua",
-
-    divisi: "Management",
-
-    status: "Aktif",
-
-    bergabung: "2025-01-10",
-
-    foto: "",
-  },
-
-  {
-    id: 2,
-
-    nama: "Andi Wijaya",
-
-    jabatan: "Administrator",
-
-    divisi: "IT",
-
-    status: "Aktif",
-
-    bergabung: "2025-02-15",
-
-    foto: "",
-  },
-
-  {
-    id: 3,
-
-    nama: "Rina Maharani",
-
-    jabatan: "Member",
-
-    divisi: "Creative",
-
-    status: "Non Aktif",
-
-    bergabung: "2025-03-20",
-
-    foto: "",
-  },
-
-  {
-    id: 4,
-    nama: "YUTIA",
-    jabatan: "Ceo",
-    divisi: "Masak",
-    status: "Aktif",
-    bergabung: "2025-06-22",
-  },
-  {
-    id: 5,
-    nama: "YUTIA",
-    jabatan: "Ceo",
-    divisi: "Masak",
-    status: "Aktif",
-    bergabung: "2025-06-22",
-  },
-  {
-    id: 6,
-    nama: "YUTIA",
-    jabatan: "Ceo",
-    divisi: "Masak",
-    status: "Aktif",
-    bergabung: "2025-06-22",
-  },
-  {
-    id: 7,
-    nama: "YUTIA",
-    jabatan: "Ceo",
-    divisi: "Masak",
-    status: "Aktif",
-    bergabung: "2025-06-22",
-  },
-  {
-    id: 8,
-    nama: "YUTIA",
-    jabatan: "Ceo",
-    divisi: "Masak",
-    status: "Aktif",
-    bergabung: "2025-06-22",
-  },
-  {
-    id: 9,
-    nama: "YUTIA",
-    jabatan: "Ceo",
-    divisi: "Masak",
-    status: "Aktif",
-    bergabung: "2025-06-22",
-  },
-  {
-    id: 10,
-    nama: "YUTIA",
-    jabatan: "Ceo",
-    divisi: "Masak",
-    status: "Aktif",
-    bergabung: "2025-06-22",
-  },
-  {
-    id: 11,
-    nama: "YUTIA",
-    jabatan: "Ceo",
-    divisi: "Masak",
-    status: "Aktif",
-    bergabung: "2025-06-22",
-  },
-];
+window.membersData = [];
 
 /* ============================================================
-   [2] LOAD MEMBERS INITIALIZATION
+   [2] MODULE READY
+============================================================ */
+
+console.log("✅ Members Load.js Ready");
+
+/* ============================================================
+   [3] INITIALIZATION
+
+   Tunggu seluruh DOM selesai dibuat.
+
+   Setelah itu:
+   jalankan loadMembers()
+
 ============================================================ */
 
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("✅ Members Load Module Loaded");
-
   loadMembers();
 });
 
 /* ============================================================
-   [3] LOAD MEMBERS
+   [4] LOAD MEMBERS FROM SUPABASE
+
+   Flow:
+
+   config.js
+        |
+        ↓
+   window.db
+        |
+        ↓
+   members table
+        |
+        ↓
+   window.membersData
+
 ============================================================ */
 
-function loadMembers() {
-  window.membersData = membersData;
+async function loadMembers() {
+  console.log("🔄 Loading Members From Supabase...");
+
+  const { data, error } = await window.db
+    .from("members")
+    .select("*")
+    .order("id", {
+      ascending: true,
+    });
+
+  /* ========================================================
+       [4.1] ERROR HANDLING
+    ========================================================= */
+
+  if (error) {
+    console.error("❌ Failed Load Members:", error);
+
+    return;
+  }
+
+  /* ========================================================
+       [4.2] SIMPAN DATA GLOBAL
+
+       Supabase response:
+       data = array members
+
+    ========================================================= */
+
+  window.membersData = data || [];
 
   console.log("✅ Members Data Loaded:", window.membersData.length);
 
+  /* ========================================================
+       [4.3] UPDATE STATISTIC CARD
+    ========================================================= */
+
   updateMemberStatistics(window.membersData);
+
+  /* ========================================================
+       [4.4] UPDATE TABLE
+
+       Pagination akan mengambil data
+       dari window.membersData
+
+    ========================================================= */
+
+  if (typeof updatePagination === "function") {
+    updatePagination();
+  } else {
+    renderMembers(window.membersData);
+  }
 }
 
 /* ============================================================
-   [4] RENDER TABLE
-============================================================ */
+   [5] UPDATE MEMBER STATISTICS
 
-function renderMembers(data) {
-  const tableBody = document.getElementById("membersTableBody");
+   Mengupdate:
+   - Total Member
+   - Aktif
+   - Non Aktif
 
-  if (!tableBody) {
-    console.warn("⚠️ Members table tidak ditemukan");
-
-    return;
-  }
-
-  // Jika data kosong
-
-  if (data.length === 0) {
-    tableBody.innerHTML = `
-
-            <tr>
-
-                <td 
-                    colspan="7"
-                    class="empty-table"
-                >
-
-                    <div class="empty-state">
-
-                        <i class="fa-solid fa-users"></i>
-
-                        <h3>
-                            Belum ada data anggota
-                        </h3>
-
-                        <p>
-                            Klik tombol 
-                            <strong>
-                                Add Member
-                            </strong>
-                            untuk menambahkan anggota baru.
-                        </p>
-
-                    </div>
-
-
-                </td>
-
-            </tr>
-
-        `;
-
-    return;
-  }
-
-  // Render Data
-
-  tableBody.innerHTML = "";
-
-  data.forEach((member) => {
-    const row = document.createElement("tr");
-
-    row.innerHTML = `
-
-
-            <td>
-
-                ${
-                  member.foto
-                    ? `<img src="${member.foto}" width="50">`
-                    : `<i class="fa-solid fa-user"></i>`
-                }
-
-            </td>
-
-
-
-            <td>
-
-                ${member.nama}
-
-            </td>
-
-
-
-            <td>
-
-                ${member.jabatan}
-
-            </td>
-
-
-
-            <td>
-
-                ${member.divisi}
-
-            </td>
-
-
-
-            <td>
-
-                <span class="member-status">
-
-                    ${member.status}
-
-                </span>
-
-            </td>
-
-
-
-            <td>
-
-                ${member.bergabung}
-
-            </td>
-
-
-
-            <td>
-
-
-                <button class="btn-edit-member">
-
-                    <i class="fa-solid fa-pen"></i>
-
-                </button>
-
-
-                <button class="btn-delete-member">
-
-                    <i class="fa-solid fa-trash"></i>
-
-                </button>
-
-
-            </td>
-
-
-
-        `;
-
-    tableBody.appendChild(row);
-  });
-}
-
-/* ============================================================
-   [5] UPDATE STATISTICS
 ============================================================ */
 
 function updateMemberStatistics(data) {
+  if (!Array.isArray(data)) {
+    return;
+  }
+
   const total = data.length;
 
   const aktif = data.filter((member) => member.status === "Aktif").length;
@@ -311,27 +135,228 @@ function updateMemberStatistics(data) {
     (member) => member.status === "Non Aktif",
   ).length;
 
-  const totalElement = document.getElementById("totalMember");
+  const totalEl = document.getElementById("totalMember");
 
-  const activeElement = document.getElementById("activeMember");
+  const activeEl = document.getElementById("activeMember");
 
-  const inactiveElement = document.getElementById("inactiveMember");
+  const inactiveEl = document.getElementById("inactiveMember");
 
-  if (totalElement) {
-    totalElement.textContent = total;
+  const countEl = document.getElementById("memberCount");
+
+  if (totalEl) {
+    totalEl.textContent = total;
   }
 
-  if (activeElement) {
-    activeElement.textContent = aktif;
+  if (activeEl) {
+    activeEl.textContent = aktif;
   }
 
-  if (inactiveElement) {
-    inactiveElement.textContent = nonAktif;
+  if (inactiveEl) {
+    inactiveEl.textContent = nonAktif;
   }
 
-  const countElement = document.getElementById("memberCount");
-
-  if (countElement) {
-    countElement.textContent = `Total : ${total} Member`;
+  if (countEl) {
+    countEl.textContent = `Total : ${total} Member`;
   }
+
+  console.log("📊 Statistics Updated", {
+    total,
+    aktif,
+    nonAktif,
+  });
+}
+
+/* ============================================================
+   [6] RENDER MEMBERS TABLE
+
+   Deskripsi:
+   Menampilkan data members ke dalam tabel.
+
+   Sumber data:
+   - Supabase
+   - Pagination
+
+   Input:
+   data = array members
+
+============================================================ */
+
+function renderMembers(data) {
+  const tableBody = document.getElementById("membersTableBody");
+
+  if (!tableBody) {
+    console.warn("⚠️ membersTableBody tidak ditemukan");
+
+    return;
+  }
+
+  /* ========================================================
+     EMPTY DATA STATE
+
+  ========================================================= */
+
+  if (!Array.isArray(data) || data.length === 0) {
+    tableBody.innerHTML = `
+
+      <tr>
+
+        <td colspan="7" class="empty-table">
+
+          <div class="empty-state">
+
+            <i class="fa-solid fa-users"></i>
+
+            <h3>
+              Belum ada data anggota
+            </h3>
+
+
+            <p>
+              Klik tombol 
+              <strong>Add Member</strong>
+              untuk menambahkan anggota baru.
+            </p>
+
+
+          </div>
+
+        </td>
+
+      </tr>
+
+    `;
+
+    return;
+  }
+
+  /* ========================================================
+     RENDER DATA
+
+  ========================================================= */
+
+  tableBody.innerHTML = "";
+
+  data.forEach((member) => {
+    const tanggal = member.bergabung
+      ? new Date(member.bergabung).toLocaleDateString("id-ID", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+        })
+      : "-";
+
+    const fotoHTML = member.foto
+      ? `
+      <img 
+        src="${member.foto}"
+        width="50"
+        height="50"
+        style="
+          border-radius:50%;
+          object-fit:cover;
+        "
+        alt="${member.nama}"
+      >
+      `
+      : `
+      <i 
+        class="fa-solid fa-user"
+        style="
+          font-size:1.8rem;
+          color:#aaa;
+        "
+      ></i>
+      `;
+
+    const statusClass = member.status === "Aktif" ? "aktif" : "nonaktif";
+
+    const row = document.createElement("tr");
+
+    row.dataset.id = member.id;
+
+    row.innerHTML = `
+
+      <td class="td-foto">
+
+        ${fotoHTML}
+
+      </td>
+
+
+      <td>
+
+        ${member.nama || "-"}
+
+      </td>
+
+
+      <td>
+
+        ${member.jabatan || "-"}
+
+      </td>
+
+
+      <td>
+
+        ${member.divisi || "-"}
+
+      </td>
+
+
+      <td>
+
+        <span class="
+          member-status
+          status-${statusClass}
+        ">
+
+          ${member.status || "-"}
+
+        </span>
+
+      </td>
+
+
+      <td>
+
+        ${tanggal}
+
+      </td>
+
+
+      <td>
+
+
+        <button
+          class="btn-edit-member"
+          data-id="${member.id}"
+          title="Edit"
+        >
+
+          <i class="fa-solid fa-pen"></i>
+
+        </button>
+
+
+
+        <button
+          class="btn-delete-member"
+          data-id="${member.id}"
+          title="Hapus"
+        >
+
+          <i class="fa-solid fa-trash"></i>
+
+        </button>
+
+
+      </td>
+
+    `;
+
+    tableBody.appendChild(row);
+  });
+
+  console.log("✅ Members Table Rendered:", data.length);
 }

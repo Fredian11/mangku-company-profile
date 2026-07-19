@@ -1,12 +1,13 @@
 /* ============================================================
-   FILE : members.js
-   FOLDER : js/members/
+   FILE     : members.js
+   FOLDER   : js/members/
 
-   DESKRIPSI :
-   Entry Point dan Controller halaman Members.
+   DESKRIPSI:
+   Controller utama halaman Members.
 
    RELEASE:
-   v0.2.3.6
+   v0.2.3.6-D
+
 ============================================================ */
 
 /* ============================================================
@@ -25,12 +26,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function initMembersModule() {
   /*
-       Urutan loading:
+        Urutan module:
 
-       1. Data siap
-       2. Pagination aktif
-       3. Render pertama
-       4. Module lain aktif
+        1. Load data
+        2. Pagination
+        3. Search
+        4. Modal
+        5. Delete
 
     */
 
@@ -46,11 +48,11 @@ function initMembersModule() {
     initMemberSearch();
   }
 
-  if (typeof initDeleteMember === "function") {
-    initDeleteMember();
-  }
-
   if (typeof initMemberModal === "function") {
     initMemberModal();
+  }
+
+  if (typeof initDeleteMember === "function") {
+    initDeleteMember();
   }
 }
